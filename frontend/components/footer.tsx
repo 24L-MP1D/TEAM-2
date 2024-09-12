@@ -4,15 +4,16 @@ import { FaFacebook } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
+import Image from "next/image";
 
 
 
 
 export default function Footer() {
   return (
-    <footer className="bg-[#111111] m-auto max-w-[1440px] h-[282px] mt-40 py-16 px-[200px] text-white flex flex-col gap-20">
-      <div className="flex justify-between items-center border-b-[1.5px] border-[#ffffff] border-opacity-10 border-solid]">
-        <img src="/images/Vector.png" alt="icon" width={42} height={35}/>
+    <footer className="bg-[#111111] m-auto max-w-[1440px]  mt-40 py-16 px-[200px] text-white flex flex-col gap-[43px]">
+      <div className="flex justify-between items-center border-b-[1.5px] border-[#ffffff] border-opacity-10 border-solid pb-[43px]">
+        <Image src="/Symbol.png" alt="icon" width={42} height={35}/>
         <div className="flex gap-[38px] items-center">
           <div className="flex gap-[20px] items-center">
             <div className="border-[1px] border-white border-opacity-10 w-12 h-12 rounded-full flex justify-center items-center">

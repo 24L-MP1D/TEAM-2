@@ -9,7 +9,7 @@ export default function Header() {
       <div className="flex justify-between items-center text-white h-9 ">
         <div className="flex items-center justify-center gap-8">
           <div className="flex items-center gap-[6px]">
-            <Image src="/images/Vector.png" alt="icon" width={24} height={24} />
+            <Image src="/Symbol.png" alt="icon" width={24} height={24} />
             <div className="text-sm font-normal ">ECOMMERCE</div>
           </div>
           <button className="font-normal text-sm text-[#FFFFFF] text-opacity-75">
