@@ -6,9 +6,6 @@ import { FaTwitter } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import Image from "next/image";
 
-
-
-
 export default function Footer() {
   return (
     <footer className="bg-[#111111] m-auto max-w-[1440px]  mt-40 py-16 px-[200px] text-white flex flex-col gap-[43px]">
