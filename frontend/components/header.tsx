@@ -32,10 +32,10 @@ export default function Header() {
             <PiShoppingCartSimple className="w-6 h-6" />
           </div>
           <div className="flex gap-2 items-center ">
-            <button className="py-2 px-3 border-solid border-[1px] border-[#2563EB] rounded-[18px] font-normal text-sm">
+            <button className="py-2 px-3 border-solid border-[1px] text-white hover:text-opacity-50 border-blue-600 rounded-[18px] font-normal text-sm hover:bg-slate-900 hover:border-blue-800">
               Бүртгүүлэх
             </button>
-            <button className="py-2 px-3 rounded-[18px] font-normal text-sm bg-[#2563EB] ">
+            <button className="py-2 px-3  border-solid border-[1px] border-[#2563eb] rounded-[18px] font-normal text-sm bg-[#2563EB] hover:bg-opacity-70 text-white hover:text-opacity-50 ">
               Нэвтрэх
             </button>
           </div>
