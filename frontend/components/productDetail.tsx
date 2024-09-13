@@ -1,8 +1,21 @@
-"use client";
+'use client'
 import { Heart, Star } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import productData from '../public/productDetails.json'
+
+interface Review {
+  username: string;
+  stars: number;
+  text: string;
+}
+
+interface Product {
+  name: string;
+  description: string;
+  price: string;
+  images: string[];
+}
 
 export default function ProductDetails() {
   const [selectedSize, setSelectedSize] = useState<string | undefined>(
@@ -10,17 +23,27 @@ export default function ProductDetails() {
   );
   const [selectedCount, setSelectedCount] = useState(0);
   const [selectedImage, setSelectedImage] = useState<string>(
-    "https://alyceparis.com/cdn/shop/files/4840_LIME_copy_1000x.jpg?v=1718994837"
+    productData.product.images[0]
   );
   const [isSaved, setIsSaved] = useState<boolean>(false);
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [filledStars, setFilledStars] = useState<number>(0);
-  const images = [
-    "https://alyceparis.com/cdn/shop/files/4840_LIME_copy_1000x.jpg?v=1718994837",
-    " https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjwoU7q12GMrTfGMBklEqDW0IELIjhV86xVw&s",
-    "https://alyceparis.com/cdn/shop/files/4840_LIME_copy_1000x.jpg?v=1718994837",
-    "https://alyceparis.com/cdn/shop/files/4840_LIME_copy_1000x.jpg?v=1718994837",
-  ];
+  const [isReviewVisible, setIsReviewVisible] = useState<boolean>(false);
+  const [reviews, setReviews] = useState<Review[]>(productData.reviews);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const getProduct = () => {
+    fetch('/productDetails.json').then((res) => res.json()).then(console.log)
+  }
+  getProduct()
+
+  const images = productData.product.images;
+
+  const toggleReviews = () => {
+    setIsReviewVisible(!isReviewVisible);
+  };
+
   return (
     <>
       <div className="flex gap-5">
@@ -53,7 +76,7 @@ export default function ProductDetails() {
           </button>
           <div className="flex gap-4 items-center pt-2">
             <h2 className="font-bold text-2xl text-black">
-              Wildflower Hoodie{" "}
+              {productData.product.name}
             </h2>
             <Heart
               color={isSaved ? "red" : "black"}
@@ -63,27 +86,27 @@ export default function ProductDetails() {
           </div>
 
           <h3 className="font-normal text-base text-[#000000] pt-2">
-            Зэрлэг цэцгийн зурагтай даавуун материалтай цамц
+            {productData.product.description}
           </h3>
           <h3 className="font-normal  text-[#000000] text-sm pt-4">
             Хэмжээний заавар
           </h3>
 
           <div className="flex gap-1 pt-2">
-            {["S", "M", "L", "XL", "2XL"].map((size) => (
+            {/* {productData.sizes.map((size) => (
               <button
                 key={size}
                 type="button"
                 onClick={() => setSelectedSize(size)}
-                className={`${
+                className={${
                   selectedSize === size
                     ? "bg-[#18181B] text-white"
                     : "bg-[#FFFFFF] text-[#09090B]"
-                } border-[#18181B] border-[1px] rounded-2xl w-8 h-8 font-normal text-xs`}
+                } border-[#18181B] border-[1px] rounded-2xl w-8 h-8 font-normal text-xs}
               >
                 {size}
               </button>
-            ))}
+            ))} */}
           </div>
           <div className="pt-4 flex gap-2 items-center">
             <button
@@ -104,14 +127,19 @@ export default function ProductDetails() {
               +
             </button>
           </div>
-          <div className="font-bold text-xl text-[#000000] pt-6">120’000₮</div>
+          <div className="font-bold text-xl text-[#000000] pt-6">
+            {productData.product.price}
+          </div>
           <button className="py-2 px-9 bg-[#2563EB] text-[#FFFFFF] text-sm font-medium rounded-[20px] pt-[10px]">
             Сагсанд нэмэх
           </button>
 
           <div className="flex gap-4  pt-[55px]">
             <div className="text-[#09090B] text-sm">Үнэлгээ</div>
-            <a className="text-[#2563EB] text-sm underline underline-offset-1">
+            <a
+              className="text-[#2563EB] text-sm underline underline-offset-1 cursor-pointer"
+              onClick={toggleReviews}
+            >
               бүгдийг харах
             </a>
           </div>
@@ -127,6 +155,23 @@ export default function ProductDetails() {
             ))}
             <div className="text-black">4.6 (24)</div>
           </div>
+
+
+          {isReviewVisible && (
+            <div className="pt-4">
+              {reviews.map((review, index) => (
+                <div key={index} className="pt-2">
+                  <div className="flex items-center gap-2">
+                    <div className="font-bold">{review.username}</div>
+                    {[...Array(review.stars)].map((_, i) => (
+                      <Star key={i} color="yellow" fill="yellow" />
+                    ))}
+                  </div>
+                  <p>{review.text}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </>

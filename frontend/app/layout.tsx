@@ -34,6 +34,7 @@ export default function RootLayout({
         <Header/>
           <div>
             <ProductDetails/>
+            
 
           </div>
         <Footer/>
