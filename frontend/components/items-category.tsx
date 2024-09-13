@@ -3,16 +3,14 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import Link from 'next/link';
 export default function ItemsCategory() {
-
-    return categoryItem.map(item =>
-        <div className="w-[200px] bg-slay-300 bg">
-            <h1 className="font-bold mb-3">Ангилал </h1>
+    return  categoryItem.map(item =>
+        <div className="w-[200px] bg-slay-300 ml-20 mt-2">
+           
             <Link className="bg-gray-400 mx-auto"
                 href={item.slug}>{item.title}
             </Link>
         </div>
     )
-
     // <div className=" w-[200px] mt-5 ml-20 rounded ">
     //     <aside className="w-[200px] bg-slay-300 bg">
     //         <h1 className="font-bold mb-3">Ангилал </h1>

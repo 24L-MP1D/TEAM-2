@@ -39,7 +39,7 @@ export default function RootLayout({
               {/* //components */}
 
             </div>
-
+          <ItemsCategory/>
           <Footer />
         </div>
       </body>
