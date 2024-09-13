@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    
     "start": "node dist/server.js",
     "build": "tsc"
   },
@@ -13,10 +12,20 @@
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^4.17.21",
+    "@types/mongoose": "^5.11.97",
     "@types/node": "^22.5.4",
     "typescript": "^5.6.2"
   },
   "dependencies": {
-    "express": "^4.20.0"
-  }
+    "express": "^4.20.0",
+    "mongoose": "^8.6.2"
+  },
+  "compilerOptions": {
+    "rootDir": "./backend",
+    "outDir": "./backend/dist"
+  },
+  "include": [
+    "backend/src/**/*.ts",
+    "backend/config/**/*.ts"
+  ]
 }
