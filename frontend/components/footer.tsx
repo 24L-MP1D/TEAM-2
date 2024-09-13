@@ -6,12 +6,10 @@ import { FaTwitter } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import Image from "next/image";
 
-
-
-
 export default function Footer() {
   return (
-    <footer className="bg-[#111111] m-auto max-w-[1440px]  mt-40 py-16 px-[200px] text-white flex flex-col gap-[43px]">
+    <div className="bg-[#111111]">
+      <footer className="max-w-[1440px] py-[64px] px-[200px] m-auto mt-40 text-white flex flex-col gap-[43px]">
       <div className="flex justify-between items-center border-b-[1.5px] border-[#ffffff] border-opacity-10 border-solid pb-[43px]">
         <Image src="/Symbol.png" alt="icon" width={42} height={35}/>
         <div className="flex gap-[38px] items-center">
@@ -39,5 +37,6 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+    </div>
   );
 }
