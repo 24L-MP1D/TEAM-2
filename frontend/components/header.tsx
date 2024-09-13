@@ -6,7 +6,7 @@ import { PiShoppingCartSimple } from "react-icons/pi";
 export default function Header() {
   return (
     <div className="bg-black ">
-      <header className="mx-auto max-w-[1440px] h-[68px] px-6 py-4">
+      <header className="mx-auto max-w-[1440px]  px-6 py-4">
         <div className="flex justify-between items-center text-white h-9 ">
           <div className="flex items-center justify-center gap-8">
             <div className="flex items-center gap-[6px]">

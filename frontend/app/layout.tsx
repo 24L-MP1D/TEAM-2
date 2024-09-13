@@ -32,7 +32,11 @@ export default function RootLayout({
       >
         <div className="w-[100vw] h-[100vw] bg-white">
           <Header />
-          components
+            <div className="max-w-[1440px] mx-auto" >
+              {/* //components */}
+
+            </div>
+
           <Footer />
         </div>
       </body>
