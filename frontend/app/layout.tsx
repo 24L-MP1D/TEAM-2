@@ -31,13 +31,15 @@ export default function RootLayout({
       <body
         className="bg-white 100vw"
       >
-        <Header/>
-          <div>
-            <ProductDetails/>
-            
+        <div className="w-[100vw] h-[100vw] bg-white">
+          <Header />
+            <div className="max-w-[1440px] mx-auto" >
+              {/* //components */}
 
-          </div>
-        <Footer/>
+            </div>
+
+          <Footer />
+        </div>
       </body>
     </html>
   );
