@@ -1,0 +1,1 @@
+//Middleware for handling authentication and authorization, such as protecting routes or checking user permissions.
