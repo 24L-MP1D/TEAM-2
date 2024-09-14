@@ -1,0 +1,1 @@
+//Provides context for authentication state, enabling components to access and manage user authentication status.

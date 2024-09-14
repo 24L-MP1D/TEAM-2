@@ -1,0 +1,1 @@
+//TypeScript definitions specific to product data structures.
