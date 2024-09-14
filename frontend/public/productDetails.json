@@ -1,0 +1,26 @@
+{
+  "product": {
+    "name": "Wildflower Hoodie",
+    "description": "Зэрлэг цэцгийн зурагтай даавуун материалтай цамц",
+    "price": "120’000₮",
+    "images": [
+      "https://alyceparis.com/cdn/shop/files/4840_LIME_copy_1000x.jpg?v=1718994837",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjwoU7q12GMrTfGMBklEqDW0IELIjhV86xVw&s",
+      "https://alyceparis.com/cdn/shop/files/4840_LIME_copy_1000x.jpg?v=1718994837",
+      "https://alyceparis.com/cdn/shop/files/4840_LIME_copy_1000x.jpg?v=1718994837"
+    ]
+  },
+  "sizes": ["S", "M", "L", "XL", "2XL"],
+  "reviews": [
+    {
+      "username": "JaneDoe",
+      "stars": 5,
+      "text": "Great hoodie, love the quality!"
+    },
+    {
+      "username": "JohnSmith",
+      "stars": 4,
+      "text": "Very comfortable, but the color is a bit different from the picture."
+    }
+  ]
+}
