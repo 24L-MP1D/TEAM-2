@@ -35,7 +35,6 @@ export default function ItemsCategory() {
             ))}
         </div>
     )
-    
 }
 const categoryItem = [
     { title: "Малгай", slug: "head" },
