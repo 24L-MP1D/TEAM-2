@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
-import ProductDetails from "@/components/productDetail";
+
+import UserProfile from "../components/layout/userProfile";
+import Header from "../components/layout/header";
+import Footer from "../components/layout/footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,7 +25,7 @@ export default function RootLayout({
           <Header />
             <div className="max-w-[1440px] mx-auto" >
               {/* //components */}
-
+              <UserProfile/>
             </div>
 
           <Footer />

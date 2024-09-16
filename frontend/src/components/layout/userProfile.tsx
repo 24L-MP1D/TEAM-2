@@ -1,3 +1,7 @@
+
+import OrderHistory from "./orderHistory";
+import UserSection from "./userSection";
+
 export default function UserProfile() {
   return (
     <div className="bg-[#f7f7f8] text-black flex justify-center">
@@ -10,16 +14,8 @@ export default function UserProfile() {
             Захиалгын түүх
           </button>
         </div>
-        <div>
-          <div>Хэрэглэгчийн хэсэг</div>
-          <div>
-            <input type="text" />
-            <input type="text" />
-            <input type="text" />
-            <input type="text" />
-            <input type="text" />
-          </div>
-        </div>
+        {/* <UserSection/> */}
+        <OrderHistory/> 
       </div>
     </div>
   );
