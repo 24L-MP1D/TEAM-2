@@ -1,12 +1,11 @@
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { useState } from "react";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+
 
 
 
 export default function Searcharea() {
+
   return (
 
     <div className="">
@@ -33,11 +32,14 @@ export default function Searcharea() {
   );
 }
 
+
+
+
 const clothes = [
   {
     name: "Chunky Glyph Tee",
     price: 120.0,
-    Image: "./public/image.png"
+    Image: "/public/image.png"
 
   },
   {
