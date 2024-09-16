@@ -4,6 +4,8 @@ import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import ProductDetails from "@/components/productDetail";
+import { User } from "lucide-react";
+import UserProfile from "@/components/userProfile";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -33,8 +35,9 @@ export default function RootLayout({
       >
         <div className="w-[100vw] h-[100vw] bg-white">
           <Header />
-            <div className="max-w-[1440px] mx-auto" >
+            <div className="max-w-[1040px] mx-auto" >
               {/* //components */}
+              <UserProfile/>
 
             </div>
 
