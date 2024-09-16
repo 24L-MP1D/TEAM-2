@@ -1,1 +1,0 @@
-//A custom hook for managing cart state and functionality, such as adding or removing items from the cart.
