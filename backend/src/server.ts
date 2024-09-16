@@ -1,10 +1,8 @@
-import express from 'express';
-import {connectDb} from './config/db'
+import express from "express";
+import { connectDb } from './config/db'
+
 const app = express();
-const port = 3000;
-
-
-
+const port = 4000;
 
 connectDb();
 
