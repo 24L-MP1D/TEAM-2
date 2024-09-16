@@ -4,8 +4,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-import { Input } from "./ui/input";
-import Image from "next/image";
+
 
 export default function Searcharea() {
   return (

@@ -1,7 +1,7 @@
 "use client"
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+
 import Link from 'next/link';
+import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 export default function ItemsCategory() {
     return (
         <div className=" w-[200px] mt-5 ml-20 rounded ">
