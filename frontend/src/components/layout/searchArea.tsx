@@ -2,13 +2,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-<<<<<<< Updated upstream
-} from "@/components/ui/popover";
-
-
-=======
 } from "@/src/components/ui/popover";
->>>>>>> Stashed changes
 
 export default function Searcharea() {
   return (
