@@ -1,0 +1,1 @@
+//A custom hook for managing authentication state, such as logging in, logging out, and checking if a user is authenticated.

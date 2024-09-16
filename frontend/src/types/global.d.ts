@@ -1,0 +1,1 @@
+// TypeScript definitions for global types used throughout the application.

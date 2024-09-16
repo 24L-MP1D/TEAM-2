@@ -1,0 +1,1 @@
+//Provides context for cart state across the application, allowing different components to access and update the cart.
