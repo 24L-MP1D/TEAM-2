@@ -1,6 +1,5 @@
 "use client"
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { RadioGroup, RadioGroupItem } from '@radix-ui/react-radio-group';
 import Link from 'next/link';
 export default function ItemsCategory() {
     return (
