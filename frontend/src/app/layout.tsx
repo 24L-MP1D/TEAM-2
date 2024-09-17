@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
-
-import UserProfile from "../components/layout/userProfile";
 import Header from "../components/layout/header";
 import Footer from "../components/layout/footer";
+import Searcharea from "../components/layout/searchArea";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,11 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-white 100vw">
-        <div className="w-[100vw] h-[100vw] bg-white">
-          <Header />
-          <div className="max-w-[1440px] mx-auto">{/* //components */}</div>
-          <Footer />
+        <Header></Header>
+        <div className="max-w-[1040px] mx-auto">{children}
+          <Searcharea/>
         </div>
+        <Footer></Footer>
       </body>
     </html>
   );
