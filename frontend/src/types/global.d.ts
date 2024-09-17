@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // TypeScript definitions for global types used throughout the application.
 interface Product {
     _id: string;
@@ -15,3 +16,6 @@ interface Product {
     createdAt: string;
     updatedAt: string;
   }
+=======
+// TypeScript definitions for global types used throughout the application.
+>>>>>>> 6d2607e (folder)

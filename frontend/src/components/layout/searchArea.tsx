@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
@@ -35,10 +36,37 @@ export default function Searcharea() {
 
 
 
+=======
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
+import { Input } from "./ui/input";
+
+export default function Searcharea() {
+  return (
+    <div className="w-[610px] bg-white">
+      {clothes.map((clothes) => (
+        <Popover>
+          <Input type="search"></Input>
+          <PopoverTrigger>search</PopoverTrigger>
+          <PopoverContent className="col-span-2">
+            <img className="span-1 border-sm "></img>
+            <p className="font-bold">{clothes.name}</p> {clothes.price}
+          </PopoverContent>
+        </Popover>
+      ))}
+    </div>
+  );
+}
+>>>>>>> 6d2607e (folder)
 const clothes = [
   {
     name: "Chunky Glyph Tee",
     price: 120.0,
+<<<<<<< HEAD
     Image: "/public/image.png"
 
   },
@@ -59,5 +87,15 @@ const clothes = [
     price: 120.0,
     image: "Users/24LP1786/Desktop/team-2/TEAM-2/frontend/public/image.png"
 
+=======
+  },
+  {
+    name: "Chunky Glyph Tee",
+    price: 120.0,
+  },
+  {
+    name: "Chunky Glyph Tee",
+    price: 120.0,
+>>>>>>> 6d2607e (folder)
   },
 ];

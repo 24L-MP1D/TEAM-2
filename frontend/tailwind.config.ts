@@ -1,4 +1,8 @@
 import type { Config } from 'tailwindcss';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6d2607e (folder)
 
 const config: Config = {
     darkMode: ["class"],
