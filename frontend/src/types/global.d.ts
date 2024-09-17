@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 02cc48a (new)
 // TypeScript definitions for global types used throughout the application.
 interface Product {
     _id: string;
@@ -15,7 +18,11 @@ interface Product {
     viewsCount: number;
     createdAt: string;
     updatedAt: string;
+<<<<<<< HEAD
   }
 =======
 // TypeScript definitions for global types used throughout the application.
 >>>>>>> 6d2607e (folder)
+=======
+  }
+>>>>>>> 02cc48a (new)
