@@ -8,7 +8,7 @@ export default function Searcharea() {
 
   return (
 
-    <div className="">
+    <div >
       <Popover >
         <PopoverTrigger>
           SEARCH

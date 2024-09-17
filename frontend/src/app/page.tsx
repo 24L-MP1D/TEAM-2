@@ -1,4 +1,5 @@
 "use client";
+
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -77,7 +78,7 @@ export default function Home() {
               index === 6 || index === 7 ? "col-span-2 row-span-2" : ""
             }`}
           >
-            <div className="overflow-hidden relative  rounded-xl">
+            <div className="overflow-hidden relative  h-[330px] rounded-xl">
               <Image
                 src={product.images}
                 alt={product.productName}
