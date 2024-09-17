@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "../components/layout/header";
 import Footer from "../components/layout/footer";
 import Searcharea from "../components/layout/searchArea";
+import RegisterPage from "./register/page";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,7 +20,8 @@ export default function RootLayout({
       <body className="bg-white 100vw">
         <Header></Header>
         <div className="max-w-[1100px] mx-auto">{children}
-          <Searcharea/>
+          {/* <RegisterPage/>
+          <Searcharea/> */}
         </div>
         <Footer></Footer>
       </body>
