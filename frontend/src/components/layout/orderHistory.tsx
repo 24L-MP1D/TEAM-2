@@ -3,6 +3,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@radix-ui/react-accordion";
+
+import { FaAngleDown } from "react-icons/fa6";
 import { Accordion } from "@/components/ui/accordion";
 
 export default function OrderHistory() {
@@ -11,27 +13,59 @@ export default function OrderHistory() {
       <div className="font-bold text-lg border-solid border-b-[1px] border-[#E4E4E7] pb-6">
         Захиалгын түүх
       </div>
-      <div className="">
+      <div className="bg-white py-8 px-6 rounded-2xl">
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="item-1">
-            <AccordionTrigger>Is it accessible?</AccordionTrigger>
+            <AccordionTrigger className="flex justify-between w-full">
+              <div className="flex gap-2 items-center">
+                <div className="text-base font-bold">2024-09-14 15:36</div>
+                <div className="bg-[#2563EB] rounded-full py-[2px] px-[10px] text-xs font-semibold text-[#FAFAFA] flex items-center">
+                  хүргэлтэнд гарсан
+                </div>
+              </div>
+              <div>
+                <FaAngleDown className="rotate-180 transition duration-150 ease-in-out" />
+              </div>
+            </AccordionTrigger>
             <AccordionContent>
-              Yes. It adheres to the WAI-ARIA design pattern.
+              <div className="mt-4 border-[#E4E4E7] border-dashed border-b-[1px] flex flex-col gap-3 pb-6">
+                <div>item1</div>
+                <div>item2</div>
+                <div>item3</div>
+              </div>
             </AccordionContent>
+            <div className="flex justify-between pt-4">
+              <div className="text-base font-normal">Үнийн дүн:</div>
+              <div className="text-lg font-bold">120'000&#8366;</div>
+            </div>
           </AccordionItem>
-          <AccordionItem value="item-2">
-            <AccordionTrigger>Is it styled?</AccordionTrigger>
+        </Accordion>
+      </div>
+      <div className="bg-white py-8 px-6 rounded-2xl">
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="item-1">
+            <AccordionTrigger className="flex justify-between w-full">
+              <div className="flex gap-2 items-center">
+                <div className="text-base font-bold">2024-09-14 15:36</div>
+                <div className="border-solid border-[#2563EB] border-[1px] bg-[#2563EB] bg-opacity-10 rounded-full py-[2px] px-[10px] text-xs font-semibold text-[#2563EB] flex items-center">
+                  дууссан
+                </div>
+              </div>
+              <div>
+                <FaAngleDown className="rotate-180 transition duration-150 ease-in-out" />
+              </div>
+            </AccordionTrigger>
             <AccordionContent>
-              Yes. It comes with default styles that matches the other
-              components&apos; aesthetic.
+              <div className="mt-4 border-[#E4E4E7] border-dashed border-b-[1px] flex flex-col gap-3 pb-6">
+                <div>item1</div>
+                <div>item2</div>
+                <div>item3</div>
+              </div>
             </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-3">
-            <AccordionTrigger>Is it animated?</AccordionTrigger>
-            <AccordionContent>
-              Yes. It&apos;s animated by default, but you can disable it if you
-              prefer.
-            </AccordionContent>
+            <div className="flex justify-between pt-4">
+              <div className="text-base font-normal">Үнийн дүн:</div>
+              <div className="text-lg font-bold">120'000&#8366;</div>
+            </div>
           </AccordionItem>
         </Accordion>
       </div>

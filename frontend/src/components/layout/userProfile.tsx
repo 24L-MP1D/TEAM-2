@@ -14,7 +14,7 @@ export default function UserProfile() {
             Захиалгын түүх
           </button>
         </div>
-        {/* <UserSection/> */}
+        <UserSection/>
         <OrderHistory/> 
       </div>
     </div>
