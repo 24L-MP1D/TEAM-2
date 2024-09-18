@@ -1,11 +1,13 @@
 "use client";
 
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import Link from "next/link";
+
 import { useState } from "react";
 
-export function RegisterPage() {
+export default function RegisterPage() {
   const Register = () => {
     const [name, setName] = useState("true");
     const [email, setEmail] = useState("");
@@ -80,7 +82,7 @@ export function RegisterPage() {
               href="/login"
               className="bg-sky-50 mt-8 w-full"
               type="button"
-              value="submit"
+              // value="submit"
             >
               Нэвтрэх
             </Link>
