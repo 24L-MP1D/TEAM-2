@@ -22,7 +22,12 @@ const buttonVariants = cva(
 
         def2: "outline-blue-500 rounded-xl text-white outline ",
         def3: "border  bg-white outline  outline-blue-500 rounded-xl text-blue-500",
+
         default2:"bg-[#FFFFFF] py-2 px-16 rounded-[16px] text-sm font-semibold" ,
+
+        default2:"bg-[#FFFFFF] py-2 px-16 rounded-[16px] text-sm font-semibold" 
+        
+
       },
       size: {
         default: "h-9 px-4 py-2",
