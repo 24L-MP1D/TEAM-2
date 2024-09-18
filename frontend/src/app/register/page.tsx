@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 
+
 import { useState } from "react";
 
 export default function RegisterPage() {
@@ -14,29 +15,29 @@ export default function RegisterPage() {
     const [password, setPassword] = useState("");
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
-    const handleRegister = async () => {};
+    const handleRegister = async () => { };
     const onButtonClick = () => {
-      setEmailError("");
-      setPasswordError("");
+        setEmailError("");
+        setPasswordError("");
 
-      if ("" === email) {
-        setEmailError("Please enter your email");
-        return;
-      }
+        if ("" === email) {
+            setEmailError("Please enter your email");
+            return;
+        }
 
-      if ("" === password) {
-        setPasswordError("Please enter a password");
-        return;
-      }
-      if (password.length < 7) {
-        setPasswordError("password must be 8 character or longer");
-        return;
-      }
+        if ("" === password) {
+            setPasswordError("Please enter a password");
+            return;
+        }
+        if (password.length < 7) {
+            setPasswordError("password must be 8 character or longer");
+            return;
+        }
 
-      if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
-        setEmailError("please enter a vlid email address");
-        return;
-      }
+        if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+            setEmailError("please enter a valid email address");
+            return;
+        }
     };
     return (
       <div className="container mx-auto login-box">
@@ -90,5 +91,22 @@ export default function RegisterPage() {
         </div>
       </div>
     );
-  };
+  
 }
+}
+
+// /* Container */
+
+// /* Auto layout */
+// display: flex;
+// flex-direction: column;
+// align-items: center;
+// padding: 0px;
+// gap: 24px;
+
+// width: 334px;
+// height: 436px;
+// /* Inside auto layout */
+// flex: none;
+// order: 1;
+// flex-grow: 0;
