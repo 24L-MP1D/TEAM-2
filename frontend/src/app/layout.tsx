@@ -20,10 +20,8 @@ export default function RootLayout({
       <body className="bg-white 100vw">
         <Header></Header>
 
-        <div className="max-w-[1100px] mx-auto">{children}
-         
-          <Searcharea/> */}
-        <div className="max-w-[1040px] mx-auto">{children}
+        <div className="max-w-[1100px] mx-auto">{children}</div>
+        <div className="max-w-[1040px] mx-auto">
           
         </div>
         <Footer></Footer>
