@@ -1,3 +1,4 @@
+
 "use client";
 
 
@@ -94,19 +95,3 @@ export default function RegisterPage() {
   
 }
 }
-
-// /* Container */
-
-// /* Auto layout */
-// display: flex;
-// flex-direction: column;
-// align-items: center;
-// padding: 0px;
-// gap: 24px;
-
-// width: 334px;
-// height: 436px;
-// /* Inside auto layout */
-// flex: none;
-// order: 1;
-// flex-grow: 0;
