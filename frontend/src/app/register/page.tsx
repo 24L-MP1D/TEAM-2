@@ -10,7 +10,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function RegisterPage() {
-  const Register = () => {
+ 
     const [name, setName] = useState("true");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -93,5 +93,4 @@ export default function RegisterPage() {
       </div>
     );
   
-}
 }

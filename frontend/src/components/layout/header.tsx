@@ -3,15 +3,15 @@ import Image from "next/image";
 import { CiSearch } from "react-icons/ci";
 import { PiHeartStraight } from "react-icons/pi";
 import { PiShoppingCartSimple } from "react-icons/pi";
-
-
-export default function Header() {
-
 import Searcharea from "./searchArea";
 import { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+
+import RegisterPage from "@/app/register/page";
 import Link from "next/link";
+
 import { Button } from "../ui/button";
+
 
 export default function Header() {
   const [openSearch, setOpenSearch] = useState<boolean>(false);
@@ -104,6 +104,19 @@ export default function Header() {
               <PiShoppingCartSimple className="w-6 h-6" />
             </div>
             <div className="flex gap-2 items-center ">
+
+              <Link href="/register">
+                <button className="py-2 px-3 border-solid border-[1px] text-white hover:text-opacity-50 border-blue-600 rounded-[18px] font-normal text-sm hover:bg-slate-900 hover:border-blue-800">
+                  Бүртгүүлэх
+                </button>
+              </Link>
+              <Link href="/login">
+                <button className="py-2 px-3  border-solid border-[1px] border-[#2563eb] rounded-[18px] font-normal text-sm bg-[#2563EB] hover:bg-opacity-70 text-white hover:text-opacity-50 ">
+                  Нэвтрэх
+                </button>
+              </Link>
+
+
               <Button className="py-2 px-3 border-solid border-[1px]
                text-white hover:text-opacity-50 border-blue-600 rounded-[18px] font-normal text-sm hover:bg-slate-900 hover:border-blue-800">
                 Бүртгүүлэх
@@ -112,6 +125,7 @@ export default function Header() {
               <button className="py-2 px-3  border-solid border-[1px] border-[#2563eb] rounded-[18px] font-normal text-sm bg-[#2563EB] hover:bg-opacity-70 text-white hover:text-opacity-50 ">
                 Нэвтрэх
               </button>
+
             </div>
           </div>
         </div>
