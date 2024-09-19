@@ -1,12 +1,8 @@
-"use client"
+"use client";
 import Image from "next/image";
 import { CiSearch } from "react-icons/ci";
 import { PiHeartStraight } from "react-icons/pi";
 import { PiShoppingCartSimple } from "react-icons/pi";
-
-
-export default function Header() {
-
 import Searcharea from "./searchArea";
 import { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
@@ -16,37 +12,32 @@ import Link from "next/link";
 
 import { Button } from "../ui/button";
 
-
 export default function Header() {
   const [openSearch, setOpenSearch] = useState<boolean>(false);
   const handleClick = (): void => {
     setOpenSearch(true);
-  }
+  };
 
   const clothes = [
     {
       name: "Chunky Glyph Tee",
       price: 120.0,
-      Image: "/public/image.png"
-
+      Image: "/public/image.png",
     },
     {
       name: "Chunky Glyph gsr5",
       price: 120.0,
-      image: "Users/24LP1786/Desktop/team-2/TEAM-2/frontend/public/image.png"
-
+      image: "Users/24LP1786/Desktop/team-2/TEAM-2/frontend/public/image.png",
     },
     {
       name: "Chunky Glyph ergs",
       price: 120.0,
-      image: "Users/24LP1786/Desktop/team-2/TEAM-2/frontend/public/image.png"
-
+      image: "Users/24LP1786/Desktop/team-2/TEAM-2/frontend/public/image.png",
     },
     {
       name: "Chunky Glyph ergs",
       price: 120.0,
-      image: "Users/24LP1786/Desktop/team-2/TEAM-2/frontend/public/image.png"
-
+      image: "Users/24LP1786/Desktop/team-2/TEAM-2/frontend/public/image.png",
     },
   ];
 
@@ -67,38 +58,30 @@ export default function Header() {
             <CiSearch className="size-6" />
 
             <input
-              type="text"
+              onClick={handleClick}
               placeholder="Бүтээгдэхүүн хайх"
               className="bg-[#18181b] outline-none placeholder-[#71717a]"
             />
-      
-            <input onClick={handleClick}
-              placeholder="Бүтээгдэхүүн хайх"
-              className="bg-[#18181b] outline-none placeholder-[#71717a]"
-            />
-            {openSearch && (<div className="">
-              <Popover >
-                <PopoverTrigger>
-                  SEARCH
-                </PopoverTrigger>
-                <PopoverContent className="border-1 w-[610px]">
-                  {clothes.map((clothes) => (
-                    <div key={clothes.name} className="">
-                      <div className="grid grid-cols-2 rounded border-1">
-                        <div>{clothes.image}</div>
-                        <div className="ml-0">
-                          <p className="font-bold ">{clothes.name}</p>
-                          <p className="">{clothes.price}</p>
+            {openSearch && (
+              <div className="">
+                <Popover>
+                  <PopoverTrigger>SEARCH</PopoverTrigger>
+                  <PopoverContent className="border-1 w-[610px]">
+                    {clothes.map((clothes) => (
+                      <div key={clothes.name} className="">
+                        <div className="grid grid-cols-2 rounded border-1">
+                          <div>{clothes.image}</div>
+                          <div className="ml-0">
+                            <p className="font-bold ">{clothes.name}</p>
+                            <p className="">{clothes.price}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </PopoverContent>
-              </Popover>
-
-            </div>)}
-
-
+                    ))}
+                  </PopoverContent>
+                </Popover>
+              </div>
+            )}
           </div>
           <div className="flex gap-6 items-center">
             <div>
@@ -108,7 +91,6 @@ export default function Header() {
               <PiShoppingCartSimple className="w-6 h-6" />
             </div>
             <div className="flex gap-2 items-center ">
-
               <Link href="/register">
                 <button className="py-2 px-3 border-solid border-[1px] text-white hover:text-opacity-50 border-blue-600 rounded-[18px] font-normal text-sm hover:bg-slate-900 hover:border-blue-800">
                   Бүртгүүлэх
@@ -119,17 +101,6 @@ export default function Header() {
                   Нэвтрэх
                 </button>
               </Link>
-
-
-              <Button className="py-2 px-3 border-solid border-[1px]
-               text-white hover:text-opacity-50 border-blue-600 rounded-[18px] font-normal text-sm hover:bg-slate-900 hover:border-blue-800">
-                Бүртгүүлэх
-                <Link href="/register"></Link>
-              </Button>
-              <button className="py-2 px-3  border-solid border-[1px] border-[#2563eb] rounded-[18px] font-normal text-sm bg-[#2563EB] hover:bg-opacity-70 text-white hover:text-opacity-50 ">
-                Нэвтрэх
-              </button>
-
             </div>
           </div>
         </div>
