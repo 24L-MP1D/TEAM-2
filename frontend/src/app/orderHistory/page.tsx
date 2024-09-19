@@ -9,11 +9,8 @@ import {
 
 import { FaAngleDown } from "react-icons/fa6";
 import { Accordion } from "@/components/ui/accordion";
-import { useState } from "react";
 
 export default function orderHistory() {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
   return (
     <div className="bg-[#f7f7f8] text-black flex justify-center">
       <div className="w-[884px] mt-[105px]">
