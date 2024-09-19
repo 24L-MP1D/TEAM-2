@@ -15,9 +15,9 @@ const getUsers=async (req:Request,res:Response)=>{
 
 const createUser=async (req:Request,res:Response)=>{
     try{
-        const {userName}=req.body;
+        const {name}=req.body;
         const user = await UserModel.create({
-          userName,
+          name,
          
          });
          res.send(user);
@@ -29,10 +29,10 @@ const createUser=async (req:Request,res:Response)=>{
 
 const updateUser=async(req:Request,res:Response)=>{
     try{
-        const {userName}=req.body;
+        const {name}=req.body;
         const {id}=req.params;
         const user = await UserModel.findByIdAndUpdate(id,{
-          userName,
+          name,
           
          });
          res.send(user);
