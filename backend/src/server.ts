@@ -3,6 +3,8 @@ import { connectDb } from "./configs/db";
 
 import dotenv from "dotenv";
 import { userRouter } from "./routes/userRouter";
+import { authRouter } from "./routes/authRouter";
+
 dotenv.config();
 const app = express();
 const port = 4000;
@@ -15,6 +17,7 @@ app.get("/", (req, res) => {
 });
 
 app.use(userRouter);
+app.use(authRouter);
 
 
 app.listen(port, () => {
