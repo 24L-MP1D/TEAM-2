@@ -23,7 +23,9 @@ const buttonVariants = cva(
         def2: "outline-blue-500 rounded-xl text-white outline ",
         def3: "border  bg-white outline  outline-blue-500 rounded-xl text-blue-500",
 
-        default2:"bg-[#FFFFFF] py-2 px-16 rounded-[16px] text-sm font-semibold w-[244px] h-9  text-black flex justify-start ",
+        default2:"bg-[#FFFFFF] py-2 px-16 rounded-[16px] text-sm font-semibold" ,
+        default3:"bg-[#2563EB] rounded-[18px] text-[#FAFAFA] px-[36px] py-2 text-sm font-medium"
+
       },
       size: {
         default: "h-9 px-4 py-2",
