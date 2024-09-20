@@ -13,7 +13,28 @@ export default function LoginPage() {
     const [password, setPassword] = useState("");
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
-    const handleRegister = async () => { };
+    const handleRegister = async () => { 
+        try{
+            const register=await fetch("http://localhost:4000/register",{
+                method: "Post",
+                body:JSON.stringify({
+                    name:name,
+                    email:email,
+    
+                    password:password,
+                }),
+                headers:{
+                    "Content-type":"appplication/json; charset=UTF-8",
+                },
+            }).then(()=>{
+                
+            })
+            console.log('Data created:', register);
+        }catch(error){
+             console.error('Error:', error);
+
+        }
+    };
     const onButtonClick = () => {
         setEmailError("");
         setPasswordError("");
@@ -37,6 +58,8 @@ export default function LoginPage() {
             return;
         }
     };
+
+
     return (
         <div className="container mx-auto login-box flex mx-auto align-items-center w-[334px] mt-20">
             <div className="w-[334px] h-[446px]">
