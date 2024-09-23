@@ -1,14 +1,20 @@
 import express from "express";
 import { connectDb } from "./configs/db";
+import cors from "cors";
+
 
 import dotenv from "dotenv";
 import { userRouter } from "./routes/userRouter";
 import { authRouter } from "./routes/authRouter";
+import { productRouter } from "./routes/productRoutes";
 
 dotenv.config();
+
 const app = express();
-const port = 4000;
+app.use(cors()); 
 app.use(express.json());
+const port = 4000;
+
 
 connectDb();
 
@@ -18,6 +24,7 @@ app.get("/", (req, res) => {
 
 app.use(userRouter);
 app.use(authRouter);
+app.use(productRouter);
 
 
 app.listen(port, () => {
