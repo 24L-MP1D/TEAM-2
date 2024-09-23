@@ -1,9 +1,7 @@
 "use client";
 import { Button } from "../../../public/ui/button";
-import AdminProducts from "@/components/admin/adminProducts";
 import Link from "next/link";
 import { useState } from "react";
-import AdminSetting from "@/components/admin/setting";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../public/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../../public/ui/card";
 import { Label } from "../../../public/ui/label";
@@ -15,7 +13,7 @@ import Header from "@/components/layout/header";
 
 
 
-// export default function Dashboard() {
+export default function Dashboard() {
 //   const [, setAdmin] = useState(false);
 //   const [selectedFeature, setSelectedFeature] = useState<string>("adminPanel");
 
@@ -54,9 +52,6 @@ import Header from "@/components/layout/header";
 //     </div>
 //   );
 // }
-
-
-export default function TabsDemo() {
   return (
     <div className="">
       <Header/>
@@ -110,7 +105,7 @@ export default function TabsDemo() {
                     <thead className="">
                       <tr className="border border-slate-400">
                         <th className="w-[200px] h-[10px]">Бүтээгдэхүүн</th>
-                        <th className="w-[200px] h-[10px]">Aнгилал</th>
+                        <th className="w-[00px] h-[10px]">Aнгилал</th>
                         <th className="w-[200px] h-[10px]">Yнэ</th>
                         <th className="w-[200px] h-[10px]">Yлдэгдэл</th>
                         <th className="w-[200px] h-[10px]">Зарагдсан</th>
