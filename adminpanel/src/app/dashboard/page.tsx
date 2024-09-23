@@ -10,6 +10,7 @@ import { Label } from "../../../public/ui/label";
 import { Input } from "../../../public/ui/input";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "../../../public/ui/dropdown-menu";
 import { DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
+import Header from "@/components/layout/header";
 
 
 
@@ -58,7 +59,7 @@ import { DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
 export default function TabsDemo() {
   return (
     <div className="">
-      
+      <Header/>
 
       <div>
         <Tabs defaultValue="account" className="w-[800px] mr-500 container ">
