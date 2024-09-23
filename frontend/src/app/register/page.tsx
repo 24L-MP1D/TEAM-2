@@ -5,7 +5,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 export default function RegisterPage() {
@@ -15,9 +15,31 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  
 
 
-  const handleRegister = async () => { };
+  const handleRegister = async () => { 
+    onButtonClick();
+    try{
+      fetch(`http://localhost:4000/register`, {
+        method: "POST",
+        body: JSON.stringify({
+          name: name,
+          email:email,
+          password:password,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }).then(() => {
+       
+      });
+
+    }catch(error){
+      alert('Failed to load data. Please try again later.');
+      console.error('Fetch error:', error);
+    }
+  };
   const onButtonClick = () => {
     setEmailError("");
     setPasswordError("");
@@ -51,7 +73,7 @@ export default function RegisterPage() {
 
 
   return (
-    <div className="container mx-auto login-box flex mx-auto align-items-center w-[334px] mt-20">
+    <div className="container mx-auto login-box flex  align-items-center w-[334px] mt-20">
       <div className="w-[334px] h-[446px]">
         <h1 className="mx-center font-bold mb-5 text-center">Бүртгүүлэх</h1>
         <Input
@@ -88,12 +110,12 @@ export default function RegisterPage() {
           <li className={hasSpecialChar ? "text-green-600" : "text-red-600"}>Тэмдэгт орсон байх</li>
           <li className={samePassword ? "text-green-600" : "text-red-600"}>2 нууц үг ижил байх</li>
         </ul>
-        <Button asChild variant="def2">
-          <Link href="/register" className="bg-blue-500 w-full text-white">
+        <Button onClick={handleRegister} variant="def2" className="bg-blue-500 w-full text-white">
+         
             Үүсгэх
-          </Link>
+          
         </Button>
-        <Button asChild variant="def3" className="text-blue-500">
+        <Button asChild   variant="def3" className="text-blue-500">
           <Link
             href="/login"
             className="bg-sky-50 mt-8 w-full def2"

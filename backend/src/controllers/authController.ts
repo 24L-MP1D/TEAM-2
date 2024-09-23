@@ -9,11 +9,12 @@ const ACCESS_TOKEN_SECRET=process.env.ACCESS_TOKEN_SECRET|| "";
 
 const register=async (req:Request,res:Response)=>{
     try{
-        const {email, password}=req.body;
-        if(!email || !password) return res.sendStatus(400);
+        const {email, name, password}=req.body;
+        if(!email || !password || !name) return res.sendStatus(400);
         const hashedPassword=await bcrypt.hash(String(password) ,Number(AUTH_SALT));
        await UserModel.create({
             email,
+            name,
             password:hashedPassword,
         });
         res.status(201).json({message:"successfully registered"})
