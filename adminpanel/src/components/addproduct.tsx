@@ -1,7 +1,7 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import * as React from "react";
+import {useState} from "react";
 import { Check, ChevronsUpDown, Plus } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -44,8 +44,39 @@ const frameworks = [
   },
 ];
 export default function AddProduct() {
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
+  // const [open, setOpen] = React.useState(false);
+  // const [value, setValue] = React.useState("");
+
+  const[name, setName]=useState('');
+  const[addInfo, setAddInfo]=useState('');
+  const[barCode, setBarCode]=useState('');
+
+
+  const createProduct=async()=>{
+    try{
+      fetch(`http://localhost:4000/product`,{
+        method:"POST",
+        body:JSON.stringify({
+          name:name,
+          addInformation: addInfo,
+          barCode: barCode,
+        }),
+        headers:{
+          "Content-type": "application/json; charset=UTF-8",
+        }
+      })
+      .then(()=>{
+        console.error("successfully created the product")
+        setName('');
+      setAddInfo('');
+      setBarCode('');
+      })
+
+    }catch(error){
+      alert('Failed to create the product. Please try again later.');
+      console.error('error happened during creating the product', error);
+    }
+  }
   return (
     <div className="bg-[#F7F7F8]">
       <div className="py-8 px-8 flex gap-6">
@@ -60,7 +91,9 @@ export default function AddProduct() {
                   type="email"
                   id="email"
                   placeholder="Нэр"
-                  className="bg-[#F7F7F8] border-[#D6D8DB] w-[515px] h-[44px]"
+                  value={name}
+                  onChange={(e)=> setName(e.target.value)}
+                  className="bg-[#F7F7F8] border-[#D6D8DB] w-[515px] h-[44px] text-black"
                 />
               </div>
 
@@ -69,8 +102,9 @@ export default function AddProduct() {
                   Нэмэлт мэдээлэл
                 </Label>
                 <Textarea
+                  value={addInfo} onChange={(e)=>setAddInfo(e.target.value)}
                   placeholder="Гол онцлог, давуу тал, техникийн үзүүлэлтүүдийг онцолсон дэлгэрэнгүй, сонирхолтой тайлбар."
-                  className="bg-[#F7F7F8] border-[#D6D8DB]  w-[515px] h-[72px]"
+                  className="bg-[#F7F7F8] border-[#D6D8DB]  w-[515px] h-[72px] text-black"
                 />
               </div>
 
@@ -82,7 +116,9 @@ export default function AddProduct() {
                   type="email"
                   id="email"
                   placeholder="#12345678"
-                  className="bg-[#F7F7F8] border-[#D6D8DB]  w-[515px] h-[44px]"
+                  value={barCode}
+                  onChange={(e)=>setBarCode(e.target.value)}
+                  className="bg-[#F7F7F8] border-[#D6D8DB]  w-[515px] h-[44px] text-black"
                 />
               </div>
             </div>
@@ -141,7 +177,7 @@ export default function AddProduct() {
                 <Label className="text-[#121316] font-semibold text-sm">
                   Ангилал
                 </Label>
-                <Popover open={open} onOpenChange={setOpen}>
+                {/* <Popover open={open} onOpenChange={setOpen}>
                   <PopoverTrigger asChild>
                     <Button
                       role="combobox"
@@ -188,7 +224,7 @@ export default function AddProduct() {
                       </CommandList>
                     </Command>
                   </PopoverContent>
-                </Popover>
+                </Popover> */}
               </div>
             </div>
           </div>
@@ -256,7 +292,7 @@ export default function AddProduct() {
       </div>
       <div className="flex gap-6 pr-4 pl-[990px]">
         <Button className="bg-[#FFFFFF] text-black hover:bg-[#121316] hover:text-white">Ноорог</Button>
-        <Button className="bg-[#FFFFFF]   text-black hover:bg-[#121316] hover:text-white">Нийтлэх</Button>
+        <Button className="bg-[#FFFFFF]   text-black hover:bg-[#121316] hover:text-white" onClick={createProduct}>Нийтлэх</Button>
       </div>
 
     </div>
