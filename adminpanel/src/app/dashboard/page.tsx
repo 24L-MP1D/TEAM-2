@@ -1,14 +1,14 @@
 "use client";
-import { Button } from "@/components/ui/button";
+import { Button } from "../../../public/ui/button";
 import AdminProducts from "@/components/admin/adminProducts";
 import Link from "next/link";
 import { useState } from "react";
 import AdminSetting from "@/components/admin/setting";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../public/ui/tabs";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../../public/ui/card";
+import { Label } from "../../../public/ui/label";
+import { Input } from "../../../public/ui/input";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "../../../public/ui/dropdown-menu";
 import { DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
 
 
