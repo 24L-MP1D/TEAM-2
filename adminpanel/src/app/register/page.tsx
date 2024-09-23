@@ -1,9 +1,9 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
+import { Button } from "../../../public/ui/button";
+import { Input } from "../../../public/ui/input";
+import { Label } from "../../../public/ui/label";
+import { Separator } from "../../../public/ui/separator";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
