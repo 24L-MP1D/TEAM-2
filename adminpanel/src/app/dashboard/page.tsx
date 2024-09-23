@@ -57,144 +57,148 @@ import { DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
 
 export default function TabsDemo() {
   return (
-    <div>
-      <Tabs defaultValue="account" className="w-[800px] mr-500 container ">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="account" >Бүтээгдэхүүн</TabsTrigger>
-          <TabsTrigger value="password">Ангилал</TabsTrigger>
-        </TabsList>
-        <Button variant="default" className="mt-2 ">+Бүтээгдэхүүн нэмэх </Button>
-        <div>
+    <div className="">
+      
 
-          <DropdownMenu>
-            <DropdownMenuTrigger className="my-5">Ангилал</DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel className="ml-5 border border-1-gray">Ангилал</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Billing</DropdownMenuItem>
-            </DropdownMenuContent>
-            <DropdownMenuTrigger className="ml-5 border border-1-gray">Үнэ</DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel className="ml-5 border border-1-gray">Ангилал</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Billing</DropdownMenuItem>
-            </DropdownMenuContent>
-            <DropdownMenuTrigger className="ml-5 border border-1-gray">Сараар</DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel className="ml-5 border border-1-gray">Ангилал</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Billing</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+      <div>
+        <Tabs defaultValue="account" className="w-[800px] mr-500 container ">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="account" >Бүтээгдэхүүн</TabsTrigger>
+            <TabsTrigger value="password">Ангилал</TabsTrigger>
+          </TabsList>
+          <Button variant="default" className="mt-2 ">+Бүтээгдэхүүн нэмэх </Button>
+          <div>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger className="my-5">Ангилал</DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel className="ml-5 border border-1-gray">Ангилал</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>Billing</DropdownMenuItem>
+              </DropdownMenuContent>
+              <DropdownMenuTrigger className="ml-5 border border-1-gray">Үнэ</DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel className="ml-5 border border-1-gray">Ангилал</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>Billing</DropdownMenuItem>
+              </DropdownMenuContent>
+              <DropdownMenuTrigger className="ml-5 border border-1-gray">Сараар</DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel className="ml-5 border border-1-gray">Ангилал</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>Billing</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
 
-        </div>
-        <TabsContent value="account">
-          <CardContent>
-            <CardHeader>
-              <CardTitle>Account</CardTitle>
-              <CardDescription>
-                Make changes to your account here. Click save when you're done.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <div className="flex-1 ">
-                <table className="table-auto table-fixed border-2-gray border border-slate-400 border-slate-400">
-                  <thead className="">
-                    <tr className="border border-slate-400">
-                      <th className="w-[200px] h-[10px]">Бүтээгдэхүүн</th>
-                      <th className="w-[200px] h-[10px]">Aнгилал</th>
-                      <th className="w-[200px] h-[10px]">Yнэ</th>
-                      <th className="w-[200px] h-[10px]">Yлдэгдэл</th>
-                      <th className="w-[200px] h-[10px]">Зарагдсан</th>
-                      <th className="w-[200px] h-[10px]">Нэмсэн огноо</th>
-                    </tr>
-                  </thead>
-                  <tbody className="border-x-1 border border-slate-300">
-                    <tr className="border-x-1 border border-slate-300">
-                      <td className="w-[200px]">2343242355</td>
-                      <td className="w-[200px]">Malcolm Lockyer</td>
-                      <td className="w-[200px] text-center">1961</td>
-                      <td className="w-[200px] text-center">1961</td>
-                      <td className="w-[200px] text-center">1961</td>
-                      <td className="w-[200px] text-center">1961</td>
-                    </tr>
-                    <tr>
-                      <td className="w-[200px]">2343242355</td>
-                      <td className="w-[200px]">Malcolm Lockyer</td>
-                      <td className="w-[200px] text-center">1961</td>
-                      <td className="w-[200px] text-center">1961</td>
-                      <td className="w-[200px] text-center">1961</td>
-                      <td className="w-[200px] text-center">1961</td>
-                    </tr>
-                    <tr>
-                      <td className="w-[200px]">2343242355</td>
-                      <td className="w-[200px]">Malcolm Lockyer</td>
-                      <td className="w-[200px] text-center">1961</td>
-                      <td className="w-[200px] text-center">1961</td>
-                      <td className="w-[200px] text-center">1961</td>
-                      <td className="w-[200px] text-center">1961</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button>Save changes</Button>
-            </CardFooter>
-          </CardContent >
-        </TabsContent>
-        <TabsContent value="password">
-          <Card>
-            <CardHeader>
-              <CardTitle>Password</CardTitle>
-              <CardDescription>
-                Change your password here. After saving, you'll be logged out.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-2 d">
-              <div className="flex-1 bg-slate-300 ">
-                <table className="table-auto table-fixed border border-slate-400 ">
-                  <thead className="">
-                    <tr className="border-x-1 border border-slate-300">
-                      <th className="w-[200px] h-[10px]">Бүтээгдэхүүн</th>
-                      <th className="w-[200px] h-[10px]">Aнгилал</th>
-                      <th className="w-[200px] h-[10px]">Yнэ</th>
-                      <th className="w-[200px] h-[10px]">Yлдэгдэл</th>
-                      <th className="w-[200px] h-[10px]">Зарагдсан</th>
-                      <th className="w-[200px] h-[10px]">Нэмсэн огноо</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="border-x-1 border border-slate-300">
-                      <td className="w-[200px] ">2343242355</td>
-                      <td className="w-[200px] ">Malcolm Lockyer</td>
-                      <td className="w-[200px] border border-x-1 border-slate-300">1961</td>
-                      <td className="w-[200px] border border-x-1 border-slate-300">1961</td>
-                      <td className="w-[200px] border border-x-1 border-slate-300">1961</td>
-                      <td className="w-[200px] border border-x-1 border-slate-300">1961</td>
-                    </tr>
-                    <tr className="border-x-1 border border-slate-300">
-                      <td className="w-[200px]">2343242355</td>
-                      <td className="w-[200px]">Malcolm Lockyer</td>
-                      <td className="w-[200px] text-center">1961</td>
-                      <td className="w-[200px] text-center">1961</td>
-                      <td className="w-[200px] text-center">1961</td>
-                      <td className="w-[200px] text-center">1961</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button>Save password</Button>
-            </CardFooter>
-          </Card>
-        </TabsContent>
-      </Tabs>
+          </div>
+          <TabsContent value="account">
+            <CardContent>
+              <CardHeader>
+                <CardTitle>Account</CardTitle>
+                <CardDescription>
+                  Make changes to your account here. Click save when you're done.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <div className="flex-1 ">
+                  <table className="table-auto table-fixed border-2-gray border border-slate-400 border-slate-400">
+                    <thead className="">
+                      <tr className="border border-slate-400">
+                        <th className="w-[200px] h-[10px]">Бүтээгдэхүүн</th>
+                        <th className="w-[200px] h-[10px]">Aнгилал</th>
+                        <th className="w-[200px] h-[10px]">Yнэ</th>
+                        <th className="w-[200px] h-[10px]">Yлдэгдэл</th>
+                        <th className="w-[200px] h-[10px]">Зарагдсан</th>
+                        <th className="w-[200px] h-[10px]">Нэмсэн огноо</th>
+                      </tr>
+                    </thead>
+                    <tbody className="border-x-1 border border-slate-300">
+                      <tr className="border-x-1 border border-slate-300">
+                        <td className="w-[200px]">2343242355</td>
+                        <td className="w-[200px]">Malcolm Lockyer</td>
+                        <td className="w-[200px] text-center">1961</td>
+                        <td className="w-[200px] text-center">1961</td>
+                        <td className="w-[200px] text-center">1961</td>
+                        <td className="w-[200px] text-center">1961</td>
+                      </tr>
+                      <tr>
+                        <td className="w-[200px]">2343242355</td>
+                        <td className="w-[200px]">Malcolm Lockyer</td>
+                        <td className="w-[200px] text-center">1961</td>
+                        <td className="w-[200px] text-center">1961</td>
+                        <td className="w-[200px] text-center">1961</td>
+                        <td className="w-[200px] text-center">1961</td>
+                      </tr>
+                      <tr>
+                        <td className="w-[200px]">2343242355</td>
+                        <td className="w-[200px]">Malcolm Lockyer</td>
+                        <td className="w-[200px] text-center">1961</td>
+                        <td className="w-[200px] text-center">1961</td>
+                        <td className="w-[200px] text-center">1961</td>
+                        <td className="w-[200px] text-center">1961</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button>Save changes</Button>
+              </CardFooter>
+            </CardContent >
+          </TabsContent>
+          <TabsContent value="password">
+            <Card>
+              <CardHeader>
+                <CardTitle>Password</CardTitle>
+                <CardDescription>
+                  Change your password here. After saving, you'll be logged out.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-2 d">
+                <div className="flex-1 bg-slate-300 ">
+                  <table className="table-auto table-fixed border border-slate-400 ">
+                    <thead className="">
+                      <tr className="border-x-1 border border-slate-300">
+                        <th className="w-[200px] h-[10px]">Бүтээгдэхүүн</th>
+                        <th className="w-[200px] h-[10px]">Aнгилал</th>
+                        <th className="w-[200px] h-[10px]">Yнэ</th>
+                        <th className="w-[200px] h-[10px]">Yлдэгдэл</th>
+                        <th className="w-[200px] h-[10px]">Зарагдсан</th>
+                        <th className="w-[200px] h-[10px]">Нэмсэн огноо</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-x-1 border border-slate-300">
+                        <td className="w-[200px] ">2343242355</td>
+                        <td className="w-[200px] ">Malcolm Lockyer</td>
+                        <td className="w-[200px] border border-x-1 border-slate-300">1961</td>
+                        <td className="w-[200px] border border-x-1 border-slate-300">1961</td>
+                        <td className="w-[200px] border border-x-1 border-slate-300">1961</td>
+                        <td className="w-[200px] border border-x-1 border-slate-300">1961</td>
+                      </tr>
+                      <tr className="border-x-1 border border-slate-300">
+                        <td className="w-[200px]">2343242355</td>
+                        <td className="w-[200px]">Malcolm Lockyer</td>
+                        <td className="w-[200px] text-center">1961</td>
+                        <td className="w-[200px] text-center">1961</td>
+                        <td className="w-[200px] text-center">1961</td>
+                        <td className="w-[200px] text-center">1961</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button>Save password</Button>
+              </CardFooter>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </div>
     </div>
   )
 }
