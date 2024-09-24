@@ -65,11 +65,10 @@ export function Products() {
 
                 </Input>
             </div>
-            <TabsContent value="products" className="text-center ml-[100px]">
-                <Table className="">
+            <TabsContent value="products" className="text-center ml-[100px] text-black">
+                <Table className="text-color">
                     <TableHeader>
                         <TableRow className="text-center h-16">
-
                             <TableHead className="text-center  font-bold">Бүтээгдэхүүн</TableHead>
                             <TableHead className="text-center font-bold">Ангилал</TableHead>
                             <TableHead className="text-center font-bold">Үнэ</TableHead>
@@ -81,17 +80,16 @@ export function Products() {
                     </TableHeader>
                     <TableBody >
                         {invoices.map((invoice) => (
-                            <TableRow key={invoice.Үлдэгдэл}>
-                                <TableCell className="text-center h-8">
-                                    
-                                </TableCell>
-                                <TableCell className="text-center h-8">{invoice.бүтээгдэхүүн}</TableCell>
-                                <TableCell className="text-center">{invoice.Ангилал}</TableCell>
+                            <TableRow key={invoice.Үлдэгдэл} className="text-black ">
+                                {/* <TableCell className="text-center h-8">
+                                </TableCell> */}
+                                <TableCell className="text-center h-8 text-pink ">{invoice.бүтээгдэхүүн}</TableCell>
+                                <TableCell className="text-center text-black ">{invoice.Ангилал}</TableCell>
                                 <TableCell>{invoice.Үнэ}</TableCell>
-                                <TableCell className="text-center">{invoice.Үлдэгдэл}</TableCell>
-                                <TableCell className="text-center">{invoice.Зарагдсан}</TableCell>
-                                <TableCell className="text-center">{invoice.Нэмсэногноо}</TableCell>
-                                <TableCell className=" flex">
+                                <TableCell className="text-center text-black ">{invoice.Үлдэгдэл}</TableCell>
+                                <TableCell className="text-center text-black ">{invoice.Зарагдсан}</TableCell>
+                                <TableCell className="text-center text-black ">{invoice.Нэмсэногноо}</TableCell>
+                                <TableCell className=" flex text-black ">
                                     <Trash className="mr-4 items-center" size={16} strokeWidth={1.5} />
                                     <Pencil className="items-center" size={16} strokeWidth={1.5} />
                                 </TableCell>
