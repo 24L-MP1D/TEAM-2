@@ -1,4 +1,5 @@
 import { model, Schema } from "mongoose";
+
 const UserSchema = new Schema({
   name: String,
   email: {
@@ -19,3 +20,4 @@ const UserSchema = new Schema({
   updatedAt: Date,
 });
 export const UserModel = model("usermodels", UserSchema);
+

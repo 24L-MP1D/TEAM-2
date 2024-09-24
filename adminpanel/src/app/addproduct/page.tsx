@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
 import LeftBar from "@/components/leftBar";
+import Link from "next/link";
 
 
 const frameworks = [
@@ -84,10 +85,12 @@ export default function AddProduct() {
       <LeftBar />
       <div className="bg-[#F7F7F8] w-[100vw] h-[100vw] ">
         <div className="bg-[#FFFFFF] ">
+          <Link href="/products">
           <div className="py-2 flex gap-4 px-4">
             <ChevronLeft color="black" />
             <p className="text-[#121316] font-normal text-base">Бүтээгдэхүүн нэмэх</p>
           </div>
+          </Link>
         </div>
         <div className="py-8 px-8 flex gap-6 ">
           <div className="flex flex-col gap-6">

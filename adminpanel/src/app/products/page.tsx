@@ -8,42 +8,60 @@ import { Input } from "../../../public/ui/input";
 import { ChevronDown, Pencil, Plus, Search, SearchCheck, Trash } from "lucide-react";
 import Link from "next/link";
 import LeftBar from "@/components/leftBar";
+import React, { useEffect, useState } from "react";
 
+type Products = {
+    id: number;
+    name: string;
+    addInformation: string; 
+    price: number; 
+    remaining: string;
+    sold: string;
+    addedDate: string;
+}
 export default function Products() {
-    const invoices = [
-        {
-            бүтээгдэхүүн: "эмэгтэй цүнх",
-            Ангилал: "Paid",
-            Үнэ: "$250.00",
-            Үлдэгдэл: "30",
-            Зарагдсан: "30",
-            Нэмсэногноо: "2024.01.10",
-        },
-        {
-            бүтээгдэхүүн: "гутал",
-            Ангилал: "Paid",
-            Үнэ: "$250.00",
-            Үлдэгдэл: "20",
-            Зарагдсан: "30",
-            Нэмсэногноо: "2024.01.10",
-        },
-        {
-            бүтээгдэхүүн: "INV001",
-            Ангилал: "Paid",
-            Үнэ: "$250.00",
-            Үлдэгдэл: "10",
-            Зарагдсан: "30",
-            Нэмсэногноо: "2024.01.10",
-        },
-        {
-            бүтээгдэхүүн: "INV001",
-            Ангилал: "Paid",
-            Үнэ: "$250.00",
-            Үлдэгдэл: "9",
-            Зарагдсан: "30",
-            Нэмсэногноо: "2024.01.10",
-        },
-    ]
+    const [products, setProducts] = useState<Products[]>([])
+     useEffect(()=> {
+       fetch('http://localhost:4000/products')
+       .then(response => response.json())
+       .then(data =>setProducts(data))
+       .catch(err => console.log(err))
+
+     }, [])
+    // const productss = [
+    //     {
+    //         бүтээгдэхүүн: "эмэгтэй цүнх",
+    //         Ангилал: "Paid",
+    //         Үнэ: "$250.00",
+    //         Үлдэгдэл: "30",
+    //         Зарагдсан: "30",
+    //         Нэмсэногноо: "2024.01.10",
+    //     },
+    //     {
+    //         бүтээгдэхүүн: "гутал",
+    //         Ангилал: "Paid",
+    //         Үнэ: "$250.00",
+    //         Үлдэгдэл: "20",
+    //         Зарагдсан: "30",
+    //         Нэмсэногноо: "2024.01.10",
+    //     },
+    //     {
+    //         бүтээгдэхүүн: "INV001",
+    //         Ангилал: "Paid",
+    //         Үнэ: "$250.00",
+    //         Үлдэгдэл: "10",
+    //         Зарагдсан: "30",
+    //         Нэмсэногноо: "2024.01.10",
+    //     },
+    //     {
+    //         бүтээгдэхүүн: "INV001",
+    //         Ангилал: "Paid",
+    //         Үнэ: "$250.00",
+    //         Үлдэгдэл: "9",
+    //         Зарагдсан: "30",
+    //         Нэмсэногноо: "2024.01.10",
+    //     },
+    // ]
     return (
         <div className="flex">
 
@@ -53,7 +71,7 @@ export default function Products() {
                 <TabsList className="grid max-w-full grid-cols-2">
                     <TabsTrigger value="products">Бүтээгдэхүүн</TabsTrigger>
                     <TabsTrigger value="sort">Ангилал</TabsTrigger>
-                </TabsList>""
+                </TabsList>
                 <Link href="/addproduct">
                     <Button variant="default" className="ml-[100px] my-8 font-bold" >
                         <Plus className="mr-2" size={16} strokeWidth={1.5} />
@@ -86,16 +104,14 @@ export default function Products() {
                             </TableRow>
                         </TableHeader>
                         <TableBody >
-                            {invoices.map((invoice) => (
-                                <TableRow key={invoice.Үлдэгдэл} className="text-black ">
-                                    {/* <TableCell className="text-center h-8">
-                                </TableCell> */}
-                                    <TableCell className="text-center h-8 text-pink ">{invoice.бүтээгдэхүүн}</TableCell>
-                                    <TableCell className="text-center text-black ">{invoice.Ангилал}</TableCell>
-                                    <TableCell>{invoice.Үнэ}</TableCell>
-                                    <TableCell className="text-center text-black ">{invoice.Үлдэгдэл}</TableCell>
-                                    <TableCell className="text-center text-black ">{invoice.Зарагдсан}</TableCell>
-                                    <TableCell className="text-center text-black ">{invoice.Нэмсэногноо}</TableCell>
+                            {products.map((products) => (
+                                <TableRow key={products.id} className="text-black ">
+                                    <TableCell className="text-center h-8 text-pink ">{products.name}</TableCell>
+                                    <TableCell className="text-center text-black ">{products.addInformation}</TableCell>
+                                    <TableCell>{products.price}</TableCell>
+                                    <TableCell className="text-center text-black ">{products.remaining}</TableCell>
+                                    <TableCell className="text-center text-black ">{products.sold}</TableCell>
+                                    <TableCell className="text-center text-black ">{products.addedDate}</TableCell>
                                     <TableCell className=" flex text-black ">
                                         <Trash className="mr-4 items-center" size={16} strokeWidth={1.5} />
                                         <Pencil className="items-center" size={16} strokeWidth={1.5} />
