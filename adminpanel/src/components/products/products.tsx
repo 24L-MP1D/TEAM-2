@@ -43,7 +43,7 @@ export function Products() {
         },
     ]
     return (
-        <Tabs defaultValue="products" className="w-[1200px]">
+        <Tabs defaultValue="products" className="w-[1200px] bg-white">
             <TabsList className="grid max-w-full grid-cols-2">
                 <TabsTrigger value="products">Бүтээгдэхүүн</TabsTrigger>
                 <TabsTrigger value="sort">Ангилал</TabsTrigger>
