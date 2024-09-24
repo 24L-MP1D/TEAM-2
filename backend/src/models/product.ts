@@ -8,7 +8,7 @@ const productsShema=new Schema({
   categoryId: String,
   price: Number,
   qty: Number,
-  thumbnails: String,
+  tag: String,
   // images: String[],
   coupon: String,
   salePercent: Number,

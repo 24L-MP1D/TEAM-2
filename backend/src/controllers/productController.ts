@@ -13,11 +13,12 @@ const getProducts=async(req:Request, res:Response)=>{
 
 const createProduct=async(req:Request, res:Response)=>{
     try{
-        const {name,addInformation,barCode}=req.body;
+        const {name,addInformation,barCode,tag}=req.body;
         const product=await productModel.create({
             name,
             addInformation,
-            barCode
+            barCode,
+            tag,
         }
         )
         res.status(201).json({message:"Successfully created the product"});
@@ -30,11 +31,12 @@ const createProduct=async(req:Request, res:Response)=>{
 const updateProduct=async(req:Request, res:Response)=>{
     try{
         const{id}=req.params;
-        const{name, addInformation, barCode}=req.body;
+        const{name, addInformation, barCode,tag}=req.body;
         const product=await productModel.findByIdAndUpdate(id,{
             name,
             addInformation,
             barCode,
+            tag
         })
         res.status(200).json({message:"Successfully updated the product"});
     }catch(error){
