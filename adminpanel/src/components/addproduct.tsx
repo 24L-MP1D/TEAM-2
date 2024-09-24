@@ -1,8 +1,8 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {useState} from "react";
-import { Check, ChevronsUpDown, Plus } from "lucide-react";
+import { useState } from "react";
+import { Check, ChevronLeft, ChevronsUpDown, Plus } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -48,137 +48,143 @@ export default function AddProduct() {
   // const [open, setOpen] = React.useState(false);
   // const [value, setValue] = React.useState("");
 
-  const[name, setName]=useState('');
-  const[addInfo, setAddInfo]=useState('');
-  const[barCode, setBarCode]=useState('');
+  const [name, setName] = useState("");
+  const [addInfo, setAddInfo] = useState("");
+  const [barCode, setBarCode] = useState("");
 
-
-  const createProduct=async()=>{
-    try{
-      fetch(`http://localhost:4000/product`,{
-        method:"POST",
-        body:JSON.stringify({
-          name:name,
+  const createProduct = async () => {
+    try {
+      fetch(`http://localhost:4000/product`, {
+        method: "POST",
+        body: JSON.stringify({
+          name: name,
           addInformation: addInfo,
           barCode: barCode,
         }),
-        headers:{
+        headers: {
           "Content-type": "application/json; charset=UTF-8",
-        }
-      })
-      .then(()=>{
-        console.error("successfully created the product")
-        setName('');
-      setAddInfo('');
-      setBarCode('');
-      })
-
-    }catch(error){
-      alert('Failed to create the product. Please try again later.');
-      console.error('error happened during creating the product', error);
+        },
+      }).then(() => {
+        console.error("successfully created the product");
+        setName("");
+        setAddInfo("");
+        setBarCode("");
+      });
+    } catch (error) {
+      alert("Failed to create the product. Please try again later.");
+      console.error("error happened during creating the product", error);
     }
-  }
+  };
   return (
-    <div className="bg-[#F7F7F8]">
-      <div className="py-8 px-8 flex gap-6">
-        <div className="flex flex-col gap-6">
-          <div className="bg-[#FFFFFF] rounded-xl h-[312px]">
-            <div className="py-6 px-6 flex flex-col gap-4">
-              <div className="flex flex-col gap-2">
-                <Label className="text-[#121316] font-semibold text-sm">
-                  Бүтээгдэхүүний нэр
-                </Label>
-                <Input
-                  type="email"
-                  id="email"
-                  placeholder="Нэр"
-                  value={name}
-                  onChange={(e)=> setName(e.target.value)}
-                  className="bg-[#F7F7F8] border-[#D6D8DB] w-[515px] h-[44px] text-black"
-                />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <Label className="text-[#121316] font-semibold text-sm">
-                  Нэмэлт мэдээлэл
-                </Label>
-                <Textarea
-                  value={addInfo} onChange={(e)=>setAddInfo(e.target.value)}
-                  placeholder="Гол онцлог, давуу тал, техникийн үзүүлэлтүүдийг онцолсон дэлгэрэнгүй, сонирхолтой тайлбар."
-                  className="bg-[#F7F7F8] border-[#D6D8DB]  w-[515px] h-[72px] text-black"
-                />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <Label className="text-[#121316] font-semibold text-sm">
-                  Барааны код
-                </Label>
-                <Input
-                  type="email"
-                  id="email"
-                  placeholder="#12345678"
-                  value={barCode}
-                  onChange={(e)=>setBarCode(e.target.value)}
-                  className="bg-[#F7F7F8] border-[#D6D8DB]  w-[515px] h-[44px] text-black"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-[#FFFFFF] rounded-xl w-[563px] h-[213px]">
-            <div className="py-6 px-6">
-              <h2 className="text-[#000000] font-semibold text-base">
-                Бүтээгдэхүүний зураг
-              </h2>
-            </div>
-          </div>
-
-          <div className="bg-[#FFFFFF] rounded-xl ">
-            <div className="py-6 px-6 flex gap-4">
-              <div className="flex flex-col gap-2">
-                <Label className="text-[#121316] font-semibold text-sm">
-                  Үндсэн үнэ
-                </Label>
-                <Input
-                  type="email"
-                  id="email"
-                  placeholder="Үндсэн үнэ"
-                  className="bg-[#F7F7F8] border-[#D6D8DB] h-[56px] w-[250px]"
-                />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <Label className="text-[#121316] font-semibold text-sm">
-                  Үлдэгдэл тоо ширхэг
-                </Label>
-                <Input
-                  type="email"
-                  id="email"
-                  placeholder="Үлдэгдэл тоо ширхэг"
-                  className="bg-[#F7F7F8] border-[#D6D8DB] h-[56px] w-[250px]"
-                />
-              </div>
-            </div>
+    <div className="flex">
+      <LeftBar />
+      <div className="bg-[#F7F7F8] w-[100vw] h-[100vw] ">
+        <div className="bg-[#FFFFFF] ">
+          <div className="py-2 flex gap-4 px-4">
+            <ChevronLeft color="black" />
+            <p className="text-[#121316] font-normal text-base">Бүтээгдэхүүн нэмэх</p>
           </div>
         </div>
-        <div className="flex flex-col gap-6">
-          <div className="bg-[#FFFFFF] rounded-xl h-[232px]">
-            <div className="py-6 px-6">
-              <div className="flex flex-col gap-2">
-                <Label className="text-[#121316] font-semibold text-sm">
-                  Ангилал
-                </Label>
-                <Input
-                  type="email"
-                  id="email"
-                  placeholder="нэмэх"
-                  className="bg-[#F7F7F8] border-[#D6D8DB] w-[515px] h-[56px]"
-                />
+        <div className="py-8 px-8 flex gap-6 ">
+          <div className="flex flex-col gap-6">
+            <div className="bg-[#FFFFFF] rounded-xl h-[312px]">
+              <div className="py-6 px-6 flex flex-col gap-4">
+                <div className="flex flex-col gap-2">
+                  <Label className="text-[#121316] font-semibold text-sm">
+                    Бүтээгдэхүүний нэр
+                  </Label>
+                  <Input
+                    type="email"
+                    id="email"
+                    placeholder="Нэр"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="bg-[#F7F7F8] border-[#D6D8DB] w-[515px] h-[44px] text-black"
+                  />
+                </div>
 
-                <Label className="text-[#121316] font-semibold text-sm">
-                  Ангилал
-                </Label>
-                {/* <Popover open={open} onOpenChange={setOpen}>
+                <div className="flex flex-col gap-2">
+                  <Label className="text-[#121316] font-semibold text-sm">
+                    Нэмэлт мэдээлэл
+                  </Label>
+                  <Textarea
+                    value={addInfo}
+                    onChange={(e) => setAddInfo(e.target.value)}
+                    placeholder="Гол онцлог, давуу тал, техникийн үзүүлэлтүүдийг онцолсон дэлгэрэнгүй, сонирхолтой тайлбар."
+                    className="bg-[#F7F7F8] border-[#D6D8DB]  w-[515px] h-[72px] text-black"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <Label className="text-[#121316] font-semibold text-sm">
+                    Барааны код
+                  </Label>
+                  <Input
+                    type="email"
+                    id="email"
+                    placeholder="#12345678"
+                    value={barCode}
+                    onChange={(e) => setBarCode(e.target.value)}
+                    className="bg-[#F7F7F8] border-[#D6D8DB]  w-[515px] h-[44px] text-black"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-[#FFFFFF] rounded-xl w-[563px] h-[213px]">
+              <div className="py-6 px-6">
+                <h2 className="text-[#000000] font-semibold text-base">
+                  Бүтээгдэхүүний зураг
+                </h2>
+              </div>
+            </div>
+
+            <div className="bg-[#FFFFFF] rounded-xl ">
+              <div className="py-6 px-6 flex gap-4">
+                <div className="flex flex-col gap-2">
+                  <Label className="text-[#121316] font-semibold text-sm">
+                    Үндсэн үнэ
+                  </Label>
+                  <Input
+                    type="email"
+                    id="email"
+                    placeholder="Үндсэн үнэ"
+                    className="bg-[#F7F7F8] border-[#D6D8DB] h-[56px] w-[250px]"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <Label className="text-[#121316] font-semibold text-sm">
+                    Үлдэгдэл тоо ширхэг
+                  </Label>
+                  <Input
+                    type="email"
+                    id="email"
+                    placeholder="Үлдэгдэл тоо ширхэг"
+                    className="bg-[#F7F7F8] border-[#D6D8DB] h-[56px] w-[250px]"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col gap-6">
+            <div className="bg-[#FFFFFF] rounded-xl h-[232px]">
+              <div className="py-6 px-6">
+                <div className="flex flex-col gap-2">
+                  <Label className="text-[#121316] font-semibold text-sm">
+                    Ангилал
+                  </Label>
+                  <Input
+                    type="email"
+                    id="email"
+                    placeholder="нэмэх"
+                    className="bg-[#F7F7F8] border-[#D6D8DB] w-[515px] h-[56px]"
+                  />
+
+                  <Label className="text-[#121316] font-semibold text-sm">
+                    Ангилал
+                  </Label>
+                  {/* <Popover open={open} onOpenChange={setOpen}>
                   <PopoverTrigger asChild>
                     <Button
                       role="combobox"
@@ -226,9 +232,9 @@ export default function AddProduct() {
                     </Command>
                   </PopoverContent>
                 </Popover> */}
+                </div>
               </div>
             </div>
-          </div>
 
             <div className="bg-[#FFFFFF] rounded-xl h-[228px]">
               <div className="pt-6 pl-6">
@@ -291,17 +297,25 @@ export default function AddProduct() {
                   placeholder="Таг нэмэх..."
                   className="bg-[#F7F7F8] border-[#D6D8DB] w-[515px] h-[56px] pt-2"
                 />
-                <p className="text-[#5E6166] pt-2">Санал болгох: Гутал , Цүнх , Эмэгтэй </p>
-
+                <p className="text-[#5E6166] pt-2">
+                  Санал болгох: Гутал , Цүнх , Эмэгтэй{" "}
+                </p>
+              </div>
             </div>
-            </div>
+          </div>
+        </div>
+        <div className="flex gap-6 pr-4 pl-[930px]">
+          <Button className="bg-[#FFFFFF] text-black hover:bg-[#121316] hover:text-white w-[113px] h-[56px]">
+            Ноорог
+          </Button>
+          <Button
+            className="bg-[#FFFFFF]   text-black hover:bg-[#121316] hover:text-white  w-[113px] h-[56px]"
+            onClick={createProduct}
+          >
+            Нийтлэх
+          </Button>
         </div>
       </div>
-      <div className="flex gap-6 pr-4 pl-[990px]">
-        <Button className="bg-[#FFFFFF] text-black hover:bg-[#121316] hover:text-white">Ноорог</Button>
-        <Button className="bg-[#FFFFFF]   text-black hover:bg-[#121316] hover:text-white" onClick={createProduct}>Нийтлэх</Button>
-      </div>
-
     </div>
   );
 }
