@@ -5,7 +5,8 @@ import { FaRegClipboard } from "react-icons/fa6";
 import { ImPriceTags } from "react-icons/im";
 import { RiListView } from "react-icons/ri";
 import { IoMdSettings } from "react-icons/io";
-import { Button } from "../../../public/ui/button";
+import { Button } from "../../public/ui/button";
+
 
 export default function LeftBar() {
   return (

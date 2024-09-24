@@ -1,7 +1,9 @@
 "use client";
 
-import Header from "@/components/layout/header";
-import LeftBar from "@/components/layout/leftBar";
+import Header from "@/components/header";
+import LeftBar from "@/components/leftBar";
+
+
 
 export default function Home() {
   return (
