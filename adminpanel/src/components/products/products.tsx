@@ -69,7 +69,7 @@ export function Products() {
                 <Table className="">
                     <TableHeader>
                         <TableRow className="text-center h-16">
-                            <TableHead className="text-center  font-bold">Checkbox</TableHead>
+
                             <TableHead className="text-center  font-bold">Бүтээгдэхүүн</TableHead>
                             <TableHead className="text-center font-bold">Ангилал</TableHead>
                             <TableHead className="text-center font-bold">Үнэ</TableHead>
@@ -82,6 +82,9 @@ export function Products() {
                     <TableBody >
                         {invoices.map((invoice) => (
                             <TableRow key={invoice.Үлдэгдэл}>
+                                <TableCell className="text-center h-8">
+                                    
+                                </TableCell>
                                 <TableCell className="text-center h-8">{invoice.бүтээгдэхүүн}</TableCell>
                                 <TableCell className="text-center">{invoice.Ангилал}</TableCell>
                                 <TableCell>{invoice.Үнэ}</TableCell>
