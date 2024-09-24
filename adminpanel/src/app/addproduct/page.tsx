@@ -20,7 +20,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
-import LeftBar from "./leftBar";
+import LeftBar from "@/components/leftBar";
+
 
 const frameworks = [
   {

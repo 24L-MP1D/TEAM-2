@@ -1,11 +1,14 @@
 import Image from "next/image";
-import { Products } from "@/components/products/products";
+
+import LeftBar from "@/components/leftBar";
+
 
 export default function Home() {
   return (
 
-   <div>
-      <Products/>
+   <div className="flex">
+    <LeftBar/>
+    
    </div>
 
   );
