@@ -6,6 +6,7 @@ import { ImPriceTags } from "react-icons/im";
 import { RiListView } from "react-icons/ri";
 import { IoMdSettings } from "react-icons/io";
 import { Button } from "../../public/ui/button";
+import Link from "next/link";
 
 
 export default function LeftBar() {
@@ -29,12 +30,15 @@ export default function LeftBar() {
         </div>
         <div className="text-base font-semibold">Орлого</div>
       </Button>
-      <Button variant={"sipmle"} className="flex items-center justify-start h-10 ">
-        <div className="w-14 flex justify-center items-center ">
-          <RiListView className="w-6 h-6" />
-        </div>
-        <div className="text-base font-semibold">Бүтээгдэхүүн</div>
-      </Button>
+      <Link href="/products">
+        <Button variant={"sipmle"} className="flex items-center justify-start h-10 ">
+          <div className="w-14 flex justify-center items-center ">
+            <RiListView className="w-6 h-6" />
+          </div>
+          <div className="text-base font-semibold">Бүтээгдэхүүн</div>
+        </Button>
+      </Link>
+
       <Button variant={"sipmle"} className="flex items-center justify-start h-10 ">
         <div className="w-14 flex justify-center items-center ">
           <IoMdSettings className="w-6 h-6" />
