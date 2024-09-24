@@ -51,6 +51,7 @@ export default function AddProduct() {
   const [name, setName] = useState("");
   const [addInfo, setAddInfo] = useState("");
   const [barCode, setBarCode] = useState("");
+  const [tag, setTag]=useState("");
 
   const createProduct = async () => {
     try {
@@ -60,6 +61,7 @@ export default function AddProduct() {
           name: name,
           addInformation: addInfo,
           barCode: barCode,
+          tag:tag,
         }),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
@@ -69,6 +71,7 @@ export default function AddProduct() {
         setName("");
         setAddInfo("");
         setBarCode("");
+        setTag("");
       });
     } catch (error) {
       alert("Failed to create the product. Please try again later.");
@@ -295,6 +298,8 @@ export default function AddProduct() {
                   type="email"
                   id="email"
                   placeholder="Таг нэмэх..."
+                  value={tag}
+                  onChange={(e)=>setTag(e.target.value)}
                   className="bg-[#F7F7F8] border-[#D6D8DB] w-[515px] h-[56px] pt-2"
                 />
                 <p className="text-[#5E6166] pt-2">

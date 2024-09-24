@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Header from "@/components/layout/header";
+
 import AddProduct from "@/components/addproduct";
 
 const geistSans = localFont({
@@ -33,7 +33,7 @@ export default function RootLayout({
         <div >
    
         {children}
-        <AddProduct/>
+    
 
         </div>
 
