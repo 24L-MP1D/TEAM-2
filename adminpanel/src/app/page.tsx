@@ -1,11 +1,11 @@
 import Image from "next/image";
-import Dashboard from "./dashboard/page";
+import { Products } from "@/components/products/products";
 
 export default function Home() {
   return (
 
    <div>
-    
+      <Products/>
    </div>
 
   );
