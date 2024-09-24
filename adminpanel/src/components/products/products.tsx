@@ -4,7 +4,7 @@ import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, Tabl
 import { CheckboxItem } from "@radix-ui/react-dropdown-menu";
 import { Button } from "../../../public/ui/button";
 import { Input } from "../../../public/ui/input";
-import { ChevronDown, Plus, Search, SearchCheck } from "lucide-react";
+import { ChevronDown, Pencil, Plus, Search, SearchCheck, Trash } from "lucide-react";
 
 
 export function Products() {
@@ -43,7 +43,7 @@ export function Products() {
         },
     ]
     return (
-        <Tabs defaultValue="account" className="w-[1200px]">
+        <Tabs defaultValue="products" className="w-[1200px]">
             <TabsList className="grid max-w-full grid-cols-2">
                 <TabsTrigger value="products">Бүтээгдэхүүн</TabsTrigger>
                 <TabsTrigger value="sort">Ангилал</TabsTrigger>
@@ -57,8 +57,8 @@ export function Products() {
                     </Button>
                     <Button variant="ghost" className="font-bold" >
                         Үнэ  <ChevronDown className="ml-2 w-[18px] align-items-center" />
-                        </Button>
-                    <Button variant="ghost"  className="font-bold" >Сараар <ChevronDown className="ml-2 w-[18px] align-items-center" /></Button>
+                    </Button>
+                    <Button variant="ghost" className="font-bold" >Сараар <ChevronDown className="ml-2 w-[18px] align-items-center" /></Button>
 
                 </div>
                 <Input placeholder="Бүтээгдэхүүний нэр , SKU UPC" type="search" className="flex-1" >
@@ -69,23 +69,29 @@ export function Products() {
                 <Table className="">
                     <TableHeader>
                         <TableRow className="text-center h-16">
+                            <TableHead className="text-center  font-bold">Checkbox</TableHead>
                             <TableHead className="text-center  font-bold">Бүтээгдэхүүн</TableHead>
                             <TableHead className="text-center font-bold">Ангилал</TableHead>
                             <TableHead className="text-center font-bold">Үнэ</TableHead>
                             <TableHead className="text-center font-bold">Үлдэгдэл</TableHead>
                             <TableHead className="text-center font-bold">Зарагдсан</TableHead>
                             <TableHead className="text-center font-bold">Нэмсэн огноо</TableHead>
+                            <TableHead className="text-center font-bold"> bugggg</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody >
                         {invoices.map((invoice) => (
                             <TableRow key={invoice.Үлдэгдэл}>
                                 <TableCell className="text-center h-8">{invoice.бүтээгдэхүүн}</TableCell>
-                                <TableCell>{invoice.Ангилал}</TableCell>
+                                <TableCell className="text-center">{invoice.Ангилал}</TableCell>
                                 <TableCell>{invoice.Үнэ}</TableCell>
                                 <TableCell className="text-center">{invoice.Үлдэгдэл}</TableCell>
                                 <TableCell className="text-center">{invoice.Зарагдсан}</TableCell>
                                 <TableCell className="text-center">{invoice.Нэмсэногноо}</TableCell>
+                                <TableCell className=" flex">
+                                    <Trash className="mr-4 items-center" size={16} strokeWidth={1.5} />
+                                    <Pencil className="items-center" size={16} strokeWidth={1.5} />
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
