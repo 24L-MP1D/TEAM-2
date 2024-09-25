@@ -31,7 +31,6 @@ import LeftBar from "@/components/leftBar";
 export default function AddProduct() {
   const [open, setOpen] = useState(false);
 
-
   const [name, setName] = useState("");
   const [addInfo, setAddInfo] = useState("");
   const [barCode, setBarCode] = useState("");
@@ -44,10 +43,30 @@ export default function AddProduct() {
   const [typeValue, setTypeValue] = useState("");
   const [tag, setTag] = useState("");
 
-
-
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
+
+  // Function to handle color selection
+  const handleColorSelect = (color: string) => {
+    setSelectedColors((prev) => {
+      if (prev.includes(color)) {
+        return prev.filter((c) => c !== color); // Remove if already selected
+      } else {
+        return [...prev, color]; // Add new selection
+      }
+    });
+  };
+
+  // Function to handle size selection
+  const handleSizeSelect = (size: string) => {
+    setSelectedSizes((prev) => {
+      if (prev.includes(size)) {
+        return prev.filter((s) => s !== size); // Remove if already selected
+      } else {
+        return [...prev, size]; // Add new selection
+      }
+    });
+  };
 
   // Function to add a new category to the list
   const addCategory = () => {
@@ -57,6 +76,17 @@ export default function AddProduct() {
       setCategory(""); // Clear input after adding
     }
   };
+
+  const colors = [
+    "bg-red-500",
+    "bg-blue-500",
+    "bg-green-500",
+    "bg-yellow-500",
+    "bg-purple-500",
+    "bg-black",
+    "bg-slate-500"
+  ];
+  const sizes = ["S", "M", "L", "XL", "XXL"];
 
   const createProduct = async () => {
     try {
@@ -69,8 +99,8 @@ export default function AddProduct() {
           price: price,
           qty: qty,
           category: selectedCategory,
-          typeName: typeName,
-          typeValue: typeValue,
+          color: selectedColors,
+          size: selectedSizes,
           tag: tag,
         }),
         headers: {
@@ -85,8 +115,8 @@ export default function AddProduct() {
         setQty("");
         setCategory("");
         setCategories([]);
-        setTypeName("");
-        setTypeValue("");
+        setSelectedColors([]);
+        setSelectedSizes([]);
         setTag("");
       });
     } catch (error) {
@@ -254,7 +284,7 @@ export default function AddProduct() {
                                 />
                                 {cat}
                               </CommandItem>
-                            ))}
+                            ))} 
                           </CommandGroup>
                         </CommandList>
                       </Command>
@@ -264,34 +294,68 @@ export default function AddProduct() {
               </div>
             </div>
 
-
             <div className="bg-[#FFFFFF] rounded-xl ">
-              <div className="py-6 px-6">
-                <div className="text-[#000000] font-semibold text-lg">Төрөл</div>
-                <div className="flex">
-                  <div className="text-black">Өнгө</div>
-                  <Button className="bg-[#ECEDF0] w-[32px] h-[32px] rounded-full"><Plus /></Button>
+              <div className="py-6 px-6 flex flex-col gap-6">
+                <div className="text-[#000000] font-semibold text-lg">
+                  Төрөл
+                </div>
+                <div>
+                  <div className="flex items-start gap-2">
+                    <div className="text-black pr-6">Өнгө</div>
+
+                    {colors.map((color, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleColorSelect(color)} 
+                        className={`${color} w-8 h-8 flex justify-center items-center rounded-full transition-all duration-300`}
+                      >
+                        {selectedColors.includes(color) ? (
+                          <Check className="text-white" size={16} />
+                        ) : (
+                          <Plus className="text-white" size={16} />
+                        )}
+                      </button>
+                    ))}
+                    
+                  </div>
+
+                  <div className="flex pt-2 items-center gap-2">
+                    <div className="text-black">Хэмжээ</div>
+
+                    {sizes.map((size, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleSizeSelect(size)} 
+                        className={`bg-gray-300 w-12 h-8 flex justify-center items-center rounded-full transition-all duration-300`}
+                      >
+                        {selectedSizes.includes(size) ? (
+                          <Check className="text-black" size={16} />
+                        ) : (
+                          <span className="text-black font-semibold">
+                            {size}
+                          </span>
+                        )}
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
-                <div className="flex">
-                  <div className="text-black">Хэмжээ</div>
-                  <Button className="bg-[#ECEDF0] w-[32px] h-[32px] rounded-full"><Plus /></Button>
-                </div>
-
+                <Button className="border-[#D6D8DB] bg-[#FFFFFF] py-2 px-3 text-black border-[1px] w-[118px]">
+                  Төрөл нэмэх
+                </Button>
               </div>
             </div>
 
-
             <div className="bg-[#FFFFFF] rounded-xl h-[195px]">
               <div className="pt-6 pl-6">
-                <h1 className="text-[#000000] text-lg font-semibold">Таг</h1>
+                <h1 className="text-[#000000] text-lg font-semibold pb-2">Таг</h1>
                 <Input
                   type="email"
                   id="email"
                   placeholder="Таг нэмэх..."
                   value={tag}
                   onChange={(e) => setTag(e.target.value)}
-                  className="bg-[#F7F7F8] border-[#D6D8DB] w-[515px] h-[56px] pt-2"
+                  className="bg-[#F7F7F8] border-[#D6D8DB] w-[515px] h-[56px] pt-2 text-black"
                 />
                 <p className="text-[#5E6166] pt-2">
                   Санал болгох: Гутал , Цүнх , Эмэгтэй{" "}
@@ -310,12 +374,6 @@ export default function AddProduct() {
           >
             Нийтлэх
           </Button>
-            
-
-          
-
-            
-          
         </div>
       </div>
     </div>
