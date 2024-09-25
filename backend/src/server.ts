@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 import { userRouter } from "./routes/userRouter";
 import { authRouter } from "./routes/authRouter";
 import { productRouter } from "./routes/productRoutes";
+import { categoryRouter } from "./routes/category";
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.get("/", (req, res) => {
 app.use(userRouter);
 app.use(authRouter);
 app.use(productRouter);
+app.use(categoryRouter);
 
 
 app.listen(port, () => {
