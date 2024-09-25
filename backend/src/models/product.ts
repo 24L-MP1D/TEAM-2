@@ -5,18 +5,20 @@ const productsShema=new Schema({
   name: String,
   addInformation:String,
   barCode:String,
-  categoryId: String,
-//   price: Double,
+    // images: String[],
+  price: Number,
   qty: Number,
-  thumbnails: String,
-//   images: String[],
+  category: String,
+  color: [{ type: String }],
+  size: [{type:String}],
+  tag: String,
+  // images: String[],
   coupon: String,
-//   salePercent: Double,
+  salePercent: Number,
   description: String,
   viewsCount: Number,
   createdAt: Date,
   updatedAt: Date,
 
-})
-
-export const productModel=model("productModel", productsShema)
+});
+export const productModel=model("productmodels", productsShema)
