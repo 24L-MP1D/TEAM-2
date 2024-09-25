@@ -1,7 +1,7 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Check,
   ChevronLeft,
@@ -38,13 +38,16 @@ export default function AddProduct() {
   const [qty, setQty] = useState("");
   const [category, setCategory] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [categories, setCategories] = useState<string[]>([]);
+  const [categories, setCategories] = useState<{categoryName: string, _id: string}[]>([]);
   const [typeName, setTypeName] = useState("");
   const [typeValue, setTypeValue] = useState("");
   const [tag, setTag] = useState("");
 
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
+  useEffect(() => {
+    getCategories();
+  }, []);
 
   // Function to handle color selection
   const handleColorSelect = (color: string) => {
@@ -71,6 +74,7 @@ export default function AddProduct() {
   // Function to add a new category to the list
   const addCategory = () => {
     // Ensure category is not empty or a duplicate
+    createCategory();
     if (category && !categories.includes(category)) {
       setCategories((prevCategories) => [...prevCategories, category]);
       setCategory(""); // Clear input after adding
@@ -88,7 +92,48 @@ export default function AddProduct() {
   ];
   const sizes = ["S", "M", "L", "XL", "XXL"];
 
-  const createProduct = async () => {
+  const createCategory=async()=>{
+    try{
+      fetch(`http://localhost:4000/category`,{
+        method:"POST",
+        body:JSON.stringify({
+          categoryName:category,
+
+        }),
+        headers:{
+          "Content-type":"application/json; cherset=UTF-8",
+        },
+      }).then(()=>{
+       
+        console.log("successfully created the category");
+        getCategories();
+        setCategory("");
+
+      })
+
+    }catch(error){
+      console.error("error happened during creating the category", error);
+
+    }
+
+  }
+
+  const getCategories=async()=>{
+    try{
+      fetch(`http://localhost:4000/categories`).then(res => res.json()).then(data=> {
+        console.log({data})
+        setCategories(data)
+        
+        
+      })
+
+    }catch(error){
+      console.error("Error occurred while retrieving categories:", error);
+
+    }
+  }
+
+  const createProduct = async() => {
     try {
       fetch(`http://localhost:4000/product`, {
         method: "POST",
@@ -107,18 +152,19 @@ export default function AddProduct() {
           "Content-type": "application/json; charset=UTF-8",
         },
       }).then(() => {
-        console.error("successfully created the product");
+        console.log("successfully created the product");
         setName("");
         setAddInfo("");
         setBarCode("");
         setPrice("");
         setQty("");
         setCategory("");
-        setCategories([]);
+        setSelectedCategory(""),
         setSelectedColors([]);
         setSelectedSizes([]);
         setTag("");
       });
+     
     } catch (error) {
       alert("Failed to create the product. Please try again later.");
       console.error("error happened during creating the product", error);
@@ -268,21 +314,21 @@ export default function AddProduct() {
                           <CommandGroup>
                             {categories.map((cat) => (
                               <CommandItem
-                                key={cat}
-                                onSelect={() => {
-                                  setSelectedCategory(cat);
-                                  setOpen(false);
-                                }}
+                              key={cat._id}
+                              onSelect={() => {
+                                setSelectedCategory(cat.categoryName);
+                                setOpen(false);
+                              }}
                               >
                                 <Check
                                   className={cn(
                                     "mr-2 h-4 w-4",
-                                    selectedCategory === cat
+                                    selectedCategory === cat._id
                                       ? "opacity-100"
                                       : "opacity-0"
                                   )}
                                 />
-                                {cat}
+                                {cat.categoryName}
                               </CommandItem>
                             ))} 
                           </CommandGroup>
