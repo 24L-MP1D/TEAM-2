@@ -72,14 +72,7 @@ export default function AddProduct() {
   };
 
   // Function to add a new category to the list
-  const addCategory = () => {
-    // Ensure category is not empty or a duplicate
-    createCategory();
-    if (category && !categories.includes(category)) {
-      setCategories((prevCategories) => [...prevCategories, category]);
-      setCategory(""); // Clear input after adding
-    }
-  };
+ 
 
   const colors = [
     "bg-red-500",
@@ -282,7 +275,7 @@ export default function AddProduct() {
                       className="bg-[#F7F7F8] border-[#D6D8DB] w-[515px] h-[56px] text-black"
                     />
                     <CircleCheck
-                      onClick={addCategory}
+                      onClick={createCategory}
                       className="absolute top-4 right-3 cursor-pointer"
                       color="black"
                     />
