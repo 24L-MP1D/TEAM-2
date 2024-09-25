@@ -1,6 +1,5 @@
 import { productModel } from "../models/product"
 import {Request, Response} from "express";
-
 const getProducts=async(req:Request, res:Response)=>{
     try{
         const products=await productModel.find();
@@ -13,8 +12,10 @@ const getProducts=async(req:Request, res:Response)=>{
 
 const createProduct=async(req:Request, res:Response)=>{
     try{
+
         const {name,addInformation,barCode,price,qty,category,color,size,tag,createdAt}=req.body;
         const product=await productModel.create({
+
             name,
             addInformation,
             barCode,
@@ -28,7 +29,7 @@ const createProduct=async(req:Request, res:Response)=>{
         }
         )
         res.status(201).json({message:"Successfully created the product"});
-    }catch(error){
+    }catch (error){
         res.status(400).json({error:"Error occurred while creating the product"})
 
     }
