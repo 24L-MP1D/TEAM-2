@@ -13,21 +13,40 @@ import React, { useEffect, useState } from "react";
 type Products = {
     id: number;
     name: string;
-    addInformation: string; 
-    price: number; 
+    addInformation: string;
+    price: number;
     remaining: string;
     sold: string;
     addedDate: string;
 }
 export default function Products() {
     const [products, setProducts] = useState<Products[]>([])
-     useEffect(()=> {
-       fetch('http://localhost:4000/products')
-       .then(response => response.json())
-       .then(data =>setProducts(data))
-       .catch(err => console.log(err))
+    useEffect(() => {
+        fetch('http://localhost:4000/products')
+            .then(response => response.json())
+            .then(data => setProducts(data))
+            .catch(err => console.log(err))
 
-     }, [])
+    }, [])
+
+    function handleDelete(name: string) {
+
+        const productToDelete = products.find(product => product.name !== name);
+        if(productToDelete){
+            fetch(`http://localhost:4000/products/${productToDelete.name}`,{
+                method: 'DELETE',
+            })
+            .then(response => {
+                if(response.ok){
+                    const newList = products.filter(products => products.name !==name);
+                    setProducts(newList);
+                } else { console.error('failed to delete');
+                }
+            })
+            .catch(err=> console.log(err));
+        }
+    
+
     // const productss = [
     //     {
     //         бүтээгдэхүүн: "эмэгтэй цүнх",
@@ -61,7 +80,7 @@ export default function Products() {
     //         Зарагдсан: "30",
     //         Нэмсэногноо: "2024.01.10",
     //     },
-    // ]
+    // ]\
     return (
         <div className="flex">
 
@@ -75,8 +94,8 @@ export default function Products() {
                 <Link href="/addproduct">
                     <Button variant="default" className="ml-[100px] my-8 font-bold" >
                         <Plus className="mr-2" size={16} strokeWidth={1.5} />
-                        Бүтээгдэхүүн нэмэх 
-                        </Button>
+                        Бүтээгдэхүүн нэмэх
+                    </Button>
                 </Link>
                 <div className="flex justify-between ml-[100px] my-4">
                     <div className="flex justify-space-between flex-1">
@@ -113,8 +132,12 @@ export default function Products() {
                                     <TableCell className="text-center text-black ">{products.sold}</TableCell>
                                     <TableCell className="text-center text-black ">{products.addedDate}</TableCell>
                                     <TableCell className=" flex text-black ">
-                                        <Trash className="mr-4 items-center" size={16} strokeWidth={1.5} />
-                                        <Pencil className="items-center" size={16} strokeWidth={1.5} />
+                                        <Button className="mr-3" onClick={() => handleDelete(products.name)}>
+                                            <Trash className=" items-center" size={16} strokeWidth={1.5} />
+                                        </Button>
+                                        <Button>
+                                            <Pencil className="items-center" size={16} strokeWidth={1.5} />
+                                        </Button>
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -127,4 +150,5 @@ export default function Products() {
             </Tabs>
         </div>
     )
+    }
 }
