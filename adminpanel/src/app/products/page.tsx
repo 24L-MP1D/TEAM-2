@@ -29,62 +29,25 @@ export default function Products() {
 
     }, [])
 
-    function handleDelete(name: string) {
+    function handleDelete(id: number) {
 
-        const productToDelete = products.find(product => product.name !== name);
+        const productToDelete = products.find(product => product.id === id);
         if(productToDelete){
-            fetch(`http://localhost:4000/products/${productToDelete.name}`,{
+            fetch(`http://localhost:4000/products/${id}`,{
                 method: 'DELETE',
             })
             .then(response => {
                 if(response.ok){
-                    const newList = products.filter(products => products.name !==name);
+                    const newList = products.filter(products => products.id !== id);
                     setProducts(newList);
                 } else { console.error('failed to delete');
                 }
             })
             .catch(err=> console.log(err));
         }
-    
-
-    // const productss = [
-    //     {
-    //         бүтээгдэхүүн: "эмэгтэй цүнх",
-    //         Ангилал: "Paid",
-    //         Үнэ: "$250.00",
-    //         Үлдэгдэл: "30",
-    //         Зарагдсан: "30",
-    //         Нэмсэногноо: "2024.01.10",
-    //     },
-    //     {
-    //         бүтээгдэхүүн: "гутал",
-    //         Ангилал: "Paid",
-    //         Үнэ: "$250.00",
-    //         Үлдэгдэл: "20",
-    //         Зарагдсан: "30",
-    //         Нэмсэногноо: "2024.01.10",
-    //     },
-    //     {
-    //         бүтээгдэхүүн: "INV001",
-    //         Ангилал: "Paid",
-    //         Үнэ: "$250.00",
-    //         Үлдэгдэл: "10",
-    //         Зарагдсан: "30",
-    //         Нэмсэногноо: "2024.01.10",
-    //     },
-    //     {
-    //         бүтээгдэхүүн: "INV001",
-    //         Ангилал: "Paid",
-    //         Үнэ: "$250.00",
-    //         Үлдэгдэл: "9",
-    //         Зарагдсан: "30",
-    //         Нэмсэногноо: "2024.01.10",
-    //     },
-    // ]\
+    }
     return (
         <div className="flex">
-
-
             <LeftBar />
             <Tabs defaultValue="products" className="w-[1200px] bg-white">
                 <TabsList className="grid max-w-full grid-cols-2">
@@ -151,4 +114,3 @@ export default function Products() {
         </div>
     )
     }
-}
