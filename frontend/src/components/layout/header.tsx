@@ -48,11 +48,17 @@ export default function Header() {
           <div className="flex items-center justify-center gap-8">
             <div className="flex items-center gap-[6px]">
               <Image src="/Symbol.png" alt="icon" width={24} height={24} />
-              <div className="text-sm font-normal ">ECOMMERCE</div>
+              <Link href="/">
+                <div className="text-sm font-normal ">ECOMMERCE</div>
+              </Link>
+
             </div>
-            <button className="font-normal text-sm text-[#FFFFFF] text-opacity-75">
-              Ангилал
-            </button>
+            <Link href="/category">
+              <button className="font-normal text-sm text-[#FFFFFF] text-opacity-75">
+                Ангилал
+              </button>
+            </Link>
+
           </div>
           <div className="w-[300px] h-[40px] bg-[#18181b] px-4 py-2 rounded-[20px] flex items-center gap-2">
             <CiSearch className="size-6" />
