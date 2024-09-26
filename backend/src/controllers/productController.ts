@@ -25,7 +25,7 @@ const createProduct=async(req:Request, res:Response)=>{
             color,
             size,
             tag,
-            createdAt,
+            createdAt:new Date,
         }
         )
         res.status(201).json({message:"Successfully created the product"});

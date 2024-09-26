@@ -6,7 +6,8 @@ import { userRouter } from "./routes/userRouter";
 import { authRouter } from "./routes/authRouter";
 import { productRouter } from "./routes/productRoutes";
 import { UserModel } from "./models/user";
-import mongoose from "mongoose";
+import mongoose from "mongoose";import { categoryRouter } from "./routes/category";
+
 dotenv.config();
 
 const app = express();
@@ -24,6 +25,7 @@ app.get("/", (req: any, res: { send: (arg0: { name: string; }[]) => void; }) => 
 app.use(userRouter);
 app.use(authRouter);
 app.use(productRouter);
+app.use(categoryRouter);
 
 
 app.listen(port, () => {
