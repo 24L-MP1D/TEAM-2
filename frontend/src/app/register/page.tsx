@@ -17,7 +17,7 @@ export default function RegisterPage() {
     firstName: '',
     email: '',
     password: '',
-    repassword: ''
+    rePassword: ''
   }
   const formik = useFormik({
     initialValues,
@@ -35,7 +35,7 @@ export default function RegisterPage() {
       if (!values.password) {
         error.password = "Нууц үгээ оруулна уу?"
       }
-      if (!values.repassword) {
+      if (!values.rePassword) {
         error.rePassword = "Нууц үгээ давтаж оруулна уу?"
       }
       return error;
@@ -45,7 +45,7 @@ export default function RegisterPage() {
   return (
     <div className="container mx-auto login-box flex  align-items-center w-[334px] mt-20">
       <form onSubmit={formik.handleSubmit}>
-        <div className="w-[334px] h-[446px]">
+        <div className="w-[334px] py-10">
           <h1 className="mx-center font-bold mb-5 text-center">Бүртгүүлэх</h1>
           <Input
             type="text"
@@ -79,10 +79,10 @@ export default function RegisterPage() {
             type="password"
             placeholder="Нууц үг давтах"
             className="rounded-sm w-full mb-5"
-            value={formik.values.repassword}
+            value={formik.values.rePassword}
             onChange={formik.handleChange}
          />
-          {formik.errors.repassword ? <span className="text-red-500 text-sm text-start my-2">Нууц үгээ давтаж оруулна уу!</span> : null}
+          {formik.errors.rePassword ? <span className="text-red-500 text-sm text-start my-2">Нууц үгээ давтаж оруулна уу!</span> : null}
           <Button type="submit" variant="def2" className="bg-blue-500 w-full text-white mt-3">
             Үүсгэх
           </Button>
