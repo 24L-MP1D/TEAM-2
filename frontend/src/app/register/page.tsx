@@ -50,7 +50,7 @@ export default function RegisterPage() {
           <Input
             type="text"
             placeholder="Нэр"
-            className="rounded-sm w-full"
+            className="rounded-sm w-full my-2"
             id="firstName"
             value={formik.values.firstName}
             onChange={formik.handleChange}
@@ -60,7 +60,7 @@ export default function RegisterPage() {
             type="email"
             id="email"
             placeholder="И-мэйл давтах"
-            className="rounded-sm w-full mt-5 mb-5"
+            className="rounded-sm w-full mt-5 my-2"
             value={formik.values.email}
             onChange={formik.handleChange}
           />
@@ -69,7 +69,7 @@ export default function RegisterPage() {
             id="password"
             type="password"
             placeholder="Нууц үг"
-            className="rounded-sm w-full mb-5"
+            className="rounded-sm w-full my-2"
             value={formik.values.password}
             onChange={formik.handleChange}
          />
@@ -78,11 +78,11 @@ export default function RegisterPage() {
             id="repassword"
             type="password"
             placeholder="Нууц үг давтах"
-            className="rounded-sm w-full mb-5"
+            className="rounded-sm w-full my-2"
             value={formik.values.rePassword}
             onChange={formik.handleChange}
          />
-          {formik.errors.rePassword ? <span className="text-red-500 text-sm text-start my-2">Нууц үгээ давтаж оруулна уу!</span> : null}
+          {formik.errors.rePassword ? <span className="text-red-500 text-sm text-start ">Нууц үгээ давтаж оруулна уу!</span> : null}
           <Button type="submit" variant="def2" className="bg-blue-500 w-full text-white mt-3">
             Үүсгэх
           </Button>

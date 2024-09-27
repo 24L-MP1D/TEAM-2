@@ -45,7 +45,7 @@ export default function LoginPage() {
                     <Input
                         type="text"
                         placeholder="И-мэйл хаяг"
-                        className="rounded-sm w-full my-5   "
+                        className="rounded-sm w-full my-2   "
                         id="email"
                         value={formik.values.email}
                         onChange={formik.handleChange}
@@ -55,7 +55,7 @@ export default function LoginPage() {
                         id="password"
                         type="password"
                         placeholder="Нууц үг"
-                        className="rounded-sm w-full mb-5"
+                        className="rounded-sm w-full my-2"
                         value={formik.values.password}
                         onChange={formik.handleChange}
                     />
@@ -67,10 +67,10 @@ export default function LoginPage() {
                         className="rounded-sm w-full my-2"
                         onChange={formik.handleChange}
                     />
-                    {formik.errors.rePassword ? <span className="text-red-500 text-sm text-start my-2">Нууц үгээ давтаж оруулна уу</span> : null}
+                    {formik.errors.rePassword ? <span className="text-red-500 text-sm text-start ">Нууц үгээ давтаж оруулна уу</span> : null}
 
-                    <div className="text-center">
-                        <Link href="/forgotPass" className="text-slate-300 text-align-center text-center" type="forgetpassword" >Нууц үг мартсан</Link>
+                    <div className="text-center mt-4">
+                        <Link href="/forgotPass" className="text-slate-300 text-align-center text-center mt-2" type="forgetpassword" >Нууц үг мартсан</Link>
                     </div>
                     <Button type="submit" variant="def2" className="bg-blue-500 w-full text-white mt-3">
                         Нэвтрэх
