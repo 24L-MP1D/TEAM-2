@@ -28,27 +28,20 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import LeftBar from "@/components/leftBar";
 import Link from "next/link";
-import { Formik, useFormik } from "Formik";
+import { useFormik } from "Formik";
 // import {yup} from "yup";
 import * as yup from "yup";
+import AddPicture from "@/components/addPicture";
+import Image from "next/image";
 
 export default function AddProduct() {
   const [open, setOpen] = useState(false);
-
-  const [name, setName] = useState("");
-  const [addInfo, setAddInfo] = useState("");
-  const [barCode, setBarCode] = useState("");
-  const [price, setPrice] = useState("");
-  const [qty, setQty] = useState("");
   const [category, setCategory] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [categories, setCategories] = useState<
     { categoryName: string; _id: string }[]
   >([]);
-  const [selectedColors, setSelectedColors] = useState<string[]>([]);
-  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
-
-  const [tag, setTag] = useState("");
+  // const [urls, setUrls] = useState<string[]>([]);
 
   useEffect(() => {
     getCategories();
@@ -65,6 +58,15 @@ export default function AddProduct() {
       .min(6, "Баркод 6 тэмдэгтээс их байх шаардлагатай!")
       .required("Бүтээгдэхүүний баркод оруулна уу!"),
 
+    uploadedPhotos: yup
+      .array()
+      .test(
+        "notEmpty",
+        "Зураг оруулна уу!",
+        (value) => value && value.length > 0
+      )
+      .required("Зураг оруулна уу!"),
+
     price: yup
       .number()
       .min(1, "Үнэ 0-ээс их байх шаардлагатай!")
@@ -75,26 +77,57 @@ export default function AddProduct() {
       .min(1, "Үлдэгдэл тоо ширхэг 0-ээс их байх шаардлагатай!")
       .required("Үлдэгдэл тоо ширхэг оруулна уу!"),
 
-    category: yup.string().required("Ангилал сонгоно уу!"),
+    selectedCategory: yup.string().required("Ангилал сонгоно уу!"),
 
-    selectedColors: yup.array().of(yup.string()).required("Өнгө сонгоно уу!"),
+    selectedColors: yup
+      .array()
+      .test(
+        "notEmpty",
+        "Өнгө сонгоно уу!",
+        (value) => value && value.length > 0
+      )
+      .required("Өнгө сонгоно уу!"),
 
-    selectedSizes: yup.array().of(yup.string()).required("Хэмжээ сонгоно уу!"),
+    selectedSizes: yup
+      .array()
+      .test(
+        "notEmpty",
+        "Хэмжээ сонгоно уу!",
+        (value) => value && value.length > 0
+      )
+      .required("Хэмжээ сонгоно уу!"),
 
     tag: yup
       .string()
       .min(2, "Таг 2 тэмдэгтээс их байх шаардлагатай!")
       .required("Таг оруулна уу!"),
   });
+  interface formValues {
+    name: string;
+    addInfo: string;
+    barCode: string;
+    uploadedPhotos: string[];
+    price: number;
+    qty: number;
+    category: string;
+    categories: Category[];
+    selectedCategory: string;
+    selectedColors: string[];
+    selectedSizes: string[];
+    tag: string;
+  }
 
-  const Formik = useFormik({
+  const Formik = useFormik<formValues>({
     initialValues: {
       name: "",
       addInfo: "",
       barCode: "",
+      uploadedPhotos: [],
       price: 0,
       qty: 0,
       category: "",
+      categories: [],
+      selectedCategory: "",
       selectedColors: [],
       selectedSizes: [],
       tag: "",
@@ -105,31 +138,50 @@ export default function AddProduct() {
     validationSchema,
   });
 
+  interface Category {
+    categoryName: string;
+    _id: string;
+  }
+
   // Function to handle color selection
   const handleColorSelect = (color: string) => {
-    setSelectedColors((prev) => {
-      if (prev.includes(color)) {
-        return prev.filter((c) => c !== color); // Remove if already selected
-      } else {
-        return [...prev, color]; // Add new selection
-      }
-    });
+    console.log({ color });
+    const prev: string[] = Formik.values.selectedColors;
+
+    console.log({ prev });
+
+    let newColors: string[];
+    if (prev.includes(color)) {
+      newColors = prev.filter((c) => c !== color); // Remove if already selected
+    } else {
+      newColors = [...prev, color]; // Add new selection
+    }
+
+    Formik.setFieldValue("selectedColors", newColors);
   };
 
   // Function to handle size selection
   const handleSizeSelect = (size: string) => {
-    setSelectedSizes((prev) => {
-      if (prev.includes(size)) {
-        return prev.filter((s) => s !== size); // Remove if already selected
-      } else {
-        return [...prev, size]; // Add new selection
-      }
-    });
+    const prev: string[] = Formik.values.selectedSizes;
+    let newSizes: string[];
+    if (prev.includes(size)) {
+      newSizes = prev.filter((c) => c !== size);
+    } else {
+      newSizes = [...prev, size];
+    }
+    Formik.setFieldValue("selectedSizes", newSizes);
+  };
+
+  const handleUrl = (img: string) => {
+    const prev: string[] = Formik.values.uploadedPhotos;
+    let newUploads: string[];
+    newUploads = [...prev, img];
+    Formik.setFieldValue("uploadedPhotos", newUploads);
   };
 
   // Function to add a new category to the list
 
-  const colors = [
+  const colors: string[] = [
     "bg-red-500",
     "bg-blue-500",
     "bg-green-500",
@@ -138,7 +190,7 @@ export default function AddProduct() {
     "bg-black",
     "bg-slate-500",
   ];
-  const sizes = ["S", "M", "L", "XL", "XXL"];
+  const sizes: string[] = ["S", "M", "L", "XL", "XXL"];
 
   const createCategory = async () => {
     try {
@@ -173,18 +225,6 @@ export default function AddProduct() {
     }
   };
 
-  interface formValues {
-    name: string;
-    addInfo: string;
-    barCode: string;
-    price: number;
-    qty: number;
-    category: string;
-    selectedColors: string[];
-    selectedSizes: string[];
-    tag: string;
-  }
-
   const createProduct = async (values: formValues) => {
     try {
       fetch(`http://localhost:4000/product`, {
@@ -195,15 +235,6 @@ export default function AddProduct() {
         },
       }).then(() => {
         console.log("successfully created the product");
-        setName("");
-        setAddInfo("");
-        setBarCode("");
-        setPrice("");
-        setQty("");
-        setCategory("");
-        setSelectedCategory(""), setSelectedColors([]);
-        setSelectedSizes([]);
-        setTag("");
       });
     } catch (error) {
       alert("Failed to create the product. Please try again later.");
@@ -295,6 +326,22 @@ export default function AddProduct() {
                   <h2 className="text-[#000000] font-semibold text-base">
                     Бүтээгдэхүүний зураг
                   </h2>
+                  <div className="flex gap-3 pt-4">
+                    {Formik.values.uploadedPhotos.map((url, _id) => (
+                      <Image
+                        key={_id}
+                        src={url}
+                        width={125}
+                        height={125}
+                        alt={`Image-${_id}`}
+                        className="w-[125px] h-[125px] rounded-md"
+                      />
+                    ))}
+                    <AddPicture onChange={handleUrl} />
+                  </div>
+                  <span className="text-red-500 text-sm text-start">
+                        {Formik.errors.uploadedPhotos}
+                      </span>
                 </div>
               </div>
 
@@ -342,7 +389,7 @@ export default function AddProduct() {
             </div>
 
             <div className="flex flex-col gap-6">
-              <div className="bg-[#FFFFFF] rounded-xl h-[232px]">
+              <div className="bg-[#FFFFFF] rounded-xl ">
                 <div className="py-6 px-6">
                   <div className="flex flex-col gap-2">
                     <Label className="text-[#121316] font-semibold text-sm">
@@ -353,8 +400,8 @@ export default function AddProduct() {
                         type="text"
                         name="category"
                         placeholder="нэмэх"
-                        value={Formik.values.category}
-                        onChange={Formik.handleChange}
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
                         className="bg-[#F7F7F8] border-[#D6D8DB] w-[515px] h-[56px] text-black"
                       />
                       <CircleCheck
@@ -390,8 +437,13 @@ export default function AddProduct() {
                             <CommandGroup>
                               {categories.map((cat) => (
                                 <CommandItem
+                                  value={cat._id}
                                   key={cat._id}
                                   onSelect={() => {
+                                    Formik.setFieldValue(
+                                      "selectedCategory",
+                                      cat.categoryName
+                                    );
                                     setSelectedCategory(cat.categoryName);
                                     setOpen(false);
                                   }}
@@ -412,6 +464,9 @@ export default function AddProduct() {
                         </Command>
                       </PopoverContent>
                     </Popover>
+                    <span className="text-red-500 text-sm text-start pl-4">
+                      {Formik.errors.selectedCategory}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -422,28 +477,27 @@ export default function AddProduct() {
                     Төрөл
                   </div>
                   <div>
-                    <div className="flex items-start gap-2">
+                    <div className="flex items-center gap-2">
                       <div className="text-black pr-6">Өнгө</div>
 
                       {colors.map((color, index) => (
                         <button
                           key={index}
-                          onClick={Formik.handleChange}
+                          type="button"
+                          onClick={() => handleColorSelect(color)}
                           className={`${color} w-8 h-8 flex justify-center items-center rounded-full transition-all duration-300`}
                         >
-                          {selectedColors.includes(color) ? (
+                          {Formik.values.selectedColors.includes(color) ? (
                             <Check className="text-white" size={16} />
                           ) : (
                             <Plus className="text-white" size={16} />
                           )}
                         </button>
                       ))}
-                    </div>
-                    {
-                      <span className="text-red-500 text-sm text-start">
-                        {Formik.errors.selectedSizes}
+                      <span className="text-red-500 text-sm text-start pl-4">
+                        {Formik.errors.selectedColors}
                       </span>
-                    }
+                    </div>
 
                     <div className="flex pt-2 items-center gap-2">
                       <div className="text-black">Хэмжээ</div>
@@ -451,10 +505,11 @@ export default function AddProduct() {
                       {sizes.map((size, index) => (
                         <button
                           key={index}
-                          onClick={Formik.handleChange}
+                          type="button"
+                          onClick={() => handleSizeSelect(size)}
                           className={`bg-gray-300 w-12 h-8 flex justify-center items-center rounded-full transition-all duration-300`}
                         >
-                          {selectedSizes.includes(size) ? (
+                          {Formik.values.selectedSizes.includes(size) ? (
                             <Check className="text-black" size={16} />
                           ) : (
                             <span className="text-black font-semibold">
@@ -463,12 +518,10 @@ export default function AddProduct() {
                           )}
                         </button>
                       ))}
-                    </div>
-                    {
-                      <span className="text-red-500 text-sm text-start">
+                      <span className="text-red-500 text-sm pl-4">
                         {Formik.errors.selectedSizes}
                       </span>
-                    }
+                    </div>
                   </div>
 
                   <Button className="border-[#D6D8DB] bg-[#FFFFFF] py-2 px-3 text-black border-[1px] w-[118px]">
@@ -483,7 +536,7 @@ export default function AddProduct() {
                     Таг
                   </h1>
                   <Input
-                    type="email"
+                    type="text"
                     id="email"
                     name="tag"
                     placeholder="Таг нэмэх..."
