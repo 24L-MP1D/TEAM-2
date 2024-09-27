@@ -31,18 +31,17 @@ import Link from "next/link";
 import { useFormik } from "Formik";
 // import {yup} from "yup";
 import * as yup from "yup";
-
+import AddPicture from "@/components/addPicture";
+import Image from "next/image";
 
 export default function AddProduct() {
   const [open, setOpen] = useState(false);
-
   const [category, setCategory] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [categories, setCategories] = useState<
     { categoryName: string; _id: string }[]
   >([]);
-
-  
+  // const [urls, setUrls] = useState<string[]>([]);
 
   useEffect(() => {
     getCategories();
@@ -58,6 +57,15 @@ export default function AddProduct() {
       .string()
       .min(6, "Баркод 6 тэмдэгтээс их байх шаардлагатай!")
       .required("Бүтээгдэхүүний баркод оруулна уу!"),
+
+    uploadedPhotos: yup
+      .array()
+      .test(
+        "notEmpty",
+        "Зураг оруулна уу!",
+        (value) => value && value.length > 0
+      )
+      .required("Зураг оруулна уу!"),
 
     price: yup
       .number()
@@ -98,6 +106,7 @@ export default function AddProduct() {
     name: string;
     addInfo: string;
     barCode: string;
+    uploadedPhotos: string[];
     price: number;
     qty: number;
     category: string;
@@ -113,6 +122,7 @@ export default function AddProduct() {
       name: "",
       addInfo: "",
       barCode: "",
+      uploadedPhotos: [],
       price: 0,
       qty: 0,
       category: "",
@@ -162,6 +172,13 @@ export default function AddProduct() {
     Formik.setFieldValue("selectedSizes", newSizes);
   };
 
+  const handleUrl = (img: string) => {
+    const prev: string[] = Formik.values.uploadedPhotos;
+    let newUploads: string[];
+    newUploads = [...prev, img];
+    Formik.setFieldValue("uploadedPhotos", newUploads);
+  };
+
   // Function to add a new category to the list
 
   const colors: string[] = [
@@ -207,8 +224,6 @@ export default function AddProduct() {
       console.error("Error occurred while retrieving categories:", error);
     }
   };
-
-
 
   const createProduct = async (values: formValues) => {
     try {
@@ -311,6 +326,22 @@ export default function AddProduct() {
                   <h2 className="text-[#000000] font-semibold text-base">
                     Бүтээгдэхүүний зураг
                   </h2>
+                  <div className="flex gap-3 pt-4">
+                    {Formik.values.uploadedPhotos.map((url, _id) => (
+                      <Image
+                        key={_id}
+                        src={url}
+                        width={125}
+                        height={125}
+                        alt={`Image-${_id}`}
+                        className="w-[125px] h-[125px] rounded-md"
+                      />
+                    ))}
+                    <AddPicture onChange={handleUrl} />
+                  </div>
+                  <span className="text-red-500 text-sm text-start">
+                        {Formik.errors.uploadedPhotos}
+                      </span>
                 </div>
               </div>
 
@@ -406,9 +437,13 @@ export default function AddProduct() {
                             <CommandGroup>
                               {categories.map((cat) => (
                                 <CommandItem
-                                value={cat._id}
+                                  value={cat._id}
                                   key={cat._id}
                                   onSelect={() => {
+                                    Formik.setFieldValue(
+                                      "selectedCategory",
+                                      cat.categoryName
+                                    );
                                     setSelectedCategory(cat.categoryName);
                                     setOpen(false);
                                   }}
@@ -430,8 +465,8 @@ export default function AddProduct() {
                       </PopoverContent>
                     </Popover>
                     <span className="text-red-500 text-sm text-start pl-4">
-                        {Formik.errors.selectedCategory}
-                      </span>
+                      {Formik.errors.selectedCategory}
+                    </span>
                   </div>
                 </div>
               </div>
