@@ -7,6 +7,7 @@ import { authRouter } from "./routes/authRouter";
 import { productRouter } from "./routes/productRoutes";
 import { UserModel } from "./models/user";
 import mongoose from "mongoose";import { categoryRouter } from "./routes/category";
+import { uploadRouter } from "./routes/uploadpictureRouter";
 
 dotenv.config();
 
@@ -18,14 +19,12 @@ const port = 4000;
 
 connectDb();
 
-app.get("/", (req: any, res: { send: (arg0: { name: string; }[]) => void; }) => {
-  res.send([{ name: "naraa" }]);
-});
 
 app.use(userRouter);
 app.use(authRouter);
 app.use(productRouter);
 app.use(categoryRouter);
+app.use(uploadRouter);
 
 
 app.listen(port, () => {
