@@ -68,5 +68,15 @@ const deleteProduct=async(req:Request, res:Response)=>{
 
     }
 }
+const getProductsByCategory = async (req: Request, res: Response) => {
+    const { categoryId } = req.params;
+    try {
+        const products = await productModel.find({ category: categoryId }); // Adjust as per your schema
+        res.status(200).json(products);
+    } catch (error) {
+        res.status(400).json({ error: "Error occurred while fetching products" });
+    }
+};
 
-export{getProducts, createProduct,updateProduct,deleteProduct};
+
+export{getProducts, createProduct,updateProduct,deleteProduct, getProductsByCategory};
