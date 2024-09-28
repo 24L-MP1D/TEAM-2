@@ -4,6 +4,7 @@ import { Heart } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [savedProducts, setSavedProducts] = useState<Set<string>>(new Set());

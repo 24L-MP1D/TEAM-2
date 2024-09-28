@@ -3,7 +3,12 @@ import { Heart } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-
+interface Products {
+  id: string;
+  name: string;
+  size: string; 
+  
+}
 export default function CategoryList() {
   const [products, setProducts] = useState<Product[]>([]);
   const [savedProducts, setSavedProducts] = useState<Set<string>>(new Set());
@@ -34,9 +39,24 @@ export default function CategoryList() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/products');
+        if (!response.ok) throw new Error("Failed to fetch products");
+        const data: Products = await response.json();
+        setProducts(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
-    <div className="flex gap-5 pt-[52px] justify-between">
-      <div className="grid grid-cols-3 gap-x-5 gap-y-12 overflow-hidden ">
+    <div className="flex gap-5 pt-[52px] justify-between mx-auto ">
+      <div className="grid lg:grid-cols-3 gap-x-5 gap-y-12 overflow-hidden sm:grid-cols-1 md:grid-cols-2 ">
         {products.slice(1).map((product, index) => (
           <div
             key={product._id}
@@ -58,7 +78,7 @@ export default function CategoryList() {
               />
             </div>
             <p className="text-[#000000] text-base font-normal pt-2">
-              {product.description}
+              {product.name}
             </p>
             <p className="text-[#000000] text-base font-bold pt-1">
               {product.price} ₮

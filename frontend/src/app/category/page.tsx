@@ -5,18 +5,20 @@ import { Heart } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
+import ProductDetails from "../productdetails/page";
 import CategoryList from "@/components/product/productList";
+
 
 // Define types for products and categories (update them as necessary)
 interface Product {
   id: string;
-  name: string;
-  size?: string; // Optional if not all products have sizes
+  CategoryName: string;
+  size: string; // Optional if not all products have sizes
 }
 
 interface Category {
   id: string;
-  CategoryName: string; // Change this according to your actual data structure
+  categoryName: string; // Change this according to your actual data structure
 }
 
 export default function Category() {
@@ -51,16 +53,20 @@ export default function Category() {
     fetchCategories();
   }, []);
 
+  const uniqueCategories = categories.filter((category, index, self) =>
+    index === self.findIndex((c) => c.categoryName === category.categoryName)
+  );
+
   return (
     <div className="flex gap-5 pt-[52px] justify-between">
       <div>
         <div className="text-[#000000] text-base font-bold">Ангилал</div>
-        {categories.map((category, index) => (
+        {uniqueCategories.map((category) => (
           <div className="flex items-center space-x-2 pt-4" key={category.id}>
             <Checkbox id={`category-${category.id}`} />
-            {/* <label className="text-[#09090B] font-medium text-sm"> */}
-              {category.CategoryName}
-            {/* </label> */}
+            <label className="text-[#09090B] font-medium text-sm">
+              {category.categoryName}
+            </label>
           </div>
         ))}
 
@@ -75,7 +81,8 @@ export default function Category() {
         ))}
       </div>
 
-      <CategoryList />
+        <CategoryList/>
+  {/* <ProductDetails/> */}
     </div>
   );
 }
