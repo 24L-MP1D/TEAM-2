@@ -13,17 +13,18 @@ const getProducts=async(req:Request, res:Response)=>{
 const createProduct=async(req:Request, res:Response)=>{
     try{
 
-        const {name,addInformation,barCode,price,qty,category,color,size,tag,createdAt}=req.body;
+        const {name,addInformation,barCode, uploadedPhotos,price,qty,category,selectedColors,selectedSizes,tag,createdAt}=req.body;
         const product=await productModel.create({
 
             name,
             addInformation,
             barCode,
+            uploadedPhotos,
             price,
             qty,
             category,
-            color,
-            size,
+            selectedColors,
+            selectedSizes,
             tag,
             createdAt:new Date,
         }
@@ -38,16 +39,17 @@ const createProduct=async(req:Request, res:Response)=>{
 const updateProduct=async(req:Request, res:Response)=>{
     try{
         const{id}=req.params;
-        const{name,addInformation,barCode,price,qty,category,color,size,tag,createdAt}=req.body;
+        const{name,addInformation,barCode, uploadedPhotos,price,qty,category,selectedColors,selectedSizes,tag,createdAt}=req.body;
         const product=await productModel.findByIdAndUpdate(id,{
             name,
             addInformation,
             barCode,
+            uploadedPhotos,
             price,
             qty,
             category,
-            color,
-            size,
+            selectedColors,
+            selectedSizes,
             tag,
             createdAt
         })
