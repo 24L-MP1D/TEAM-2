@@ -133,7 +133,10 @@ export default function AddProduct() {
       tag: "",
     },
     onSubmit: (values) => {
-      createProduct(values);
+      createProduct( 
+        values,
+       
+      );
     },
     validationSchema,
   });
@@ -227,9 +230,10 @@ export default function AddProduct() {
 
   const createProduct = async (values: formValues) => {
     try {
+      const productData = { ...values, category: selectedCategory  };
       fetch(`http://localhost:4000/product`, {
         method: "POST",
-        body: JSON.stringify(values),
+        body: JSON.stringify(productData),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
         },
@@ -339,7 +343,7 @@ export default function AddProduct() {
                     ))}
                     <AddPicture onChange={handleUrl} />
                   </div>
-                  <span className="text-red-500 text-sm text-start">
+                  <span className="text-red-500 text-sm text-start pl-20">
                         {Formik.errors.uploadedPhotos}
                       </span>
                 </div>
@@ -352,7 +356,7 @@ export default function AddProduct() {
                       Үндсэн үнэ
                     </Label>
                     <Input
-                      type="text"
+                      type="number"
                       name="price"
                       placeholder="Үндсэн үнэ"
                       value={Formik.values.price}
@@ -371,7 +375,7 @@ export default function AddProduct() {
                       Үлдэгдэл тоо ширхэг
                     </Label>
                     <Input
-                      type="text"
+                      type="number"
                       name="qty"
                       placeholder="Үлдэгдэл тоо ширхэг"
                       value={Formik.values.qty}
