@@ -1,6 +1,12 @@
 import { Request, Response } from "express";
 import { categoryModel } from "../models/category"
 
+
+// const categories =[ 
+//     {
+//     categoryName : 
+// }
+// ]
 const getCategories=async(req:Request, res:Response)=>{
     try{
         const categories=await categoryModel.find();
@@ -10,10 +16,9 @@ const getCategories=async(req:Request, res:Response)=>{
 
     }
 }
-
 const createCategory=async(req:Request, res:Response)=>{
     try{
-        const {categoryName}=req.body;
+        const {categoryName}=req.query;
         await categoryModel.create({
             categoryName
         });
@@ -24,8 +29,8 @@ const createCategory=async(req:Request, res:Response)=>{
 }
 const updateCategory=async(req:Request, res:Response)=>{
     try{
-        const {id}=req.params;
-        const {categoryName}=req.body;
+        const {id}=req.query;
+        const {categoryName}=req.query;
         await categoryModel.findByIdAndUpdate(id,{
             categoryName
         })
@@ -45,4 +50,4 @@ const deleteCategory=async(req:Request, res:Response)=>{
         res.status(400).json({error:"error happened during deleting the category"})
     }
 }
-export {getCategories,createCategory,updateCategory,deleteCategory};
+export {getCategories,createCategory, deleteCategory, updateCategory};

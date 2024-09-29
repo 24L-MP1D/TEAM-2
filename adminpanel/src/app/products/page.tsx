@@ -11,23 +11,25 @@ import LeftBar from "@/components/leftBar";
 import React, { useEffect, useState } from "react";
 
 type Products = {
-    id: number;
-    name: string;
-    addInformation: string; 
-    price: number; 
+    categoty: string;
+    name: string 
+    addInformation: string;
+    price: number;
     remaining: string;
     sold: string;
     addedDate: string;
+    size: string | number; 
+    
 }
 export default function Products() {
     const [products, setProducts] = useState<Products[]>([])
-     useEffect(()=> {
-       fetch('http://localhost:4000/products')
-       .then(response => response.json())
-       .then(data =>setProducts(data))
-       .catch(err => console.log(err))
+    useEffect(() => {
+        fetch('http://localhost:4000/products')
+            .then(response => response.json())
+            .then(data => setProducts(data))
+            .catch(err => console.log(err))
 
-     }, [])
+    }, [])
     // const productss = [
     //     {
     //         бүтээгдэхүүн: "эмэгтэй цүнх",
@@ -64,8 +66,6 @@ export default function Products() {
     // ]
     return (
         <div className="flex">
-
-
             <LeftBar />
             <Tabs defaultValue="products" className="w-[1200px] bg-white">
                 <TabsList className="grid max-w-full grid-cols-2">
@@ -75,8 +75,8 @@ export default function Products() {
                 <Link href="/addproduct">
                     <Button variant="default" className="ml-[100px] my-8 font-bold" >
                         <Plus className="mr-2" size={16} strokeWidth={1.5} />
-                        Бүтээгдэхүүн нэмэх 
-                        </Button>
+                        Бүтээгдэхүүн нэмэх
+                    </Button>
                 </Link>
                 <div className="flex justify-between ml-[100px] my-4">
                     <div className="flex justify-space-between flex-1">
