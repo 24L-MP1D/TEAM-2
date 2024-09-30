@@ -4,15 +4,24 @@ const getProducts=async(req:Request, res:Response)=>{
     try{
         const products=await productModel.find();
         res.send(products);
+    }catch(error){
+        res.status(400).json({error:"error happened during finding the products"})
+    }
+}
 
+const getProduct=async(req:Request, res:Response)=>{
+    try{
+        const {id}=req.params;
+        const product=await productModel.findById(id);
+        res.send(product);
     }catch(error){
         res.status(400).json({error:"error happened during finding the product"})
+
     }
 }
 
 const createProduct=async(req:Request, res:Response)=>{
     try{
-
         const {name,addInformation,barCode, uploadedPhotos,price,qty,category,selectedColors,selectedSizes,tag,createdAt}=req.body;
         const product=await productModel.create({
 
@@ -59,17 +68,22 @@ const updateProduct=async(req:Request, res:Response)=>{
     }
 }
 
+
 const deleteProduct=async(req:Request, res:Response)=>{
+  
     try{
         const{id}=req.params;
         const product=await productModel.findByIdAndDelete({_id:id});
-        res.status(204).json({message :"successfully deleted the product"});
+        console.log(id)
+        res.status(200).json({message :"successfully deleted the product"});
 
     }catch(error){
         res.status(400).json({error:"error happened during deleting the product"})
 
     }
 }
+
+
 const getProductsByCategory = async (req: Request, res: Response) => {
     const { categoryId } = req.params;
     try {
@@ -81,4 +95,4 @@ const getProductsByCategory = async (req: Request, res: Response) => {
 };
 
 
-export{getProducts, createProduct,updateProduct,deleteProduct, getProductsByCategory};
+export{getProducts, getProduct, createProduct,updateProduct,deleteProduct, getProductsByCategory};

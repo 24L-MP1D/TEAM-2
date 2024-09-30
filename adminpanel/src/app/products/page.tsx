@@ -30,8 +30,11 @@ import LeftBar from "@/components/leftBar";
 import React, { useEffect, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import Image from "next/image";
+import AddProduct from "../addproduct/page";
+import { useSearchParams } from "next/navigation";
 
 interface Products {
+  _id:string;
   name: string;
   barCode: string;
   uploadedPhotos: string[];
@@ -46,7 +49,9 @@ const formatDateISO = (createdAt: string) => {
   return date.toISOString().slice(0, 10);
 };
 
-export default function Products() {
+
+
+export default function Products(id:string) {
   const [products, setProducts] = useState<Products[]>([]);
   useEffect(() => {
     fetch("http://localhost:4000/products")
@@ -54,6 +59,23 @@ export default function Products() {
       .then((data) => setProducts(data))
       .catch((err) => console.log(err));
   }, []);
+
+    const deleteProduct=(id:string)=>{
+      
+      console.log("deleting product with id:" , id);
+    fetch(`http://localhost:4000/product/${id}`,{
+      method:"DELETE"
+    }).then((res)=>{
+      console.log(res);
+      if(res.status===200){
+        setProducts(products.filter((product)=>product._id !==id));
+        console.log("Successfully deleted the product");
+      }else{
+        console.log("error in deleting")
+      }
+
+    })
+  }
 
   return (
     <div className="flex ">
@@ -150,45 +172,68 @@ export default function Products() {
               </TableRow>
             </TableHeader>
             <TableBody className="bg-[#FFFFFF]">
-              {products.map((products) => (
+              {products.map((product) => (
+                
                 <TableRow className="text-black ">
                   <TableCell className="text-center h-8 text-pink ">
                     <Checkbox id="terms1" />
                   </TableCell>
                   <TableCell className="text-center h-8 text-pink ">
                     <div className="flex gap-3 ">
-                        <Image alt="img" src={products.uploadedPhotos[0]} width={40} height={40} className="w-10 h-10 rounded-full object-cover"/>
+                      <Image
+                        alt="img"
+                        src={product.uploadedPhotos[0]}
+                        width={40}
+                        height={40}
+                        className="w-10 h-10 rounded-full object-cover"
+                      />
                       <div>
-                        <div className="text-start text-[#121316] font-semibold text-sm">{products.name}</div>
-                        <div className="pt-0.5 text-[#5E6166] text-xs font-normal">{products.barCode}</div>
+                        <div className="text-start text-[#121316] font-semibold text-sm w-[57px] h-[16px] overflow-hidden" >
+                          {product.name}
+                          
+                        </div>
+                        <div className="pt-0.5 text-[#5E6166] text-xs font-normal">
+                          {product.barCode}
+                        </div>
                       </div>
                     </div>
                   </TableCell>
                   <TableCell className="text-center text-black ">
-                    {products.category}
+                    {product.category}
                   </TableCell>
-                  <TableCell>{products.price}</TableCell>
+                  <TableCell>{product.price}</TableCell>
                   <TableCell className="text-center text-black ">
-                    {products.qty}
-                  </TableCell>
-                  <TableCell className="text-center text-black ">
-                    {products.sold}
+                    {product.qty}
                   </TableCell>
                   <TableCell className="text-center text-black ">
-                    {formatDateISO(products.createdAt)}
+                    {product.sold}
+                  </TableCell>
+                  <TableCell className="text-center text-black ">
+                    {formatDateISO(product.createdAt)}
                   </TableCell>
 
                   <TableCell className=" flex text-black ">
-                    <Trash
+                 
+                  <Trash
                       className="mr-4 items-center"
                       size={16}
                       strokeWidth={1.5}
+                      onClick={()=>{
+                        console.log("deleted", product._id);
+                        deleteProduct(product._id)}}
                     />
-                    <Pencil
-                      className="items-center"
-                      size={16}
-                      strokeWidth={1.5}
-                    />
+                  
+                    
+                  
+                   
+                    <Link href={`/addproduct?id=${product._id}`}>
+                      <Pencil
+                        className="items-center"
+                        size={16}
+                        strokeWidth={1.5}
+                      
+                      />
+                    </Link>
                   </TableCell>
                 </TableRow>
               ))}
