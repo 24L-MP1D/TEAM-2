@@ -195,9 +195,11 @@ export default function AddProduct() {
   ];
   const sizes: string[] = ["S", "M", "L", "XL", "XXL"];
 
-  const createCategory = async () => {
+  const createCategory =  () => {
+
+   
     try {
-      fetch(`http://localhost:4000/category`, {
+    fetch(`http://localhost:4000/category`, {
         method: "POST",
         body: JSON.stringify({
           categoryName: category,
@@ -220,7 +222,7 @@ export default function AddProduct() {
       fetch(`http://localhost:4000/categories`)
         .then((res) => res.json())
         .then((data) => {
-          console.log({ data });
+     
           setCategories(data);
         });
     } catch (error) {
