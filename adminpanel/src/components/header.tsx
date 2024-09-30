@@ -13,7 +13,7 @@ export default function Header() {
 
   return (
     <div className="bg-black">
-      <div className="py-1 px-6 flex justify-between items-center gap-4 max-w-[1440px] h-12 mx-auto">
+      <div className="py-1 px-6 flex justify-between items-center gap-4  h-12 mx-auto">
         <div className="flex justify-start items-center flex-1">
           <Image src="/symbol.png" alt="icon" width={24} height={24} />
         </div>

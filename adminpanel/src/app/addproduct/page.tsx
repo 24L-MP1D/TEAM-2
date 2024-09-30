@@ -250,7 +250,7 @@ export default function AddProduct() {
     <form onSubmit={Formik.handleSubmit}>
       <div className="flex">
         <LeftBar />
-        <div className="bg-[#F7F7F8] w-[100vw] h-[100vw] ">
+        <div className=" w-[100vw] h-[100vw] ">
           <div className="bg-[#FFFFFF] ">
             <Link href="/products">
               <div className="py-2 flex gap-4 px-4">
