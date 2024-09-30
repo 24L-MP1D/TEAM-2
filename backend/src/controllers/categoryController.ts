@@ -18,19 +18,19 @@ const getCategories=async(req:Request, res:Response)=>{
 }
 const createCategory=async(req:Request, res:Response)=>{
     try{
-        const {categoryName}=req.query;
-        await categoryModel.create({
+        const {categoryName}=req.body;
+        const category=await categoryModel.create({
             categoryName
         });
-        res.status(201).json({message:"Successfully created the category"})
+        res.status(201).json(category)
     }catch(error){
         res.status(400).json({message:"Error occurred while creating the category"})
     }
 }
 const updateCategory=async(req:Request, res:Response)=>{
     try{
-        const {id}=req.query;
-        const {categoryName}=req.query;
+        const {id}=req.params;
+        const {categoryName}=req.body;
         await categoryModel.findByIdAndUpdate(id,{
             categoryName
         })
