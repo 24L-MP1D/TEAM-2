@@ -1,5 +1,6 @@
 // TypeScript definitions for global types used throughout the application.
 interface Product {
+    uploadedPhotos:unknown;
     _id: string;
     size: string;
     productName: string;
