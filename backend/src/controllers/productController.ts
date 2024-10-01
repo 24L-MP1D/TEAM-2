@@ -10,10 +10,13 @@ const getProducts=async(req:Request, res:Response)=>{
 }
 
 const getProduct=async(req:Request, res:Response)=>{
+
     try{
-        const {id}=req.params;
+        const {id}=req.query;
+        console.log(id)
         const product=await productModel.findById(id);
         res.send(product);
+        console.log(product)
     }catch(error){
         res.status(400).json({error:"error happened during finding the product"})
 

@@ -7,7 +7,7 @@ const productRouter=express.Router();
         .get("/products", getProducts)
         .get("/product/:id", getProduct)
         .post("/product", createProduct)
-        .get("/productdetails/:id", getProducts)
+        .get("/productdetails", getProduct)
         .put("/product/:id", updateProduct)
         .delete("/product/:id", deleteProduct)
         .get('/products/:id', getProductsByCategory);
