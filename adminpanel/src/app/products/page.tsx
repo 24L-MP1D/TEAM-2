@@ -30,8 +30,11 @@ import LeftBar from "@/components/leftBar";
 import React, { useEffect, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import Image from "next/image";
+import AddProduct from "../addproduct/page";
+import { useSearchParams } from "next/navigation";
 
 interface Products {
+  _id: string;
   name: string;
   barCode: string;
   uploadedPhotos: string[];
@@ -41,19 +44,77 @@ interface Products {
   sold: number;
   createdAt: string;
 }
+
+interface Filteredproducts {
+  _id: string;
+  name: string;
+  barCode: string;
+  uploadedPhotos: string[];
+  price: number;
+  qty: number;
+  category: string;
+  sold: number;
+  createdAt: string;
+}
+interface Categories {
+  _id: string;
+  categoryName: string;
+}
 const formatDateISO = (createdAt: string) => {
   const date = new Date(createdAt);
   return date.toISOString().slice(0, 10);
 };
 
-export default function Products() {
+export default function Products(id: string) {
   const [products, setProducts] = useState<Products[]>([]);
+  const [categories, setCategories] = useState<Categories[]>([]);
+  const [openDropdown, setOpenDropdown] = useState<String | null>(null);
+  const [filterCategory, setFilterCategory] = useState<
+    Filteredproducts[] | null
+  >([]);
+
   useEffect(() => {
     fetch("http://localhost:4000/products")
       .then((response) => response.json())
       .then((data) => setProducts(data))
       .catch((err) => console.log(err));
+
+    fetch("http://localhost:4000/categories")
+      .then((response) => response.json())
+      .then((data) => setCategories(data))
+      .catch((err) => console.log(err));
   }, []);
+
+  const deleteProduct = (id: string) => {
+    console.log("deleting product with id:", id);
+    fetch(`http://localhost:4000/product/${id}`, {
+      method: "DELETE",
+    }).then((res) => {
+      console.log(res);
+      if (res.status === 200) {
+        setProducts(products.filter((product) => product._id !== id));
+        console.log("Successfully deleted the product");
+      } else {
+        console.log("error happened during the deleting");
+      }
+    });
+  };
+
+  const filterbyCategory = async (id: string) => {
+    console.log("showing category");
+    await fetch(`http://localhost:4000/products/${id}`,{
+
+    }).then((res)=>{
+      console.log(res);
+      if(res.status===200){
+        setProducts(products);
+        console.log("successfully filtered by the category");
+      }else{
+        console.log("error happened during filter by the product")
+      }
+    })
+      
+  };
 
   return (
     <div className="flex ">
@@ -84,13 +145,34 @@ export default function Products() {
         {/* 3+search */}
         <div className="flex justify-between px-6">
           <div className="flex gap-[13px]">
-            <Button
-              variant="ghost"
-              className="font-bold text-black bg-[#FFFFFF] py-2 px-3 rounded-lg border-[#ECEDF0] border-[1px]"
-            >
-              <Shapes size={24} className="pr-2" /> Ангилал{" "}
-              <ChevronDown className="ml-2" size={20} />
-            </Button>
+            <div className="relative">
+              <Button
+                variant="ghost"
+                className="font-bold text-black bg-[#FFFFFF] py-2 px-3 rounded-lg border-[#ECEDF0] border-[1px] "
+                onClick={() =>
+                  setOpenDropdown(
+                    openDropdown === "category" ? null : "category"
+                  )
+                }
+              >
+                <Shapes size={24} className="pr-2" /> Ангилал
+                <ChevronDown className="ml-2" size={20} />
+              </Button>
+              {openDropdown === "category" && (
+                <div className="bg-white text-black flex flex-col gap-4 hover:bg-gray-200 cursor-pointer absolute z-50 left-5 border-gray-400 border-[1px] w-[160px] text-center rounded-md">
+                  {categories.length > 0 &&
+                    categories.map((cat) => (
+                      <Button
+                        onClick={() => filterbyCategory(cat._id)}
+                        className="bg-[#a6a4a1] rounded-md text-black hover:text-white"
+                      >
+                        {cat.categoryName}
+                      </Button>
+                    ))}
+                </div>
+              )}
+            </div>
+
             <Button
               variant="ghost"
               className="font-bold text-black bg-[#FFFFFF] py-2 px-3 rounded-lg border-[#ECEDF0] border-[1px]"
@@ -150,32 +232,42 @@ export default function Products() {
               </TableRow>
             </TableHeader>
             <TableBody className="bg-[#FFFFFF]">
-              {products.map((products) => (
+              {products.map((product) => (
                 <TableRow className="text-black ">
                   <TableCell className="text-center h-8 text-pink ">
                     <Checkbox id="terms1" />
                   </TableCell>
                   <TableCell className="text-center h-8 text-pink ">
                     <div className="flex gap-3 ">
-                        <Image alt="img" src={products.uploadedPhotos[0]} width={40} height={40} className="w-10 h-10 rounded-full object-cover"/>
+                      <Image
+                        alt="img"
+                        src={product.uploadedPhotos[0]}
+                        width={40}
+                        height={40}
+                        className="w-10 h-10 rounded-full object-cover"
+                      />
                       <div>
-                        <div className="text-start text-[#121316] font-semibold text-sm">{products.name}</div>
-                        <div className="pt-0.5 text-[#5E6166] text-xs font-normal">{products.barCode}</div>
+                        <div className="text-start text-[#121316] font-semibold text-sm w-[57px] h-[16px] overflow-hidden">
+                          {product.name}
+                        </div>
+                        <div className="pt-0.5 text-[#5E6166] text-xs font-normal">
+                          {product.barCode}
+                        </div>
                       </div>
                     </div>
                   </TableCell>
                   <TableCell className="text-center text-black ">
-                    {products.category}
+                    {product.category}
                   </TableCell>
-                  <TableCell>{products.price}</TableCell>
+                  <TableCell>{product.price}</TableCell>
                   <TableCell className="text-center text-black ">
-                    {products.qty}
-                  </TableCell>
-                  <TableCell className="text-center text-black ">
-                    {products.sold}
+                    {product.qty}
                   </TableCell>
                   <TableCell className="text-center text-black ">
-                    {formatDateISO(products.createdAt)}
+                    {product.sold}
+                  </TableCell>
+                  <TableCell className="text-center text-black ">
+                    {formatDateISO(product.createdAt)}
                   </TableCell>
 
                   <TableCell className=" flex text-black ">
@@ -183,12 +275,19 @@ export default function Products() {
                       className="mr-4 items-center"
                       size={16}
                       strokeWidth={1.5}
+                      onClick={() => {
+                        console.log("deleted", product._id);
+                        deleteProduct(product._id);
+                      }}
                     />
-                    <Pencil
-                      className="items-center"
-                      size={16}
-                      strokeWidth={1.5}
-                    />
+
+                    <Link href={`/addproduct?id=${product._id}`}>
+                      <Pencil
+                        className="items-center"
+                        size={16}
+                        strokeWidth={1.5}
+                      />
+                    </Link>
                   </TableCell>
                 </TableRow>
               ))}

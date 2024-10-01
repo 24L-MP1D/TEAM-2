@@ -33,14 +33,19 @@ import { useFormik } from "Formik";
 import * as yup from "yup";
 import AddPicture from "@/components/addPicture";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 
 export default function AddProduct() {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
   const [open, setOpen] = useState(false);
   const [category, setCategory] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [categories, setCategories] = useState<
     { categoryName: string; _id: string }[]
   >([]);
+
+  const [editProduct, setEditProduct] = useState<string[]>([]);
   // const [urls, setUrls] = useState<string[]>([]);
 
   useEffect(() => {
@@ -103,6 +108,7 @@ export default function AddProduct() {
       .required("Таг оруулна уу!"),
   });
   interface formValues {
+    _id: string;
     name: string;
     addInfo: string;
     barCode: string;
@@ -110,6 +116,7 @@ export default function AddProduct() {
     price: number;
     qty: number;
     category: string;
+    categoryId:string;
     categories: Category[];
     selectedCategory: string;
     selectedColors: string[];
@@ -119,6 +126,7 @@ export default function AddProduct() {
 
   const Formik = useFormik<formValues>({
     initialValues: {
+      _id: "",
       name: "",
       addInfo: "",
       barCode: "",
@@ -126,6 +134,7 @@ export default function AddProduct() {
       price: 0,
       qty: 0,
       category: "",
+      categoryId:"",
       categories: [],
       selectedCategory: "",
       selectedColors: [],
@@ -133,17 +142,14 @@ export default function AddProduct() {
       tag: "",
     },
     onSubmit: (values) => {
-      createProduct( 
-        values,
-       
-      );
+      createProduct(values);
     },
     validationSchema,
   });
 
   interface Category {
     categoryName: string;
-    _id: string;
+    d: string;
   }
 
   // Function to handle color selection
@@ -195,11 +201,9 @@ export default function AddProduct() {
   ];
   const sizes: string[] = ["S", "M", "L", "XL", "XXL"];
 
-  const createCategory =  () => {
-
-   
+  const createCategory = () => {
     try {
-    fetch(`http://localhost:4000/category`, {
+      fetch(`http://localhost:4000/category`, {
         method: "POST",
         body: JSON.stringify({
           categoryName: category,
@@ -222,7 +226,6 @@ export default function AddProduct() {
       fetch(`http://localhost:4000/categories`)
         .then((res) => res.json())
         .then((data) => {
-     
           setCategories(data);
         });
     } catch (error) {
@@ -230,9 +233,24 @@ export default function AddProduct() {
     }
   };
 
+  const getProduct = async () => {
+    try {
+      const res = await fetch(`http://localhost:4000/product/${id}`);
+      const data = await res.json();
+      setEditProduct(data);
+      Formik.setValues({
+        ...Formik.values,
+        ...data,
+      });
+      setSelectedCategory(data.category);
+    } catch (error) {
+      console.error("error occured while retrieving product:", error);
+    }
+  };
+
   const createProduct = async (values: formValues) => {
     try {
-      const productData = { ...values, category: selectedCategory  };
+      const productData = { ...values, category: selectedCategory };
       fetch(`http://localhost:4000/product`, {
         method: "POST",
         body: JSON.stringify(productData),
@@ -247,6 +265,11 @@ export default function AddProduct() {
       console.error("error happened during creating the product", error);
     }
   };
+  if (id) {
+    useEffect(() => {
+      getProduct();
+    }, []);
+  }
 
   return (
     <form onSubmit={Formik.handleSubmit}>
@@ -346,8 +369,8 @@ export default function AddProduct() {
                     <AddPicture onChange={handleUrl} />
                   </div>
                   <span className="text-red-500 text-sm text-start pl-20">
-                        {Formik.errors.uploadedPhotos}
-                      </span>
+                    {Formik.errors.uploadedPhotos}
+                  </span>
                 </div>
               </div>
 
@@ -397,7 +420,7 @@ export default function AddProduct() {
             <div className="flex flex-col gap-6">
               <div className="bg-[#FFFFFF] rounded-xl ">
                 <div className="py-6 px-6">
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-4">
                     <Label className="text-[#121316] font-semibold text-sm">
                       Ангилал нэмэх
                     </Label>
@@ -417,8 +440,8 @@ export default function AddProduct() {
                       />
                     </div>
 
-                    <Label className="text-[#121316] font-semibold text-sm">
-                      Ангилал
+                    <Label className="text-[#121316] font-semibold text-sm ">
+                      Ангилал сонгох
                     </Label>
                     <Popover open={open} onOpenChange={setOpen}>
                       <PopoverTrigger asChild>
@@ -505,7 +528,7 @@ export default function AddProduct() {
                       </span>
                     </div>
 
-                    <div className="flex pt-2 items-center gap-2">
+                    <div className="flex pt-4 items-center gap-2">
                       <div className="text-black">Хэмжээ</div>
 
                       {sizes.map((size, index) => (
@@ -566,12 +589,14 @@ export default function AddProduct() {
             <Button className="bg-[#FFFFFF] text-black hover:bg-[#121316] hover:text-white w-[113px] h-[56px]">
               Ноорог
             </Button>
-            <Button
-              type="submit"
-              className="bg-[#FFFFFF]   text-black hover:bg-[#121316] hover:text-white  w-[113px] h-[56px]"
-            >
-              Нийтлэх
-            </Button>
+            <Link href={`/products`}>
+              <Button
+                type="submit"
+                className="bg-[#FFFFFF]   text-black hover:bg-[#121316] hover:text-white  w-[113px] h-[56px]"
+              >
+                {id ? "Засах" : "Нийтлэх"}
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

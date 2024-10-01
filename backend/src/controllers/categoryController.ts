@@ -2,11 +2,7 @@ import { Request, Response } from "express";
 import { categoryModel } from "../models/category"
 
 
-// const categories =[ 
-//     {
-//     categoryName : 
-// }
-// ]
+
 const getCategories=async(req:Request, res:Response)=>{
     try{
         const categories=await categoryModel.find();
@@ -16,10 +12,14 @@ const getCategories=async(req:Request, res:Response)=>{
 
     }
 }
+
+
+
 const createCategory=async(req:Request, res:Response)=>{
     try{
         const {categoryName}=req.body;
         const category=await categoryModel.create({
+     
             categoryName
         });
         res.status(201).json(category)
