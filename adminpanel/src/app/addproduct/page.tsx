@@ -116,6 +116,7 @@ export default function AddProduct() {
     price: number;
     qty: number;
     category: string;
+    categoryId:string;
     categories: Category[];
     selectedCategory: string;
     selectedColors: string[];
@@ -133,6 +134,7 @@ export default function AddProduct() {
       price: 0,
       qty: 0,
       category: "",
+      categoryId:"",
       categories: [],
       selectedCategory: "",
       selectedColors: [],
@@ -147,7 +149,7 @@ export default function AddProduct() {
 
   interface Category {
     categoryName: string;
-    _id: string;
+    d: string;
   }
 
   // Function to handle color selection

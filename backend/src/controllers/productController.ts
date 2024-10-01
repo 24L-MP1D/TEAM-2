@@ -20,6 +20,8 @@ const getProduct=async(req:Request, res:Response)=>{
     }
 }
 
+
+
 const createProduct=async(req:Request, res:Response)=>{
     try{
         const {name,addInformation,barCode, uploadedPhotos,price,qty,category,selectedColors,selectedSizes,tag,createdAt}=req.body;
@@ -85,12 +87,13 @@ const deleteProduct=async(req:Request, res:Response)=>{
 
 
 const getProductsByCategory = async (req: Request, res: Response) => {
-    const { categoryId } = req.params;
+    const {id } = req.params;
     try {
-        const products = await productModel.find({ category: categoryId }); // Adjust as per your schema
+        const products = await productModel.findById({id})
+        console.log(products)
         res.status(200).json(products);
     } catch (error) {
-        res.status(400).json({ error: "Error occurred while fetching products" });
+        res.status(400).json({ error: "Error occurred while fetching  products that filtered by the category" });
     }
 };
 
