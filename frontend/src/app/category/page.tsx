@@ -4,11 +4,27 @@ import Searcharea from "@/components/layout/searchArea";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { Checkbox } from "@/components/ui/checkbox"
+import { Checkbox } from "@/components/ui/checkbox";
+import ProductDetails from "../productdetails/page";
+import CategoryList from "@/components/product/productList";
+
+
+// Define types for products and categories (update them as necessary)
+interface Product {
+  id: string;
+  CategoryName: string;
+  size: string; // Optional if not all products have sizes
+}
+
+interface Category {
+  id: string;
+  categoryName: string; // Change this according to your actual data structure
+}
 
 export default function Category() {
   const [products, setProducts] = useState<Product[]>([]);
   const [savedProducts, setSavedProducts] = useState<Set<string>>(new Set());
+  const [categories, setCategories] = useState<Category[]>([]); // Correct variable name
 
   const handleSaveClick = (id: string) => {
     setSavedProducts((prev) => {
@@ -23,82 +39,50 @@ export default function Category() {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchCategories = async () => {
       try {
-        const res = await fetch("/products.json");
-        if (!res.ok) throw new Error("Failed to fetch products");
-        const data: Product[] = await res.json();
-        setProducts(data);
-      } catch (error) {
-        console.error(error);
+        const response = await fetch('http://localhost:4000/categories');
+        if (!response.ok) throw new Error("Failed to fetch categories");
+        const data: Category[] = await response.json();
+        setCategories(data);
+      } catch (err) {
+        console.log(err);
       }
     };
-    fetchData();
+
+    fetchCategories();
   }, []);
+
+  const uniqueCategories = categories.filter((category, index, self) =>
+    index === self.findIndex((c) => c.categoryName === category.categoryName)
+  );
 
   return (
     <div className="flex gap-5 pt-[52px] justify-between">
       <div>
         <div className="text-[#000000] text-base font-bold">Ангилал</div>
-        {products.map((product,index)=>(
-          <div className="flex items-center space-x-2 pt-4">
-          <Checkbox id="terms" />
-          <label
-            className="text-[#09090B] font-medium text-sm"
-          >
-           {product.productName}
-          </label>
-        </div>
-
+        {uniqueCategories.map((category) => (
+          <div className="flex items-center space-x-2 pt-4" key={category.id}>
+            <Checkbox id={`category-${category.id}`} />
+            <label className="text-[#09090B] font-medium text-sm">
+              {category.categoryName}
+            </label>
+          </div>
         ))}
+
         <div className="text-[#000000] text-base font-bold pt-12">Хэмжээ</div>
-        {products.map((product,index)=>(
-          <div className="flex items-center space-x-2 pt-4">
-          <Checkbox id="terms" />
-          <label
-            className="text-[#09090B] font-medium text-sm"
-          >
-           {product.size}
-          </label>
-        </div>
-
-        ))}
-
-      </div>
-
-      <div className="grid grid-cols-3 gap-x-5 gap-y-12 overflow-hidden ">
-        {products.slice(1).map((product, index) => (
-          <div
-            key={product._id}
-            
-          >
-            <div className="overflow-hidden relative  w-[244px] h-[331px] rounded-xl">
-              <Image
-                src={product.images}
-                alt={product.productName}
-                width={100}
-                height={100}
-                className="relative transition-transform duration-300 ease-in-out transform hover:scale-110 object-cover rounded-xl w-full"
-              />
-              <Heart
-                className="absolute top-2 right-2 z-10 cursor-pointer"
-                color={savedProducts.has(product._id) ? "black" : "gray"}
-                fill={savedProducts.has(product._id) ? "black" : "none"}
-                onClick={() => handleSaveClick(product._id)}
-              />
-            </div>
-            <p className="text-[#000000] text-base font-normal pt-2">
-              {product.description}
-            </p>
-            <p className="text-[#000000] text-base font-bold pt-1">
-              {product.price} ₮
-            </p>
+        {products.map((product) => (
+          <div className="flex items-center space-x-2 pt-4" key={product.id}>
+            <Checkbox id={`size-${product.id}`} />
+            <label className="text-[#09090B] font-medium text-sm">
+              {product.size }
+            </label>
           </div>
         ))}
       </div>
 
+        <CategoryList/>
+  {/* <ProductDetails/> */}
     </div>
-      
-    
   );
 }

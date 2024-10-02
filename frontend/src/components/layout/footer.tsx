@@ -9,7 +9,7 @@ import Image from "next/image";
 export default function Footer() {
   return (
     <div className="bg-[#111111]">
-      <footer className="max-w-[1440px] py-[64px] px-[200px] m-auto mt-40 text-white flex flex-col gap-[43px]">
+      <footer className="max-w-[1440px] py-[64px] px-[200px] m-auto text-white flex flex-col gap-[43px]">
       <div className="flex justify-between items-center border-b-[1.5px] border-[#ffffff] border-opacity-10 border-solid pb-[43px]">
         <Image src="/Symbol.png" alt="icon" width={42} height={35}/>
         <div className="flex gap-[38px] items-center">
