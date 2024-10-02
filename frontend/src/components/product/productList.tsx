@@ -48,13 +48,12 @@ export default function CategoryList() {
 
       <div className="grid lg:grid-cols-3 gap-x-5 gap-y-12 overflow-hidden sm:grid-cols-1 md:grid-cols-2 " >
         {
-          products.map(product => (
-          <Link href={`/productdetails/?id=${product._id}`}>
+          products.map((product) => (
+          <Link href={`/productdetails/?id=${product._id}`} className="relative">
             <div
               key={product._id}
             >
-           
-                <div className="overflow-hidden relative  w-[244px] h-[331px] rounded-xl">
+                <div className="overflow-hidden   w-[244px] h-[331px] rounded-xl">
 
                   <Image
                     src={product.uploadedPhotos[0]}
