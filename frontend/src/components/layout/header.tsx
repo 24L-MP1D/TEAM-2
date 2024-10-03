@@ -93,9 +93,11 @@ export default function Header() {
             <div>
               <PiHeartStraight className="w-6 h-6" />
             </div>
+            <Link href="/cart">
             <div>
               <PiShoppingCartSimple className="w-6 h-6" />
             </div>
+            </Link>
             <div className="flex gap-2 items-center ">
               <Link href="/register">
                 <button className="py-2 px-3 border-solid border-[1px] text-white hover:text-opacity-50 border-blue-600 rounded-[18px] font-normal text-sm hover:bg-slate-900 hover:border-blue-800">

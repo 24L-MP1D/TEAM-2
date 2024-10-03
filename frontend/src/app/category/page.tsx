@@ -79,8 +79,8 @@ export default function Category() {
     index === self.findIndex((s) => s.selectedSizes === selectedsize.selectedSizes))
 
   return (
-    <div className="flex gap-5 pt-[52px] justify-between">
-      <div>
+    <div className="flex gap-5 pt-[52px] justify-between mx-auto">
+      <div className="mx-auto">
         <div className="text-[#000000] text-base font-bold">Ангилал</div>
         {uniqueCategories.map((category) => (
           <div className="flex items-center space-x-2 pt-4" key={category.id}>

@@ -45,7 +45,7 @@ export default function Home() {
   return (
     <div className="lg:max-w-[1040px]  md:max-w-96  mx-auto">
       {products.length > 0 && (
-        <div className="carousel relative pt-[56px]">
+        <div className="carousel relative pt-[56px] mx-auto">
           {products.map((product, index) => (
             <div
               key={product._id}
@@ -57,8 +57,11 @@ export default function Home() {
                 alt={product.name}
                 width={1040}
                 height={446}
-                className="w-full h-[446px] object-cover rounded-xl"
+                className="w-full h-[446px] object-cover rounded-xl relative"
               />
+              <div className="absolute font-bold bottom-20 left-10"> {product.name} </div>
+              <div className="absolute font-bold bottom-10 left-10 text-2xl"> {product.price} </div>
+
               <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
                 <a
                   href={`#slide${index === 0 ? products.length : index}`}
@@ -82,9 +85,8 @@ export default function Home() {
         {products.slice(1).map((product, index) => (
           <div
             key={product._id}
-            className={`${
-              index === 6 || index === 7 ? "col-span-2 row-span-2" : ""
-            }`}
+            className={`${index === 6 || index === 7 ? "col-span-2 row-span-2" : ""
+              }`}
           >
             <div className="overflow-hidden relative  h-[330px] rounded-xl ">
               <Image

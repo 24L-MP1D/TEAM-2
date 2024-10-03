@@ -23,7 +23,6 @@ export default function ProductDetails() {
   const [selectedSize, setSelectedSize] = useState<string>('');
   const [product, setProduct] = useState<Product>();
 
-
   useEffect(() => {
 
     const fetchProducts = async () => {
@@ -116,19 +115,19 @@ export default function ProductDetails() {
               Хэмжээний заавар
             </h3>
             <div className="pt-4 flex gap-2">
-              {/* <div className="pt-4 flex gap-2">
-              {selectedProduct.size.map((size) => (
+              <div className="pt-4 flex gap-2">
+             {product && (
                 <button
-                  key={size}
+                  key={product.size}
                   type="button"
                   className={`border-[#18181B] border-[1px] rounded-2xl w-12 h-8 font-normal text-lg 
-                    ${selectedSize === size ? 'bg-[#2563EB] text-white' : 'bg-[#FFFFFF] text-[#09090B]'}`}
-                  onClick={() => setSelectedSize(size)}
+                    ${selectedSize === product.size ? 'bg-[#2563EB] text-white' : 'bg-[#FFFFFF] text-[#09090B]'}`}
+                  onClick={() => setSelectedSize(product.size)}
                 >
-                  {size}
+                  {product.size}
                 </button>
-              ))}
-            </div> */}
+              )}
+            </div> 
             </div>
 
             <div className="pt-4 flex gap-2 items-center">
@@ -148,7 +147,7 @@ export default function ProductDetails() {
                 +
               </button>
             </div>
-
+           
             <div className="font-bold text-xl text-[#000000] pt-6">
               {product.price} ₮
             </div>
