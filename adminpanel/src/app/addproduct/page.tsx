@@ -33,7 +33,7 @@ import { useFormik } from "Formik";
 import * as yup from "yup";
 import AddPicture from "@/components/addPicture";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function AddProduct() {
   const searchParams = useSearchParams();
@@ -47,6 +47,8 @@ export default function AddProduct() {
 
   const [editProduct, setEditProduct] = useState<string[]>([]);
   // const [urls, setUrls] = useState<string[]>([]);
+
+  const router = useRouter();
 
   useEffect(() => {
     getCategories();
@@ -116,7 +118,7 @@ export default function AddProduct() {
     price: number;
     qty: number;
     category: string;
-    categoryId:string;
+    categoryId: string;
     categories: Category[];
     selectedCategory: string;
     selectedColors: string[];
@@ -134,7 +136,7 @@ export default function AddProduct() {
       price: 0,
       qty: 0,
       category: "",
-      categoryId:"",
+      categoryId: "",
       categories: [],
       selectedCategory: "",
       selectedColors: [],
@@ -142,6 +144,7 @@ export default function AddProduct() {
       tag: "",
     },
     onSubmit: (values) => {
+      console.log("clled");
       createProduct(values);
     },
     validationSchema,
@@ -235,6 +238,7 @@ export default function AddProduct() {
 
   const getProduct = async () => {
     try {
+      console.log("----");
       const res = await fetch(`http://localhost:4000/product/${id}`);
       const data = await res.json();
       setEditProduct(data);
@@ -249,22 +253,29 @@ export default function AddProduct() {
   };
 
   const createProduct = async (values: formValues) => {
+    console.log("values", values);
     try {
       const productData = { ...values, category: selectedCategory };
-      fetch(`http://localhost:4000/product`, {
+      const response = await fetch(`http://localhost:4000/product`, {
         method: "POST",
         body: JSON.stringify(productData),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
         },
-      }).then(() => {
-        console.log("successfully created the product");
       });
+
+      if (response.ok) {
+        console.log("Successfully created the product");
+        router.push("/products");
+      } else {
+        alert("Failed to create the product.");
+      }
     } catch (error) {
       alert("Failed to create the product. Please try again later.");
-      console.error("error happened during creating the product", error);
+      console.error("Error during product creation:", error);
     }
   };
+
   if (id) {
     useEffect(() => {
       getProduct();
@@ -589,14 +600,13 @@ export default function AddProduct() {
             <Button className="bg-[#FFFFFF] text-black hover:bg-[#121316] hover:text-white w-[113px] h-[56px]">
               Ноорог
             </Button>
-            <Link href={`/products`}>
-              <Button
-                type="submit"
-                className="bg-[#FFFFFF]   text-black hover:bg-[#121316] hover:text-white  w-[113px] h-[56px]"
-              >
-                {id ? "Засах" : "Нийтлэх"}
-              </Button>
-            </Link>
+
+            <Button
+              type="submit"
+              className="bg-[#FFFFFF]   text-black hover:bg-[#121316] hover:text-white  w-[113px] h-[56px]"
+            >
+              {id ? "Засах" : "Нийтлэх"}
+            </Button>
           </div>
         </div>
       </div>
