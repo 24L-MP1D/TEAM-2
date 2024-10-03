@@ -22,6 +22,7 @@ import {
   Plus,
   Search,
   SearchCheck,
+  SearchCode,
   Shapes,
   Trash,
 } from "lucide-react";
@@ -32,6 +33,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import Image from "next/image";
 import AddProduct from "../addproduct/page";
 import { useSearchParams } from "next/navigation";
+import { date } from "yup";
+import { start } from "repl";
 
 interface Products {
   _id: string;
@@ -60,18 +63,31 @@ interface Categories {
   _id: string;
   categoryName: string;
 }
+
+interface prices {
+  price: string;
+}
 const formatDateISO = (createdAt: string) => {
+
   const date = new Date(createdAt);
   return date.toISOString().slice(0, 10);
 };
 
 export default function Products(id: string) {
   const [products, setProducts] = useState<Products[]>([]);
+  const [filteredProduct, setFilteredProduct] = useState<Products[]>([]);
   const [categories, setCategories] = useState<Categories[]>([]);
   const [openDropdown, setOpenDropdown] = useState<String | null>(null);
+
   const [filterCategory, setFilterCategory] = useState<
     Filteredproducts[] | null
   >([]);
+
+  const [lowPrice, setLowPrice] = useState<string>("");
+  const [highPrice, setHighPrice] = useState<string>("");
+  const [startMonth, setStartMonth] = useState<string>("");
+  const [endMonth, setEndMonth] = useState<string>("");
+  const [search, setSearch] = useState<string>("");
 
   useEffect(() => {
     fetch("http://localhost:4000/products")
@@ -83,6 +99,12 @@ export default function Products(id: string) {
       .then((response) => response.json())
       .then((data) => setCategories(data))
       .catch((err) => console.log(err));
+
+     
+
+
+
+      
   }, []);
 
   const deleteProduct = (id: string) => {
@@ -100,22 +122,88 @@ export default function Products(id: string) {
     });
   };
 
-  const filterbyCategory = async (id: string) => {
+  const filterbyCategory = async (categoryName: string) => {
     console.log("showing category");
-    await fetch(`http://localhost:4000/products/${id}`,{
+    const res = await fetch(
+      `http://localhost:4000/productsfilteredby?categoryName=${categoryName}`
+    );
+    if (res.status === 200) {
+      const data = await res.json();
+      setProducts(data);
+      // setOpenDropdown(openDropdown)
 
-    }).then((res)=>{
-      console.log(res);
-      if(res.status===200){
-        setProducts(products);
-        console.log("successfully filtered by the category");
-      }else{
-        console.log("error happened during filter by the product")
-      }
-    })
-      
+      console.log("Successfully filtered by the category:", categoryName);
+    } else {
+      console.log("Error occurred while filtering the products");
+    }
   };
 
+  const filterbyPrice = async () => {
+    const res = await fetch(
+      `http://localhost:4000/productsfilteredbyprice?lowPrice=${lowPrice}&highPrice=${highPrice}`
+    );
+    if (res.status === 200) {
+      const data = await res.json();
+      console.log(data);
+      setProducts(data);
+      console.log("Successfully filtered by the price:", lowPrice);
+    } else {
+      console.log("Error occurred while filtering the products by price");
+    }
+  };
+
+  const filterbyMonth = async () => {
+  let isoStartdate;
+  let isoEnddate;
+  
+  if(startMonth && endMonth){
+    const isoStartdate = new Date(startMonth).toISOString();
+    const isoEnddate = new Date(endMonth).toISOString();
+    
+  }
+
+    console.log(isoStartdate);
+    console.log(isoEnddate);
+    const res = await fetch(
+      `http://localhost:4000/productsfilteredbyMonth?startMonth=${isoStartdate}&endMonth=${isoEnddate}`
+    );
+    if (res.status === 200) {
+      const data = await res.json();
+      console.log(data);
+      setProducts(data);
+
+      console.log("Successfully filtered by the month:", startMonth, endMonth);
+    } else {
+      console.log("error occured while filtering the products by month");
+    }
+  };
+
+  const filterbySearch = async () => {
+    console.log(search);
+    const res = await fetch(`
+      http://localhost:4000/productsfilteredbySearch?search=${search}
+      `);
+    if (res.status === 200) {
+      const data = await res.json();
+      setProducts(data);
+      console.log("Successfully filtered by the search:", search);
+    } else {
+      console.log("error occured while filtering the product by search");
+    }
+  };
+    useEffect(()=>{
+      filterbyPrice()
+      
+    },[highPrice])
+
+    useEffect(()=>{
+      filterbySearch()
+      filterbyMonth()
+
+      
+    },[search, endMonth])
+
+   
   return (
     <div className="flex ">
       <LeftBar />
@@ -159,12 +247,12 @@ export default function Products(id: string) {
                 <ChevronDown className="ml-2" size={20} />
               </Button>
               {openDropdown === "category" && (
-                <div className="bg-white text-black flex flex-col gap-4 hover:bg-gray-200 cursor-pointer absolute z-50 left-5 border-gray-400 border-[1px] w-[160px] text-center rounded-md">
+                <div className="bg-white hover:bg-white w-[140px] text-black flex flex-col  cursor-pointer absolute z-50     rounded-md ">
                   {categories.length > 0 &&
                     categories.map((cat) => (
                       <Button
-                        onClick={() => filterbyCategory(cat._id)}
-                        className="bg-[#a6a4a1] rounded-md text-black hover:text-white"
+                        onClick={() => filterbyCategory(cat.categoryName)}
+                        className="bg-white rounded-md text-black hover:text-white flex py-2 px-3 border-gray-200 border-[1px]"
                       >
                         {cat.categoryName}
                       </Button>
@@ -173,38 +261,93 @@ export default function Products(id: string) {
               )}
             </div>
 
-            <Button
-              variant="ghost"
-              className="font-bold text-black bg-[#FFFFFF] py-2 px-3 rounded-lg border-[#ECEDF0] border-[1px]"
-            >
-              {" "}
-              <DollarSign size={24} className="pr-2" /> Үнэ{" "}
-              <ChevronDown className="ml-2 " size={20} />
-            </Button>
-            <Button
-              variant="ghost"
-              className="font-bold text-black bg-[#FFFFFF] py-2 px-3 rounded-lg border-[#ECEDF0] border-[1px]"
-            >
-              <Calendar size={24} className="pr-2" />
-              Сараар <ChevronDown className="ml-2 " size={20} />
-            </Button>
+            <div>
+              <Button
+                variant="ghost"
+                className="font-bold text-black bg-[#FFFFFF] py-2 px-3 rounded-lg border-[#ECEDF0] border-[1px]   "
+                onClick={() =>
+                  setOpenDropdown(openDropdown === "price" ? null : "price")
+                }
+              >
+                {" "}
+                <DollarSign size={24} className="pr-2" /> Үнэ{" "}
+                <ChevronDown className="ml-2 " size={20} />
+              </Button>
+              {openDropdown === "price" && (
+                <div className="absolute  ">
+                  <div className="bg-white hover:bg-white text-black flex flex-col  cursor-pointer absolute z-50  w-[100px] rounded-md">
+                    <Input
+                      className="bg-white text-black"
+                      placeholder="Доод үнэ оруулна уу"
+                      value={lowPrice}
+                      onChange={(e) => setLowPrice(e.target.value)}
+                    />
+                    <Input
+                      className="bg-white text-black "
+                      placeholder="Дээд үнэ оруулна уу "
+                      value={highPrice}
+                      onChange={(e) => setHighPrice(e.target.value)}
+                    />
+                   
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="relative">
+            
+                <Button
+                  variant="ghost"
+                  className="font-bold text-black bg-[#FFFFFF] py-2 px-3 rounded-lg border-[#ECEDF0] border-[1px]"
+                  onClick={() =>
+                    setOpenDropdown(openDropdown === "month" ? null : "month")
+                  }
+                >
+                  <Calendar size={24} className="pr-2" />
+                  Сараар <ChevronDown className="ml-2 " size={20} />
+                </Button>
+
+
+              {openDropdown === "month" && (
+                <div className="absolute z-50 bg-white hover:bg-white rounded-md">
+                  <Input
+                    type="date"
+                    className="text-black"
+                    value={startMonth}
+                    onChange={(e) => setStartMonth(e.target.value)}
+                  ></Input>
+                  <Input
+                    type="date"
+                    className="text-black"
+                    value={endMonth}
+                    onChange={(e) => setEndMonth(e.target.value)}
+                  ></Input>
+                 
+                </div>
+              )}
+            </div>
           </div>
           <div className="relative">
-            <Input
-              placeholder="          Бүтээгдэхүүний нэр , SKU UPC"
-              type="search"
-              className=" w-[419px] h-[40px] bg-[#FFFFFF] rounded-lg border-[#ECEDF0] border-[1px]"
-            ></Input>
-            <SearchCheck
+
+        
+            <div className="bg-[#FFFFFF] border-[#D6D8DB] border-[1px] rounded-lg">
+            <div className="py-2 px-2 flex ">
+              <SearchCode color="black " size={24} />
+              <Input type="search" className=" w-[250px] h-[20px] border-none hover:border-none focus:border-none text-black" placeholder="Бүтээгдэхүүний нэр , SKU UPC"     value={search}
+              onChange={(e) => setSearch(e.target.value)}/>
+            </div>
+          </div>
+            {/* <SearchCheck
               color="black"
               size={18}
-              className="absolute top-2 left-5"
-            />
+              className="absolute top-2 left-3/4"
+            /> */}
+           
           </div>
         </div>
         <TabsContent
           value="products"
-          className="text-center mt-4 mx-6 text-black bg-[#FFFFFF] border-[#ECEDF0] border-[1px] "
+          className="text-center mt-4 mx-6 text-black bg-[#FFFFFF] rounded-2xl border-[#ECEDF0] border-[1px] "
         >
           <Table className="text-color rounded-2xl">
             <TableHeader className="bg-[#FFFFFF] rounded-xl">
