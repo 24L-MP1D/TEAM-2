@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "../components/layout/header";
 import Footer from "../components/layout/footer";
+import { CartProvider } from "@/context/cartContext";
 
 
 export const metadata: Metadata = {
@@ -21,9 +22,11 @@ export default function RootLayout({
 
         <div className="max-w-[1040px] mx-auto">
         </div>
-
-        <div className="max-w-[1040px] mx-auto">{children}</div>
-
+        <div className="max-w-[1040px] mx-auto">
+          <CartProvider>
+            {children}
+          </CartProvider>
+        </div>
         <Footer></Footer>
       </body>
     </html>
