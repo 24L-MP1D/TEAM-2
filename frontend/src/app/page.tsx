@@ -3,7 +3,14 @@
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+interface Product {
+  uploadedPhotos: string[];
+  _id: string;
+  name: string;
+  size: string;
+  price: number;
 
+}
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -24,7 +31,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("/products.json");
+        const res = await fetch(`http://localhost:4000/products`);
         if (!res.ok) throw new Error("Failed to fetch products");
         const data: Product[] = await res.json();
         setProducts(data);
@@ -36,7 +43,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="max-w-[1040px]">
+    <div className="lg:max-w-[1040px]  md:max-w-96  mx-auto">
       {products.length > 0 && (
         <div className="carousel relative pt-[56px]">
           {products.map((product, index) => (
@@ -46,8 +53,8 @@ export default function Home() {
               className="carousel-item relative w-full"
             >
               <Image
-                src={product.images}
-                alt={product.productName}
+                src={product.uploadedPhotos[0]}
+                alt={product.name}
                 width={1040}
                 height={446}
                 className="w-full h-[446px] object-cover rounded-xl"
@@ -71,7 +78,7 @@ export default function Home() {
         </div>
       )}
 
-      <div className="grid grid-cols-4 gap-x-5 gap-y-12 overflow-hidden">
+      <div className="grid lg:grid-cols-4 gap-x-5 gap-y-12 overflow-hidden mb-10 md:grid-cols-2 sm:grid-cols-1  ">
         {products.slice(1).map((product, index) => (
           <div
             key={product._id}
@@ -79,10 +86,10 @@ export default function Home() {
               index === 6 || index === 7 ? "col-span-2 row-span-2" : ""
             }`}
           >
-            <div className="overflow-hidden relative  h-[330px] rounded-xl">
+            <div className="overflow-hidden relative  h-[330px] rounded-xl ">
               <Image
-                src={product.images}
-                alt={product.productName}
+                src={product.uploadedPhotos[0]}
+                alt={product.name}
                 width={100}
                 height={100}
                 className="relative transition-transform duration-300 ease-in-out transform hover:scale-110 object-cover rounded-xl w-full"
@@ -95,7 +102,7 @@ export default function Home() {
               />
             </div>
             <p className="text-[#000000] text-base font-normal pt-2">
-              {product.description}
+              {product.name}
             </p>
             <p className="text-[#000000] text-base font-bold pt-1">
               {product.price} ₮

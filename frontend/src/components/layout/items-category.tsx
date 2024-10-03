@@ -28,7 +28,7 @@ export default function ItemsCategory() {
                         <RadioGroupItem value="default" id="r1" />
                         <Link className="mx-auto"
                         href={size.slug}>{size.title}
-                    </Link> 
+                    </Link>
                     </div>
                     </RadioGroup>
                 </div>
