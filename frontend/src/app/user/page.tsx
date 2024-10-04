@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import OrderHistory from "@/components/user/orderHistory";
-import orderHistory from "@/components/user/orderHistory";
 import UserInfo from "@/components/user/userInfo";
 import { useState } from "react";
 

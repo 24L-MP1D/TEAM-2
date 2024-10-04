@@ -1,12 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { PiTrashLight } from "react-icons/pi";
 
-export default function Card() {
+export default function Cart({setVisible}: {setVisible: Dispatch<SetStateAction<number>>}) {
   var numeral = require("numeral");
-  
+
   const mockProducts = [
     {
       id: 1,
@@ -66,6 +66,8 @@ export default function Card() {
     setProducts(updatedProducts);
   };
 
+  const [Card,cardfinish]=useState(false)
+
   return (
     <div className="bg-white p-8 rounded-2xl">
       <div className="w-[574px] flex flex-col gap-6">
@@ -83,7 +85,6 @@ export default function Card() {
                 <div className="text-base font-normal">{product.name} </div>
                 <div className="flex flex-col gap-2 ">
                   <div>
-                    {/* item iin shirhegiig nemj hasah function */}
                     <div className="flex items-center">
                       <Button
                         className="w-8 h-8 rounded-full border-solid border-[1px] border-black bg-transparent text-black text-lg hover:bg-slate-300"
@@ -129,7 +130,7 @@ export default function Card() {
           </div>
         </div>
         <div className=" h-[9] text-end">
-          <Button variant={"default3"}>Худалдан авах</Button>
+          <Button variant={"default3"} onClick={()=>setVisible(2)}>Худалдан авах </Button>
         </div>
       </div>
     </div>
