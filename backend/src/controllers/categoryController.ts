@@ -13,8 +13,6 @@ const getCategories=async(req:Request, res:Response)=>{
     }
 }
 
-
-
 const createCategory=async(req:Request, res:Response)=>{
     try{
         const {categoryName}=req.body;
