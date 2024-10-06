@@ -25,7 +25,6 @@ export default function ProductDetails() {
 
 
   useEffect(() => {
-
     const fetchProducts = async () => {
       try {
         const response = await fetch(`http://localhost:4000/productdetails?id=${id}`);
@@ -39,6 +38,7 @@ export default function ProductDetails() {
 
     fetchProducts();
   }, []);
+
   useEffect(() => {
 
     const fetchRefProducts = async () => {
@@ -54,8 +54,6 @@ export default function ProductDetails() {
 
     fetchRefProducts();
   }, []);
-
-
 
   return (
 

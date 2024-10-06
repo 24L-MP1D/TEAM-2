@@ -1,6 +1,6 @@
 // context/CartContext.tsx
 'use client'
-import { createContext, useState, ReactNode } from "react";
+import { createContext, useState, ReactNode, useEffect } from "react";
 
 interface Product {
     _id: string;
@@ -13,7 +13,6 @@ interface CartContextType {
     addToCart: (product: Product) => void;
     removeFromCart: (id: string) => void;
 }
-
 export const CartContext = createContext<CartContextType>({
     cart: [],
     addToCart: () => { },
@@ -21,6 +20,7 @@ export const CartContext = createContext<CartContextType>({
 });
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
+const [products, setProducts]=useState([]);
     const [cart, setCart] = useState<Product[]>([]);
 
     const addToCart = (product: Product) => {
@@ -30,7 +30,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     const removeFromCart = (id: string) => {
         setCart((prev) => prev.filter((item) => item._id !== id));
     };
-    console.log(cart)
+    console.log(cart);
+
+    // useEffect(() =>{
+    //     fetch('http://localhost:4000/products')
+    //         .then((response) => response.json())
+    //         .then((data) => setCart((data))
+    //  }, []);
 
     return (
         <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
