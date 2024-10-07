@@ -14,24 +14,15 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) 
+{
   return (
     <html lang="en">
       <body className="bg-white 100vw">
         <Header></Header>
-<<<<<<< HEAD
         <div className="max-w-[1040px] mx-auto">
         </div>
         <div className="max-w-[1040px] mx-auto">
-=======
-
-        <div className="max-w-[1040px] mx-auto">
-        </div>
-      
-
-        <div className="max-w-[1040px] mx-auto ">
-
->>>>>>> 3d1aff4546e38bf8df2c6a2c40aaef0254f5aee0
           <CartProvider>
             {children}
           </CartProvider>
