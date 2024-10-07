@@ -1,98 +1,149 @@
-
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import { FormikErrors, FormikValues, useFormik } from "formik";
-
+import { useFormik } from "formik";
+import * as Yup from "yup";  
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface FormValues {
-  firstName: string,
-  email: string,
-  password: string,
-  rePassword: string
+  name: string;
+  email: string;
+  password: string;
+  rePassword: string;
 }
+
 export default function RegisterPage() {
-  const initialValues = {
-    firstName: '',
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const router = useRouter();
+
+  const initialValues: FormValues = {
+    name: '',
     email: '',
     password: '',
     rePassword: ''
-  }
+  };
+
+  const validationSchema = Yup.object({
+    name: Yup.string().required("Нэрээ оруулна уу?"),
+    email: Yup.string()
+      .email("И-мэйл буруу байна")
+      .required("И-Мэйл ээ оруулна уу?"),
+    password: Yup.string()
+      .min(8, "Нууц үг хамгийн багадаа 8 тэмдэгттэй байх ёстой")
+      .matches(/[A-Z]/, "Нууц үг дор хаяж 1 том үсэг агуулсан байх ёстой")
+      .matches(/[!@#$%^&*(),.?":{}|<>]/, "Нууц үг дор хаяж 1 тусгай тэмдэгт агуулсан байх ёстой")
+      .required("Нууц үгээ оруулна уу?"),
+    rePassword: Yup.string()
+      .oneOf([Yup.ref('password'), undefined], "Нууц үг давтагдаагүй байна") 
+      .required("Нууц үгээ давтаж оруулна уу?"),
+  });
+
   const formik = useFormik({
     initialValues,
-    onSubmit: (values) => {
-      alert(`firstName: ${values.firstName}, email:${values.email}`)
+    validationSchema,  
+    onSubmit: async (values) => {
+      await singUp(values);
     },
-    validate: (values) => {
-      const error: FormikErrors<FormValues> = {};
-      if (!values.firstName) {
-        error.firstName = "Нэрээ оруулна уу?"
+  });
+
+  const singUp = async (values: FormValues) => {
+    setLoading(true);
+    setErrorMessage(''); // Clear any previous errors
+
+    try {
+      const registeredUser = values;
+      const response = await fetch(`http://localhost:4000/register`, {
+        method: "POST",
+        body: JSON.stringify(registeredUser),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        }
+      });
+
+      if (response.status === 201) {
+        console.log("successfully registered the user");
+        router.push("/"); // Redirect to the home page
+      } else {
+        const data = await response.json();
+        setErrorMessage(data.errorMessage || "Registration failed");
       }
-      if (!values.email) {
-        error.email = "И-Мэйл ээ оруулна уу?"
-      }
-      if (!values.password) {
-        error.password = "Нууц үгээ оруулна уу?"
-      }
-      if (!values.rePassword) {
-        error.rePassword = "Нууц үгээ давтаж оруулна уу?"
-      }
-      return error;
+    } catch (error) {
+      setErrorMessage("Error during registering the user");
+    } finally {
+      setLoading(false);
     }
-  })
+  }
 
   return (
-    <div className="container mx-auto login-box flex  align-items-center w-[334px] mt-20">
+    <div className="container mx-auto login-box flex align-items-center w-[334px] my-[100px]">
       <form onSubmit={formik.handleSubmit}>
-        <div className="w-[334px] py-10">
-          <h1 className="mx-center font-bold mb-5 text-center">Бүртгүүлэх</h1>
+        <div className="w-[334px] ">
+          <h1 className="mx-center font-semibold  mb-5 text-center text-[#09090B]">Бүртгүүлэх</h1>
+
+          {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>} {/* Display error message */}
+
           <Input
             type="text"
             placeholder="Нэр"
-            className="rounded-sm w-full my-2"
-            id="firstName"
-            value={formik.values.firstName}
+            className="rounded-2xl w-full mt-6 text-black"
+            id="name"
+            value={formik.values.name}
             onChange={formik.handleChange}
-         />
-          {formik.errors.firstName ? <span className="text-red-500 text-sm text-start">Нэрээ оруулна уу!</span> : null}
+          />
+          {formik.errors.name && formik.touched.name && (
+            <span className="text-red-500 text-sm text-start">{formik.errors.name}</span>
+          )}
+
           <Input
             type="email"
             id="email"
-            placeholder="И-мэйл давтах"
-            className="rounded-sm w-full mt-5 my-2"
+            placeholder="И-мэйл"
+            className="rounded-2xl w-full mt-4 text-black"
             value={formik.values.email}
             onChange={formik.handleChange}
           />
-          {formik.errors.email ? <span className="text-red-500 text-sm text-start">И-Мэйл ээ оруулна уу!</span> : null}
+          {formik.errors.email && formik.touched.email && (
+            <span className="text-red-500 text-sm text-start">{formik.errors.email}</span>
+          )}
+
           <Input
             id="password"
             type="password"
             placeholder="Нууц үг"
-            className="rounded-sm w-full my-2"
+            className="rounded-2xl w-full mt-4 text-black"
             value={formik.values.password}
             onChange={formik.handleChange}
-         />
-          {formik.errors.password ? <span className="text-red-500 text-sm text-start">Нууц үгээ оруулна уу!</span> : null}
+          />
+          {formik.errors.password && formik.touched.password && (
+            <span className="text-red-500 text-sm text-start">{formik.errors.password}</span>
+          )}
+
           <Input
-            id="repassword"
+            id="rePassword"
             type="password"
             placeholder="Нууц үг давтах"
-            className="rounded-sm w-full my-2"
+            className="rounded-2xl w-full mt-4 text-black"
             value={formik.values.rePassword}
             onChange={formik.handleChange}
-         />
-          {formik.errors.rePassword ? <span className="text-red-500 text-sm text-start ">Нууц үгээ давтаж оруулна уу!</span> : null}
-          <Button type="submit" variant="def2" className="bg-blue-500 w-full text-white mt-3">
-            Үүсгэх
+          />
+          {formik.errors.rePassword && formik.touched.rePassword && (
+            <span className="text-red-500 text-sm text-start">{formik.errors.rePassword}</span>
+          )}
+
+          <Button 
+            type="submit" 
+            variant="def2" 
+            className="bg-blue-500 w-full text-white mt-3 rounded-2xl"
+            disabled={!(formik.isValid && formik.dirty) || loading}  
+          >
+            {loading ? 'Ачааллаж байна...' : 'Үүсгэх'}
           </Button>
-      
-          <Button asChild variant="def3" className="text-blue-500">
-            <Link
-              href="/login"
-              className="bg-sky-50 mt-8 w-full def2"
-              type="password"
-            >
+
+          <Button asChild variant="def3" className="text-blue-500 rounded-2xl">
+            <Link href="/login" className="bg-sky-50 mt-8 w-full def2" type="password">
               Нэвтрэх
             </Link>
           </Button>

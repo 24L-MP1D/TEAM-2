@@ -132,7 +132,16 @@ export default function Order() {
                       Захиалгын ID дугаар
                     </TableHead>
                     <TableHead className="w-[268px] text-[#3F4145] font-semibold text-xs">
-                      Захиалагч
+                    Үйлчлүүлэгч
+                    </TableHead>
+                    <TableHead className="w-[137px] text-[#3F4145] font-semibold text-xs">
+                    Огноо
+                    </TableHead>
+                    <TableHead className="w-[137px] text-[#3F4145] font-semibold text-xs">
+                    Цаг
+                    </TableHead>
+                    <TableHead className="w-[137px] text-[#3F4145] font-semibold text-xs">
+                      Төлбөр
                     </TableHead>
                     <TableHead className="w-[137px] text-[#3F4145] font-semibold text-xs">
                       Төлбөр

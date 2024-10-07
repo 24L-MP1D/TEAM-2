@@ -27,6 +27,9 @@ app.use(categoryRouter);
 app.use(uploadRouter);
 
 
+
+
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
