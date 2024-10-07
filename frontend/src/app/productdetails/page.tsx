@@ -23,6 +23,7 @@ export default function ProductDetails() {
   const [filledStars, setFilledStars] = useState<number>(0);
   const [isReviewVisible, setIsReviewVisible] = useState<boolean>(false);
   const [selectedSize, setSelectedSize] = useState<string>('');
+<<<<<<< HEAD
   const [product, setProduct] = useState<Product>({} as Product);
   const [selectedProduct, setSelectedProduct] = useState([]);
 
@@ -67,6 +68,57 @@ export default function ProductDetails() {
           }
         }
       )
+=======
+  const [product, setProduct] = useState<Product>();
+  const [selectedProduct, setSelectedProduct]=useState([]);
+
+  
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(`http://localhost:4000/productdetails?id=${id}`);
+        if (!response.ok) throw new Error("Failed to fetch products");
+        const data = await response.json();
+        setProduct(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+  useEffect(() => {
+
+    const fetchRefProducts = async () => {
+      try {
+        const response = await fetch(`http://localhost:4000/products`);
+        if (!response.ok) throw new Error("Failed to fetch products");
+        const data = await response.json();
+        fetchRefProducts(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchRefProducts();
+  }, []);
+
+  interface ProductData{
+    _id: string;
+    name: string;
+    size: string;
+    images: string;
+    price: number;
+    uploadedPhotos: string;
+  }
+   
+  useEffect(()=>
+  {
+    
+  }
+  )
+
+>>>>>>> d260c444e8e1dc8e4f0862d2e7f48e737096dd6b
 
       console.log("success")
     }
