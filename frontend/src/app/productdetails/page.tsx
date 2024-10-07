@@ -1,4 +1,5 @@
 'use client'
+import { Button } from "@/components/ui/button";
 import { Heart, Star } from "lucide-react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
@@ -10,9 +11,14 @@ interface Product {
   name: string;
   size: string;
   price: number;
-
 }
-
+interface CartDetails {
+  uploadedPhotos: string[];
+  _id: string;
+  name: string;
+  size: string;
+  price: number;
+}
 export default function ProductDetails() {
   const searchParams = useSearchParams();
   const id = searchParams.get('id')
@@ -22,7 +28,7 @@ export default function ProductDetails() {
   const [isReviewVisible, setIsReviewVisible] = useState<boolean>(false);
   const [selectedSize, setSelectedSize] = useState<string>('');
   const [product, setProduct] = useState<Product>();
-
+  const [cart, setCart] = useState<CartDetails[]>([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -39,8 +45,8 @@ export default function ProductDetails() {
     fetchProducts();
   }, []);
 
-  useEffect(() => {
 
+  useEffect(() => {
     const fetchRefProducts = async () => {
       try {
         const response = await fetch(`http://localhost:4000/products`);
@@ -54,6 +60,25 @@ export default function ProductDetails() {
 
     fetchRefProducts();
   }, []);
+
+
+ const addToCart = async ()=> { 
+    try{
+     await fetch(`http://localhost:4000/productdetails?id=${id}`,
+         {method:"POST",
+         body: JSON.stringify(),
+          headers: {
+                    "Content-type": "application/json; cherset=UTF-8", 
+                  },
+        }).then (() => {
+          console.log("successfully add to cart");
+          setCart([]);
+        })
+    }
+    catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
 
@@ -74,7 +99,7 @@ export default function ProductDetails() {
             //   setSelectedImage(product.images);
             // }}
             />
-            
+
           }
         </div>
 
@@ -150,15 +175,15 @@ export default function ProductDetails() {
             <div className="font-bold text-xl text-[#000000] pt-6">
               {product.price} ₮
             </div>
-            <button className="py-2 px-9 bg-[#2563EB] text-[#FFFFFF] text-sm font-medium rounded-[20px] pt-[10px]">
-              Сагсанд нэмэх
-            </button>
+            <Button className="py-2 px-9 bg-[#2563EB] text-[#FFFFFF] text-sm font-medium rounded-[20px] pt-[10px]" onClick={addToCart}>
+              Сагсанд нэмэх 
+            </Button>
 
             <div className="flex gap-4 pt-[55px]">
               <div className="text-[#09090B] text-sm">Үнэлгээ</div>
               <a
                 className="text-[#2563EB] text-sm underline underline-offset-1 cursor-pointer"
-                // onClick={toggleReviews}
+              // onClick={toggleReviews}
               >
                 бүгдийг хураах
               </a>
