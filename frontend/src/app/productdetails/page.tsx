@@ -1,4 +1,6 @@
 'use client'
+import { fetcher } from "@/components/fetcher";
+import { error } from "console";
 import { Heart, Star } from "lucide-react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
@@ -16,46 +18,31 @@ interface Product {
 export default function ProductDetails() {
   const searchParams = useSearchParams();
   const id = searchParams.get('id')
-  const [selectedCount, setSelectedCount] = useState(0);
+  const [selectedCount, setSelectedCount] = useState<number>(0);
   const [isSaved, setIsSaved] = useState<boolean>(false);
   const [filledStars, setFilledStars] = useState<number>(0);
   const [isReviewVisible, setIsReviewVisible] = useState<boolean>(false);
   const [selectedSize, setSelectedSize] = useState<string>('');
-  const [product, setProduct] = useState<Product>();
-  const [selectedProduct, setSelectedProduct]=useState([]);
+  const [product, setProduct] = useState<Product>({} as Product);
+  const [selectedProduct, setSelectedProduct] = useState([]);
 
-  
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch(`http://localhost:4000/productdetails?id=${id}`);
-        if (!response.ok) throw new Error("Failed to fetch products");
-        const data = await response.json();
-        setProduct(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
 
-    fetchProducts();
-  }, []);
-  useEffect(() => {
+  // useEffect(() => {
+  //   const fetchProducts = async () => {
+  //     try {
+  //       const response = await fetch(`http://localhost:4000/productdetails?id=${id}`);
+  //       if (!response.ok) throw new Error("Failed to fetch products");
+  //       const data = await response.json();
+  //       setProduct(data);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
 
-    const fetchRefProducts = async () => {
-      try {
-        const response = await fetch(`http://localhost:4000/products`);
-        if (!response.ok) throw new Error("Failed to fetch products");
-        const data = await response.json();
-        fetchRefProducts(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
+  //   fetchProducts();
+  // }, []);
 
-    fetchRefProducts();
-  }, []);
-
-  interface ProductData{
+  interface ProductData {
     _id: string;
     name: string;
     size: string;
@@ -63,25 +50,40 @@ export default function ProductDetails() {
     price: number;
     uploadedPhotos: string;
   }
-   
-  useEffect(()=>
-  {
-    
+  useEffect(() => {
+    fetcher(`/product/${id}`, 'GET').then((data) => setProduct(data));
+
+  }, []);
+
+  const addToCart = async () => {
+    console.log(selectedCount)
+    try {
+      await fetch(`http://localhost:4000/productdetails?id=${id}`,
+        {
+          method: "POST",
+          body: JSON.stringify({ Size: selectedSize, qty: selectedCount }),
+          headers: {
+            "Content-type": "application/json",
+          }
+        }
+      )
+
+      console.log("success")
+    }
+    catch {
+      console.log("error")
+    }
+
   }
-  )
-
-
 
   return (
-
-
     <div>
       <div className="flex gap-5 pt-[52px]">
         <div className="pt-[95px] flex flex-col gap-2">
           {product &&
             <Image
               key={product._id}
-              src={product.uploadedPhotos[0]}
+              src={product.uploadedPhotos?.[0]}
               className="w-[67px] h-[67px] rounded cursor-pointer"
               width={67}
               height={67}
@@ -91,13 +93,13 @@ export default function ProductDetails() {
             //   setSelectedImage(product.images);
             // }}
             />
-            
+
           }
         </div>
 
         {product && (
           <Image
-            src={product.uploadedPhotos[0]}
+            src={product.uploadedPhotos?.[0]}
             alt={product.name || 'Product Image'}
             className="w-[422px] h-[521px] rounded-2xl"
             width={422}
@@ -167,7 +169,7 @@ export default function ProductDetails() {
             <div className="font-bold text-xl text-[#000000] pt-6">
               {product.price} ₮
             </div>
-            <button className="py-2 px-9 bg-[#2563EB] text-[#FFFFFF] text-sm font-medium rounded-[20px] pt-[10px]">
+            <button className="py-2 px-9 bg-[#2563EB] text-[#FFFFFF] text-sm font-medium rounded-[20px] pt-[10px]" onClick={addToCart}>
               Сагсанд нэмэх
             </button>
 
@@ -175,7 +177,7 @@ export default function ProductDetails() {
               <div className="text-[#09090B] text-sm">Үнэлгээ</div>
               <a
                 className="text-[#2563EB] text-sm underline underline-offset-1 cursor-pointer"
-                // onClick={toggleReviews}
+              // onClick={toggleReviews}
               >
                 бүгдийг хураах
               </a>
