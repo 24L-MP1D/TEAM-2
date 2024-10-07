@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Dispatch, SetStateAction, useState } from "react";
 
-export default function Adress({setVisible}: {setVisible: Dispatch<SetStateAction<number>>}) {
+export default function Page({setVisible}: {setVisible: Dispatch<SetStateAction<number>>}) {
   var numeral = require("numeral");
 
   const mockProducts = [
