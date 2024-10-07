@@ -3,7 +3,7 @@ import { productModel } from "../models/product";
 import { Request, Response } from "express";
 const getProducts = async (req: Request, res: Response) => {
   try {
-    console.log("----")
+
     const products = await productModel.find();
     res.send(products);
   } catch (error) {
