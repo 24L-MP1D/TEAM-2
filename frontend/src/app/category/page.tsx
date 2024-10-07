@@ -76,12 +76,8 @@ export default function Category() {
   const uniqueCategories = categories.filter((category, index, self) =>
     index === self.findIndex((c) => c.categoryName === category.categoryName)
   );
-
-
-
-
-  // const uniquieSelectedSizes = selectedSizes.filter((selectedsize, index, self) =>
-  //   index === self.findIndex((s) => s.selectedSizes === selectedsize.selectedSizes))
+  const uniquieSelectedSizes = selectedSizes.filter((selectedsize, index, self) =>
+    index === self.findIndex((s) => s.selectedSizes === selectedsize.selectedSizes));
 
   return (
     <div className="flex gap-5 pt-[52px] justify-between">
@@ -97,7 +93,7 @@ export default function Category() {
         ))}
 
         <div className="text-[#000000] text-base font-bold pt-12">Хэмжээ</div>
-        {uniqueSelectedSizes.map((size) => (
+        {uniquieSelectedSizes.map((size) => (
           <div className="flex items-center space-x-2 pt-4" key={size.id}>
             <Checkbox id={`size-${size.id}`} />
             <label className="text-[#09090B] font-medium text-sm">
