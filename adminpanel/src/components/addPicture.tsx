@@ -11,22 +11,30 @@ export default function AddPicture({
 }: {
   onChange: (imageUrl: string) => void;
 }) {
-  const [loading, setLoading] = useState(false);
-  const [images, setImages] = useState<File | null>(null);
-  const [url, setUrl] = useState<string>("");
+
+  const [loading, setLoading]=useState(false);
+  const [files, setFiles]=useState<FileList | null>(null);
+  const imageUrls: string[]=[];
+
+  Array.from(files ?? []).forEach((file)=>{
+    const imageUrl=URL.createObjectURL(file);
+    console.log(imageUrl);
+    imageUrls.push(imageUrl)
+  })
 
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.currentTarget.files;
     if (files) {
-      setImages(files[0]);
+      console.log(files)
+      setFiles(files);
     }
   };
 
   const handleUpload = async () => {
-    if (!images) return;
+    if (!imageUrls) return;
 
     const formData = new FormData();
-    formData.append("image", images);
+    // formData.append("image", imageUrls);
 
     try {
       setLoading(true);

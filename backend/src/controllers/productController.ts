@@ -19,10 +19,8 @@ const getProduct=async(req:Request, res:Response)=>{
 
     try{
         const {id}=req.query;
-        console.log(id)
         const product=await productModel.findById(id);
         res.send(product);
-        console.log(product)
     }catch(error){
         res.status(400).json({error:"error happened during finding the product"})
 
@@ -125,7 +123,6 @@ const filterByprice = async (req: Request, res: Response) => {
         $lt: highPrice,
       },
     });
-    console.log(products);
     res.status(200).json(products);
   } catch (error) {
     res
@@ -138,7 +135,6 @@ const filterByprice = async (req: Request, res: Response) => {
 };
 const filterBymonth = async (req: Request, res: Response) => {
   const { startMonth, endMonth } = req.query;
-  console.log(startMonth, endMonth);
   try {
     const products = await productModel.find({
       createdAt: {
@@ -146,7 +142,6 @@ const filterBymonth = async (req: Request, res: Response) => {
         $lt: endMonth,
       },
     });
-    console.log(products);
     res.status(200).json(products);
   } catch (error) {
     res
@@ -160,7 +155,6 @@ const filterBymonth = async (req: Request, res: Response) => {
 
 const filterBysearch = async (req: Request, res: Response) => {
   const { search } = req.query;
-  console.log(search);
   try {
     const produts = await productModel.find({
       $or: [{
@@ -185,7 +179,6 @@ const filterBysearch = async (req: Request, res: Response) => {
     //   }}
     ]
     });
-    console.log(produts);
 
     res.status(200).json(produts);
   } catch (error) {
