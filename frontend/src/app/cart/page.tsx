@@ -36,7 +36,9 @@ export default function Cart() {
 
     fetchProducts();
   }, []);
+  
 
+  
 
   return (
 

@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import ProductDetails from "../productdetails/page";
 import CategoryList from "@/components/product/productList";
+import { METHODS } from "http";
+import { error } from "console";
 
 interface Product {
   id: string;
@@ -71,16 +73,15 @@ export default function Category() {
 
     fetchSelectedSizes();
   }, []);
-
-  // Filter for unique categories
   const uniqueCategories = categories.filter((category, index, self) =>
     index === self.findIndex((c) => c.categoryName === category.categoryName)
   );
 
-  // Filter for unique selected sizes
-  const uniqueSelectedSizes = selectedSizes.filter((selectedSize, index, self) =>
-    index === self.findIndex((s) => s.selectedSizes[0] === selectedSize.selectedSizes[0])
-  );
+
+
+
+  // const uniquieSelectedSizes = selectedSizes.filter((selectedsize, index, self) =>
+  //   index === self.findIndex((s) => s.selectedSizes === selectedsize.selectedSizes))
 
   return (
     <div className="flex gap-5 pt-[52px] justify-between">
