@@ -5,14 +5,14 @@ import { CartContext } from "@/context/cartContext";
 import { Button } from "@/components/ui/button";
 import { Delete, DeleteIcon, LucideDelete, Trash2, Trash2Icon } from "lucide-react";
 
-// interface Products {
-//     _id: string;
-//     name: string;
-//     size: string;
-//     images: string;
-//     price: number;
-//     uploadedPhotos: string;
-// }
+interface Products {
+    _id: string;
+    name: string;
+    size: string;
+    images: string;
+    price: number;
+    uploadedPhotos: string;
+}
 
 // interface CartContextType {
 //     cart: Product[];
@@ -24,10 +24,22 @@ export default function Cart() {
     const [selectedCount, setSelectedCount] = useState(0);
     const { cart, addToCart } = useContext(CartContext)
 
-    useEffect(() => {
-        console.log("haha")
-        addToCart({ name: 'banana', price: 1000, _id: "123" })
-    }, [])
+
+    // useEffect(() => {
+    //     const fetchProducts = async () => {
+    //       try {
+    //         const response = await fetch(`http://localhost:4000/products?id=${_id}`);
+    //         if (!response.ok) throw new Error("Failed to fetch products");
+    //         const data: Products[] = await response.json();
+    //         setProducts(data);
+    //       } catch (err) {
+    //         console.log(err);
+    //       }
+    //     };
+    
+    //     fetchProducts();
+    //   }, []);
+
     return (
         <div className="w-[738px] h-[664px] mx-auto mt-20">
             <div className="mx-auto w-[574px] h-132px ">
@@ -73,7 +85,6 @@ export default function Cart() {
         </div>
     )
 };
-
 
 
 

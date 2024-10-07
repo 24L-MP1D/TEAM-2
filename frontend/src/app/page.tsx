@@ -1,6 +1,6 @@
 "use client";
 
-import { Fetcher } from "@/components/fetcher";
+import { fetcher } from "@/components/fetcher";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -12,9 +12,6 @@ interface Product {
   price: number;
 
 }
-
-
-
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -32,14 +29,14 @@ export default function Home() {
     });
   };
 
-  
+
 
 
 
   useEffect(() => {
-   
-    Fetcher('/products').then((data)=>setProducts(data));
-  
+
+    fetcher('/products', 'GET').then((data) => setProducts(data));
+
   }, []);
 
   return (
@@ -82,9 +79,8 @@ export default function Home() {
         {products.slice(1).map((product, index) => (
           <div
             key={product._id}
-            className={`${
-              index === 6 || index === 7 ? "col-span-2 row-span-2" : ""
-            }`}
+            className={`${index === 6 || index === 7 ? "col-span-2 row-span-2" : ""
+              }`}
           >
             <div className="overflow-hidden relative  h-[330px] rounded-xl ">
               <Image
