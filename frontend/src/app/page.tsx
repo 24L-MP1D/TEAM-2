@@ -1,5 +1,6 @@
 "use client";
 
+import { Fetcher } from "@/components/fetcher";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -11,6 +12,9 @@ interface Product {
   price: number;
 
 }
+
+
+
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -31,16 +35,17 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/products`);
-        if (!res.ok) throw new Error("Failed to fetch products");
-        const data: Product[] = await res.json();
-        setProducts(data);
-      } catch (error) {
-        console.error(error);
+        const data = await Fetcher('/products');
+        if (data) {
+          setProducts(data);
+        }
+      } catch (err) {
+        console.error("Error fetching products:", err);
       }
     };
     fetchData();
   }, []);
+  
 
   return (
     <div className="lg:max-w-[1040px]  md:max-w-96  mx-auto">

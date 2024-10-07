@@ -8,15 +8,12 @@ const UserSchema = new Schema({
     required:[true, "please provide an email!"],
     unique:[true, "email exist"],
   },
-  phoneNumber: String,
   password: {
     type: String,
     required:[true, "please provide an password"],
     unique:false,
   },
-  address: String,
-  zipCode: Number,
-  cartId: String,
+  
   createdAt: Date,
   updatedAt: Date,
 });

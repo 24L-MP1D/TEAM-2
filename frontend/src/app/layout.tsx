@@ -20,9 +20,7 @@ export default function RootLayout({
       <body className="bg-white 100vw">
         <Header></Header>
 
-        <div className="max-w-[1040px] mx-auto">
-        </div>
-        <div className="max-w-[1040px] mx-auto">
+        <div className="max-w-[1040px] mx-auto ">
           <CartProvider>
             {children}
           </CartProvider>
