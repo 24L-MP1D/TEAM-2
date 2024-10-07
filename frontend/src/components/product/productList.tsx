@@ -43,6 +43,7 @@ export default function CategoryList() {
     fetchProducts();
   }, []);
 
+  
   return (
     <div className="flex gap-5 pt-[52px] justify-between mx-auto ">
 

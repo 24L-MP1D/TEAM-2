@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import ProductDetails from "../productdetails/page";
 import CategoryList from "@/components/product/productList";
+import { METHODS } from "http";
+import { error } from "console";
 
 interface Product {
   id: string;
@@ -18,18 +20,16 @@ interface Category {
   id: string;
   categoryName: string; 
 }
-
 interface SelectedSize {
-  id: number;
   selectedSizes: string[];
+  id: number;
 }
 
 export default function Category() {
   const [products, setProducts] = useState<Product[]>([]);
   const [savedProducts, setSavedProducts] = useState<Set<string>>(new Set());
   const [categories, setCategories] = useState<Category[]>([]); 
-  const [selectedSizes, setSelectedSizes] = useState<SelectedSize[]>([]); // Add the type <SelectedSize[]>
-
+  const [selectedSizes, setSelectedSizes] = useState([]);
   const handleSaveClick = (id: string) => {
     setSavedProducts((prev) => {
       const newSet = new Set(prev);
@@ -61,7 +61,7 @@ export default function Category() {
     const fetchSelectedSizes = async () => {
       try {
         const response = await fetch(`http://localhost:4000/products?selectedSizes[]`);
-        if (!response.ok) throw new Error("Failed to fetch selected sizes");
+        if (!response.ok) throw new Error("Failed to fetch categories");
         const data: SelectedSize[] = await response.json();
         setSelectedSizes(data);
       } catch (err) {
@@ -71,16 +71,15 @@ export default function Category() {
 
     fetchSelectedSizes();
   }, []);
-
-  // Filter for unique categories
   const uniqueCategories = categories.filter((category, index, self) =>
     index === self.findIndex((c) => c.categoryName === category.categoryName)
   );
 
-  // Filter for unique selected sizes
-  const uniqueSelectedSizes = selectedSizes.filter((selectedSize, index, self) =>
-    index === self.findIndex((s) => s.selectedSizes[0] === selectedSize.selectedSizes[0])
-  );
+
+
+
+  const uniquieSelectedSizes = selectedSizes.filter((selectedsize, index, self) =>
+    index === self.findIndex((s) => s.selectedSizes === selectedsize.selectedSizes))
 
   return (
     <div className="flex gap-5 pt-[52px] justify-between">
@@ -96,9 +95,9 @@ export default function Category() {
         ))}
 
         <div className="text-[#000000] text-base font-bold pt-12">Хэмжээ</div>
-        {uniqueSelectedSizes.map((size) => (
-          <div className="flex items-center space-x-2 pt-4" key={size.id}>
-            <Checkbox id={`size-${size.id}`} />
+        {selectedSizes.map((size) => (
+          <div className="flex items-center space-x-2 pt-4" key={size}>
+            <Checkbox id={`size-${size}`} />
             <label className="text-[#09090B] font-medium text-sm">
               {size.selectedSizes[0]}
             </label>
@@ -107,7 +106,7 @@ export default function Category() {
       </div>
 
       <CategoryList />
-      {/* <ProductDetails /> */}
+      {/* <ProductDetails/> */}
     </div>
   );
 }
