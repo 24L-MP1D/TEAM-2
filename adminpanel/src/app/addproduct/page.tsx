@@ -377,7 +377,7 @@ export default function AddProduct() {
                         className="w-[125px] h-[125px] rounded-md"
                       />
                     ))}
-                    <AddPicture onChange={handleUrl} />
+                    {/* <AddPicture onChange={handleUrl} /> */}
                   </div>
                   <span className="text-red-500 text-sm text-start pl-20">
                     {Formik.errors.uploadedPhotos}

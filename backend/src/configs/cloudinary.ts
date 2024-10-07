@@ -13,5 +13,5 @@ export const handleUpload=async(file:string)=>{
     const res=await cloudinary.uploader.upload(file,{
         resource_type:'auto'
     });
-    return res;
+    return res.secure_url;
 }
