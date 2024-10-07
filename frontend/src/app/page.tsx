@@ -32,24 +32,19 @@ export default function Home() {
     });
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await Fetcher('/products');
-        if (data) {
-          setProducts(data);
-        }
-      } catch (err) {
-        console.error("Error fetching products:", err);
-      }
-    };
-    fetchData();
-  }, []);
   
+
+
+
+  useEffect(() => {
+   
+    Fetcher('/products').then((data)=>setProducts(data));
+  
+  }, []);
 
   return (
     <div className="lg:max-w-[1040px]  md:max-w-96  mx-auto">
-      {products.length > 0 && (
+      {products?.length > 0 && (
         <div className="carousel relative pt-[56px]">
           {products.map((product, index) => (
             <div

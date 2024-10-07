@@ -23,7 +23,7 @@ function checkAuth(req:Request, res:Response, next:NextFunction){
 
 
     productRouter
-        .get("/products",checkAuth, getProducts)
+        .get("/products",getProducts)
         .get("/product/:id", getProduct)
         .post("/product", createProduct)
         .get("/productdetails",checkAuth, getProduct)
