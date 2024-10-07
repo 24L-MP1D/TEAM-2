@@ -22,10 +22,10 @@ export default function ProductDetails() {
   const [isReviewVisible, setIsReviewVisible] = useState<boolean>(false);
   const [selectedSize, setSelectedSize] = useState<string>('');
   const [product, setProduct] = useState<Product>();
+  const [selectedProduct, setSelectedProduct]=useState([]);
 
-
+  
   useEffect(() => {
-
     const fetchProducts = async () => {
       try {
         const response = await fetch(`http://localhost:4000/productdetails?id=${id}`);
@@ -54,6 +54,21 @@ export default function ProductDetails() {
 
     fetchRefProducts();
   }, []);
+
+  interface ProductData{
+    _id: string;
+    name: string;
+    size: string;
+    images: string;
+    price: number;
+    uploadedPhotos: string;
+  }
+   
+  useEffect(()=>
+  {
+    
+  }
+  )
 
 
 

@@ -8,6 +8,8 @@ import { productRouter } from "./routes/productRoutes";
 import { UserModel } from "./models/user";
 import mongoose from "mongoose";import { categoryRouter } from "./routes/category";
 import { uploadRouter } from "./routes/uploadpictureRouter";
+import { cartModel } from "./models/cart";
+import { cartRouter } from "./routes/cartRoutes";
 
 dotenv.config();
 
@@ -25,6 +27,7 @@ app.use(authRouter);
 app.use(productRouter);
 app.use(categoryRouter);
 app.use(uploadRouter);
+app.use(cartRouter);
 
 
 
