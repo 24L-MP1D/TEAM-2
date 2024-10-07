@@ -20,7 +20,6 @@ const register=async (req:Request,res:Response)=>{
             email,
             password:hashedPassword,
         });
-        console.log(user)
         res.status(201).json(user)
     }catch(error:unknown){
         if (error instanceof Error) { 
@@ -66,7 +65,6 @@ const login=async (req:Request,res:Response)=>{
                     expiresIn:"1day",
                 }
             );
-            console.log(accesstoken)
             res.status(201).json({accesstoken});
             // return res.json({accesstoken})
             
