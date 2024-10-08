@@ -32,10 +32,14 @@ function checkAuth(req: Request, res: Response, next: NextFunction) {
 
 productRouter
   .get("/products", getProducts)
-  .get("/product/:id", getProduct)
+
+  .get("/product/:id",checkAuth, getProduct)
+  
   .post("/product", createProduct)
   .put("/product/:id", updateProduct)
   .delete("/product/:id", deleteProduct)
+
+
 
   .get("/productsfilteredby", getProductsByCategory)
   .get("/productsfilteredbyMonth", filterBymonth)
