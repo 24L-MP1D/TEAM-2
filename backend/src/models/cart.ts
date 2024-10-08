@@ -4,7 +4,6 @@ const cartSchema= new Schema({
   userId: String,
   productId:String,
   selectedCount: Number,
-  // selectedColors: [{ type: String }],
   selectedSizes: [{type:String}],
   createdAt: Date,
   updatedAt: Date,

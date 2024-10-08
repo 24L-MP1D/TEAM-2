@@ -1,17 +1,13 @@
 {
   "compilerOptions": {
-    "module": "ESNext",
-    "target": "ESNext",
-    "moduleResolution": "Node",
-    "outDir": "./dist",
-    "rootDir": "./src",
+    "target": "es2020",
+    "module": "commonjs",
+    "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "strict": true,
-    "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
-    "types": ["node"] // Include Node.js type definitions
+    "outDir": "./dist"
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "api/index.ts"],
   "exclude": ["node_modules"]
 }
