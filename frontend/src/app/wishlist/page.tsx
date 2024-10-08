@@ -25,9 +25,6 @@ export default function Cart() {
     const [wishlist, setWishlist]= useState(0);
 
 
-    
-       
-
     return (
         <div className="w-[738px] h-[664px] mx-auto mt-20">
             <div className="mx-auto w-[574px] h-132px ">
