@@ -62,7 +62,7 @@ const login=async (req:Request,res:Response)=>{
                 {userId: user._id, email},
                     ACCESS_TOKEN_SECRET,
                 {
-                    expiresIn:"1day",
+                    expiresIn:"10s",
                 }
             );
             res.status(201).json({accesstoken});

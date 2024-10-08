@@ -2,10 +2,8 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
-  "main": "server.js",
+  "main": "api/index.js",
   "scripts": {
-    "start": "tsx watch src/server.js",
     "build": "tsc"
   },
   "keywords": [],
@@ -22,14 +20,6 @@
     "tsx": "^4.19.1",
     "typescript": "^5.6.2"
   },
-  "compilerOptions": {
-    "rootDir": "/",
-    "outDir": "/dist/"
-  },
-  "include": [
-    "/src/**/*.ts",
-    "/config/**/*.ts"
-  ],
   "dependencies": {
     "@types/express": "^4.17.21",
     "bcrypt": "^5.1.1",
