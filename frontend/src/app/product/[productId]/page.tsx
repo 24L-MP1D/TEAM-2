@@ -58,6 +58,7 @@ export default function ProductDetails({
       console.log("data recorded");
     } catch {
       console.log("error");
+      console.log("error");
     }
   };
 
