@@ -23,52 +23,6 @@ export default function ProductDetails() {
   const [filledStars, setFilledStars] = useState<number>(0);
   const [isReviewVisible, setIsReviewVisible] = useState<boolean>(false);
   const [selectedSize, setSelectedSize] = useState<string>('');
-<<<<<<< HEAD
-  const [product, setProduct] = useState<Product>({} as Product);
-  const [selectedProduct, setSelectedProduct] = useState([]);
-
-
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     try {
-  //       const response = await fetch(`http://localhost:4000/productdetails?id=${id}`);
-  //       if (!response.ok) throw new Error("Failed to fetch products");
-  //       const data = await response.json();
-  //       setProduct(data);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-
-  //   fetchProducts();
-  // }, []);
-
-  interface ProductData {
-    _id: string;
-    name: string;
-    size: string;
-    images: string;
-    price: number;
-    uploadedPhotos: string;
-  }
-  useEffect(() => {
-    fetcher(`/product/${id}`, 'GET').then((data) => setProduct(data));
-
-  }, []);
-
-  const addToCart = async () => {
-    console.log(selectedCount)
-    try {
-      await fetch(`http://localhost:4000/productdetails?id=${id}`,
-        {
-          method: "POST",
-          body: JSON.stringify({ Size: selectedSize, qty: selectedCount }),
-          headers: {
-            "Content-type": "application/json",
-          }
-        }
-      )
-=======
   const [product, setProduct] = useState<Product>();
   const [selectedProduct, setSelectedProduct]=useState([]);
 
@@ -118,7 +72,6 @@ export default function ProductDetails() {
   }
   )
 
->>>>>>> d260c444e8e1dc8e4f0862d2e7f48e737096dd6b
 
       console.log("success")
     }
