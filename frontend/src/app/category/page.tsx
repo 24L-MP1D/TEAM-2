@@ -5,8 +5,9 @@ import { Heart } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
-import ProductDetails from "../productdetails/page";
-import CategoryList from "@/components/product/productList";
+import ProductDetails from "../product/page";
+import CategoryList from "@/components/productList/productList";
+
 
 interface Product {
   id: string;

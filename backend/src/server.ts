@@ -9,7 +9,7 @@ import { UserModel } from "./models/user";
 import mongoose from "mongoose"; import { categoryRouter } from "./routes/category";
 import { uploadRouter } from "./routes/uploadpictureRouter";
 import { cartModel } from "./models/cart";
-import { cartRouter } from "./routes/cartRoutes";
+
 
 dotenv.config();
 
@@ -26,14 +26,7 @@ app.use(authRouter);
 app.use(productRouter);
 app.use(categoryRouter);
 app.use(uploadRouter);
-app.use(cartRouter);
-<<<<<<< HEAD
-=======
 
-
-
-
->>>>>>> d260c444e8e1dc8e4f0862d2e7f48e737096dd6b
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

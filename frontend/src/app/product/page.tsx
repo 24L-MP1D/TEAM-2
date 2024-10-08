@@ -3,7 +3,8 @@ import { fetcher } from "@/components/fetcher";
 import { error } from "console";
 import { Heart, Star } from "lucide-react";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
+import { userInfo } from "os";
 import { useState, useEffect } from "react";
 
 interface Product {
@@ -18,30 +19,18 @@ interface Product {
 export default function ProductDetails() {
   const searchParams = useSearchParams();
   const id = searchParams.get('id')
+
   const [selectedCount, setSelectedCount] = useState<number>(0);
   const [isSaved, setIsSaved] = useState<boolean>(false);
   const [filledStars, setFilledStars] = useState<number>(0);
   const [isReviewVisible, setIsReviewVisible] = useState<boolean>(false);
   const [selectedSize, setSelectedSize] = useState<string>('');
-<<<<<<< HEAD
+
   const [product, setProduct] = useState<Product>({} as Product);
+
   const [selectedProduct, setSelectedProduct] = useState([]);
 
 
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     try {
-  //       const response = await fetch(`http://localhost:4000/productdetails?id=${id}`);
-  //       if (!response.ok) throw new Error("Failed to fetch products");
-  //       const data = await response.json();
-  //       setProduct(data);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-
-  //   fetchProducts();
-  // }, []);
 
   interface ProductData {
     _id: string;
@@ -52,74 +41,28 @@ export default function ProductDetails() {
     uploadedPhotos: string;
   }
   useEffect(() => {
+    const { id } = useParams();
     fetcher(`/product/${id}`, 'GET').then((data) => setProduct(data));
 
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem('product', JSON.stringify(product));
+  }, [product]);
+
   const addToCart = async () => {
-    console.log(selectedCount)
-    try {
-      await fetch(`http://localhost:4000/productdetails?id=${id}`,
-        {
-          method: "POST",
-          body: JSON.stringify({ Size: selectedSize, qty: selectedCount }),
-          headers: {
-            "Content-type": "application/json",
-          }
-        }
-      )
-=======
-  const [product, setProduct] = useState<Product>();
-  const [selectedProduct, setSelectedProduct]=useState([]);
-
-  
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch(`http://localhost:4000/productdetails?id=${id}`);
-        if (!response.ok) throw new Error("Failed to fetch products");
-        const data = await response.json();
-        setProduct(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-  useEffect(() => {
-
-    const fetchRefProducts = async () => {
-      try {
-        const response = await fetch(`http://localhost:4000/products`);
-        if (!response.ok) throw new Error("Failed to fetch products");
-        const data = await response.json();
-        fetchRefProducts(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchRefProducts();
-  }, []);
-
-  interface ProductData{
-    _id: string;
-    name: string;
-    size: string;
-    images: string;
-    price: number;
-    uploadedPhotos: string;
-  }
-   
-  useEffect(()=>
-  {
     
-  }
-  )
-
->>>>>>> d260c444e8e1dc8e4f0862d2e7f48e737096dd6b
-
+    try {
+      const userData={
+        size:selectedSize,
+        qty:selectedCount,
+      }
+      localStorage.setItem("userInfo", JSON.stringify(userInfo));
+      alert("Data recorded!");
+      console.log("data recorded")
+      window.location.reload();
+    
+     
       console.log("success")
     }
     catch {
