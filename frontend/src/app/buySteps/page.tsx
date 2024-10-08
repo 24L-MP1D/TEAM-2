@@ -1,84 +1,80 @@
 "use client";
 
+import { fetcher } from "@/components/fetcher";
 import { Button } from "@/components/ui/button";
-import { Dispatch, SetStateAction, useState } from "react";
+import { userInfo } from "os";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { PiTrashLight } from "react-icons/pi";
 
 export default function Cart({setVisible}: {setVisible: Dispatch<SetStateAction<number>>}) {
   var numeral = require("numeral");
 
-  const mockProducts = [
-    {
-      id: 1,
-      name: "Chunky Glyph Tee 1",
-      image: <img src="/image.png" alt="itemPNG" />,
-      price: 120000,
-      pieces: 1,
-    },
-    {
-      id: 2,
-      name: "Chunky Glyph Tee 2",
-      image: <img src="/image.png" alt="itemPNG" />,
-      price: 120000,
-      pieces: 1,
-    },
-    {
-      id: 3,
-      name: "Chunky Glyph Tee 3",
-      image: <img src="/image.png" alt="itemPNG" />,
-      price: 120000,
-      pieces: 1,
-    },
-    {
-      id: 4,
-      name: "Chunky Glyph Tee 4",
-      image: <img src="/image.png" alt="itemPNG" />,
-      price: 120000,
-      pieces: 1,
-    },
-    {
-      id: 5,
-      name: "Chunky Glyph Tee 5",
-      image: <img src="/image.png" alt="itemPNG" />,
-      price: 120000,
-      pieces: 1,
-    },
-  ];
+  interface Product {
+    userId:String,
+    productId:String,
+    selectedCount:Number,
+    selectedSize:String,
+   
+   
+   
+  }
 
-  const [products, setProducts] = useState(mockProducts);
+  
+  const [products, setProducts] = useState<Product[]>([]);
 
-  const addPieces = (index: number) => {
-    const updatedProducts = [...products];
-    updatedProducts[index].pieces++;
-    setProducts(updatedProducts);
-  };
+  // const addPieces = (index: number) => {
+  //   const updatedProducts = [...products];
+  //   updatedProducts[index].selectedCount++;
+  //   setProducts(updatedProducts);
+  // };
 
-  const removePieces = (index: number) => {
-    const updatedProducts = [...products];
-    if (updatedProducts[index].pieces > 1) {
-      updatedProducts[index].pieces--;
-      setProducts(updatedProducts);
-    }
-  };
+  // const removePieces = (index: number) => {
+  //   const updatedProducts = [...products];
+  //   if (updatedProducts[index].pieces > 1) {
+  //     updatedProducts[index].pieces--;
+  //     setProducts(updatedProducts);
+  //   }
+  // };
 
   const removeProduct = (index: number) => {
     const updatedProducts = products.filter((_, i) => i !== index);
     setProducts(updatedProducts);
   };
 
+  useEffect(()=>{
+
+    
+    const userinfo=localStorage.getItem('userInfo')
+    const productId=localStorage.getItem('product')
+    const token=localStorage.getItem('authToken')
+
+    if(userinfo&& productId && token){
+      const userData=JSON.parse(userinfo);
+      const product=JSON.parse(productId);
+
+      console.log(userData, product)
+    }
+    
+
+    
+    
+
+    // fetcher(`/buySteps`, 'GET').then((data)=>setProducts(data))
+  })
+
   const [Card,cardfinish]=useState(false)
 
   return (
     <div className="bg-white p-8 rounded-2xl mx-auto">
       <div className="w-[574px] flex flex-col gap-6 mx-auto">
-        <div className="flex flex-col gap-4">
+        {/* <div className="flex flex-col gap-4">
           <div className="font-bold text-black text-xl flex">
             1.Сагс &nbsp;
             <div className="text-[#71717A]">({products.length})</div>
           </div>
           {products.map((product, index) => (
             <div className="flex items-start gap-6 p-4 rounded-2xl border-[#ECEDF0] border-solid border-[1px]">
-              <div className="w-[100px] h-[100px] rounded-2xl overflow-hidden">
+              <div className="w-[100px] h-[100px] rounded-2xl overflow-hidden text-[#000000]">
                 {product.image}
               </div>
               <div className="flex flex-1 flex-col gap-1">
@@ -131,7 +127,7 @@ export default function Cart({setVisible}: {setVisible: Dispatch<SetStateAction<
         </div>
         <div className=" h-[9] text-end">
           <Button variant={"default3"} onClick={()=>setVisible(2)}>Худалдан авах </Button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -16,10 +16,11 @@ const getProducts = async (req: Request, res: Response) => {
 
 
 const getProduct = async (req: Request, res: Response) => {
+
   try {
     const { id } = req.params;
+    console.log(id)
     const product = await productModel.findById(id);
-    console.log(product)
     res.status(200).json(product);
   } catch (error) {
     res.status(400).json({ error: "error happened during finding the product" })
@@ -195,6 +196,7 @@ const filterBysearch = async (req: Request, res: Response) => {
       });
   }
 };
+
 
 export {
   getProducts,
