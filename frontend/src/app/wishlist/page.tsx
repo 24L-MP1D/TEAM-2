@@ -3,9 +3,8 @@ import Image from "next/image"
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/context/cartContext";
 import { Button } from "@/components/ui/button";
-import { Delete, DeleteIcon, Heart, LucideDelete, Trash2, Trash2Icon } from "lucide-react";
+import { Delete, DeleteIcon, LucideDelete, Trash2, Trash2Icon } from "lucide-react";
 import { fetcher } from "@/components/fetcher";
-import { array } from "yup";
 
 
 interface Product {
@@ -33,13 +32,18 @@ export default function wishlist() {
         localStorage.setItem("savedProducts", JSON.stringify(updatedProduct));
     };
 
+    useEffect(() => {
+        const savedProduct = localStorage.getItem("savedProducts");
+        if (savedProduct) {
+            setSavedProducts(JSON.parse(savedProduct));
+        }
+    }, []);
 
+    
     return (
         <div className="w-[738px] h-[664px] mx-auto mt-20 mb-20">
-            <div className="mx-auto w-[574px] h-132px bg-white ">
-                <h1 className="font-bold p-3">Хадгалсан бараа 
-                       ({savedProducts.length})
-                </h1>
+            <div className="mx-auto w-[574px] h-132px ">
+                <h1 className="font-bold p-3">Хадгалсан бараа</h1>
                 <hr className="mt-3"></hr>
                 {savedProducts.map((product) => (
                     <div className="flex flex-row gap-4 border-2 m-3 rounded-lg">
@@ -50,13 +54,13 @@ export default function wishlist() {
                               <Button className="mt-2" variant="def2">Cагслах</Button>
                         </div>
                         <div className="flex-1 grid justify-items-end p-5">
-                            <Heart className="fill-black" onClick={() => handleRemove(product._id)} />
+                            <Trash2Icon className="" onClick={() => handleRemove(product._id)} />
                         </div>
                     </div>
                 ))}
                 <div className="flex justify-between p-3">
                     <div> Нийт төлөх дүн:</div>
-                    <div className="font-bold text-2xl" >{savedProducts.reduce((total, product) => total + product.price, 0)} ₮</div>
+                    <div className="font-bold text-2xl" >{savedProducts.reduce((total, product) => total + product.price, 0)}</div>
                 </div>
                 <div className="grid justify-items-end ">
                     <Button className="mt-4 rounded-m m-4 " variant="default"> Худалдаж авах </Button>

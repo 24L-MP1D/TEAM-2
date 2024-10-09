@@ -37,7 +37,9 @@ export default function Home() {
 
 
     const saved = localStorage.getItem("savedProducts");
+
     const savedProducts: Product[] = saved ? JSON.parse(saved) : [];
+
 
     if (savedProducts.find(item => item._id === product._id)) {
       const newProducts = savedProducts.filter(item => item._id !== product._id);
