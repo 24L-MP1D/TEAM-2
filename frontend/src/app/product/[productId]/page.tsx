@@ -100,7 +100,6 @@ export default function ProductDetails({params,}: {params: { productId: string }
 
         {product && (
           <Image
-         
             alt={product.name || "Product Image"}
             src={product.uploadedPhotos?.[0]}
             className="w-[422px] h-[521px] rounded-2xl"
