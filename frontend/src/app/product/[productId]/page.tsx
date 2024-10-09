@@ -53,8 +53,9 @@ export default function ProductDetails({params,}: {params: { productId: string }
          return
     }else{
       try {
-        const productId = params.productId;
-        const fromLocal=localStorage.getItem("")
+        // const productId = params.productId;
+        // console.log(productId)
+
         // const cart = JSON.parse( localStorage.getItem('cartProducts'));
 
         // cart.push({asdasdasdas})
@@ -64,16 +65,16 @@ export default function ProductDetails({params,}: {params: { productId: string }
         //   qty: selectedCount,
         // };
         // localStorage.setItem("userInfo", JSON.stringify(userData));
-        // localStorage.setItem("cartProducts", JSON.stringify(cart));
+        // localStorage.setItem("cartProducts", JSON.stringify(car));
 
 
 
-        const token = Cookies.get("token") || "";
-        const decodedToken=jwtDecode(token);
-        console.log("data recorded");
+        // const token = Cookies.get("token") || "";
+        // const decodedToken=jwtDecode(token);
+        // console.log("data recorded");
       } catch {
         console.log("error");
-        console.log("error");
+   
       }
     };
     }
