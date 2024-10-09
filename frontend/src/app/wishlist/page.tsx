@@ -22,28 +22,16 @@ interface Products {
 
 export default function Cart() {
     const [selectedCount, setSelectedCount] = useState(0);
-    const { cart, addToCart } = useContext(CartContext)
+    const [wishlist, setWishlist]= useState(0);
 
 
-    // useEffect(() => {
-    //     const fetchProducts = async () => {
-    //       try {
-    //         const response = await fetch(`http://localhost:4000/products?id=${_id}`);
-    //         if (!response.ok) throw new Error("Failed to fetch products");
-    //         const data: Products[] = await response.json();
-    //         setProducts(data);
-    //       } catch (err) {
-    //         console.log(err);
-    //       }
-    //     };
     
-    //     fetchProducts();
-    //   }, []);
+       
 
     return (
         <div className="w-[738px] h-[664px] mx-auto mt-20">
             <div className="mx-auto w-[574px] h-132px ">
-                <h1 className="font-bold p-3">1.Сагс</h1>
+                <h1 className="font-bold p-3">Хадгалсан бараа</h1>
                 <hr className="mt-3"></hr>
                 <div className="flex flex-row gap-4 border-2 m-3 rounded-lg">
                     <Image src='/' width={100} height={100} alt={""} className="rounded-lg p-3" />
@@ -85,4 +73,6 @@ export default function Cart() {
         </div>
     )
 };
+
+
 
