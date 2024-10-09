@@ -15,8 +15,6 @@ import jwt from "jsonwebtoken";
 
 const productRouter = express.Router();
 
-
-
 const checkAuth = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.cookies.token;
 
@@ -35,7 +33,10 @@ const checkAuth = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+
+
 productRouter
+
   .get("/products", getProducts)
   .get("/product/:id", getProduct)
   .post("/product", createProduct)

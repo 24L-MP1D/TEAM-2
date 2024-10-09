@@ -31,7 +31,7 @@ export default function ProductDetails({ params }: { params: { productId: string
  
     fetcher(`/product/${id}`, "GET").then((data) => {
       setProduct(data);
-      setTotalPrice(data.price); 
+      setTotalPrice(data?.price); 
     });
   }, [id]);
 
@@ -90,7 +90,7 @@ export default function ProductDetails({ params }: { params: { productId: string
     <div>
       <div className="flex gap-5 pt-[52px]">
         <div className="pt-[95px] flex flex-col gap-2">
-          {product.uploadedPhotos &&
+          {product?.uploadedPhotos &&
             product.uploadedPhotos.map((photo, index) => (
               <Image
                 key={index}
@@ -98,13 +98,13 @@ export default function ProductDetails({ params }: { params: { productId: string
                 width={67}
                 height={67}
                 alt={product._id}
-                src={photo}
+                src={product.uploadedPhotos[0]}
                 onClick={() => setSelectedSize(product.size[index])}
               />
             ))}
         </div>
 
-        {product.uploadedPhotos && (
+        {product?.uploadedPhotos && (
           <Image
             alt={product.name || "Product Image"}
             src={product.uploadedPhotos[0]}
