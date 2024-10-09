@@ -21,13 +21,11 @@ export function Address({
 
   interface Product {
     productId: string;
-    uploadedPhotos: string[];
-    tag: string;
-
-    name: string;
-    addInfo: string;
-
-    selectedSizes: string[];
+    productName: string[];
+    productTag:string;
+    productPhotos:string[];
+    productAddinfo:string;
+    size: string[];
     qty: number;
     price: number;
   }
@@ -140,7 +138,7 @@ export function Address({
                   <div className="">
                     <div className="flex items-start gap-4 rounded-2xl">
                       <Image
-                        src={product.uploadedPhotos[0]}
+                        src={product?.productPhotos[0]}
                         width={80}
                         height={80}
                         alt={product.productId}
@@ -148,7 +146,7 @@ export function Address({
                       ></Image>
                       <div className="flex flex-1 flex-col gap-1">
                         <div className="text-base font-normal">
-                          {product.name}{" "}
+                          {product.productName}{" "}
                         </div>
                         <div className="flex flex-col gap-2 ">
                           <div className="font-bold text-base">

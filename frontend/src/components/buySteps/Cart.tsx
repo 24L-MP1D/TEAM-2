@@ -13,16 +13,14 @@ export  function Cart({setVisible}: {setVisible: Dispatch<SetStateAction<number>
   interface Product {
     
   productId: string;
-  uploadedPhotos: string[];
-  tag:string;
-  
-  name: string;
-  addInfo:string;
-
-  selectedSizes: string[];
-  qty:number;
+  productName: string[];
+  productTag:string;
+  productPhotos:string[];
+  productAddinfo:string;
+  size: string[];
+  qty: number;
   price: number;
-   
+
    
    
   }
@@ -69,11 +67,11 @@ export  function Cart({setVisible}: {setVisible: Dispatch<SetStateAction<number>
           </div>
           {products?.map((product, index) => (
             <div className="flex items-start gap-6 p-4 rounded-2xl border-[#ECEDF0] border-solid border-[1px]">
-              <Image src={product.uploadedPhotos[0]} width={100} height={100} alt={product.productId}  className="w-[100px] h-[100px] rounded-2xl overflow-hidden text-[#000000]">
+              <Image src={product?.productPhotos[0]} width={100} height={100} alt={product.productId}  className="w-[100px] h-[100px] rounded-2xl overflow-hidden text-[#000000]">
 
               </Image>
               <div className="flex flex-1 flex-col gap-1">
-                <div className="text-base font-normal">{product.name} </div>
+                <div className="text-base font-normal">{product.productName} </div>
                 <div className="flex flex-col gap-2 ">
                   <div>
                     <div className="flex items-center">

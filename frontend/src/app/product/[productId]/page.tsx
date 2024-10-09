@@ -12,6 +12,8 @@ interface Product {
   name: string;
   size: string[];
   price: number;
+  tag:string,
+  addinfo:string,
 }
 
 export default function ProductDetails({ params }: { params: { productId: string } }) {
@@ -55,7 +57,11 @@ export default function ProductDetails({ params }: { params: { productId: string
           existingCart[existingProductIndex].qty += selectedCount;
         } else {
           const newProduct = {
-            id: id,
+            productId: id,
+            productName: product.name,
+            productTag:product.tag,
+            productPhotos:product.uploadedPhotos,
+            productAddinfo:product.addinfo,
             size: selectedSize,
             qty: selectedCount,
             price: product.price,
@@ -91,14 +97,14 @@ export default function ProductDetails({ params }: { params: { productId: string
       <div className="flex gap-5 pt-[52px]">
         <div className="pt-[95px] flex flex-col gap-2">
           {product?.uploadedPhotos &&
-            product.uploadedPhotos.map((photo, index) => (
+            product?.uploadedPhotos.map((photo, index) => (
               <Image
                 key={index}
                 className="w-[67px] h-[67px] rounded cursor-pointer"
                 width={67}
                 height={67}
                 alt={product._id}
-                src={product.uploadedPhotos[0]}
+                src={photo}
                 onClick={() => setSelectedSize(product.size[index])}
               />
             ))}
