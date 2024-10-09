@@ -88,6 +88,27 @@ export default function Home() {
   
 
       <div className="grid lg:grid-cols-4 gap-x-5 gap-y-12 overflow-hidden mb-10 md:grid-cols-2 sm:grid-cols-1  ">
+      {products?.slice(1).map((product, index) => (
+          <div
+            key={product._id}
+            className={`${index === 6 || index === 7 ? "col-span-2 row-span-2" : ""
+              }`}
+          >
+            <div className="overflow-hidden relative  h-[330px] rounded-xl ">
+              <Image
+                src={product.uploadedPhotos[0]}
+                alt={product.name}
+                width={100}
+                height={100}
+                className="relative transition-transform duration-300 ease-in-out transform hover:scale-110 object-cover rounded-xl w-full"
+              />
+              <Heart
+                className="absolute top-2 right-2 z-10 cursor-pointer"
+                color={savedProducts.has(product._id) ? "black" : "gray"}
+                fill={savedProducts.has(product._id) ? "black" : "none"}
+                onClick={() => handleSaveClick(product._id)}
+              />
+
         {products.slice(1).map((product, index) => (
           <Link href={`/productdetails/?id=${product._id}`}>
             <div
@@ -116,6 +137,7 @@ export default function Home() {
               <p className="text-[#000000] text-base font-bold pt-1">
                 {product.price} ₮
               </p>
+
             </div>
           </Link>
         ))}

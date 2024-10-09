@@ -5,6 +5,7 @@ import { FormikErrors, useFormik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import * as Yup from "yup";  
+import Cookies from 'js-cookie';
 
 
 export default function LoginPage() {
@@ -33,32 +34,27 @@ export default function LoginPage() {
     password: string;
   }
   const router=useRouter();
+
   const login = async (values: FormValues) => {
     try {
-      const login = values;
-      const user = await fetch(`http://localhost:4000/login`, {
+      const response = await fetch(`http://localhost:4000/login`, {
         method: "POST",
-        body: JSON.stringify(login),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
         },
-      })
-      .then((res)=>{
-        if(res.status===201){
-            console.log("successfully signed in");
-            router.push("/");
-            return res.json();
-        }else{
-            console.log("error during login ")
-        }
-      })
-      .then(({accesstoken})=>{
-        console.log({accesstoken})
-        localStorage.setItem("authToken",accesstoken)
-      })
-      
-    } catch {
-        console.log("Error during registering the user")
+        body: JSON.stringify(values),
+      });
+      if(response.status===201){
+        console.log('Successfully signed in');
+        const { accesstoken } = await response.json();
+        Cookies.set('token', accesstoken, { expires: 7, secure: true });
+        router.push('/');
+      }else{
+        console.log('Error during login, status:', response.status);
+      }
+
+    } catch(error) {
+          console.error('Login failed due to error:', error);
     }
   };
   return (

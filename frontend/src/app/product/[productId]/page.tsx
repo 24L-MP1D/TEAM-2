@@ -1,11 +1,10 @@
 "use client";
 import { fetcher } from "@/components/fetcher";
-import { error } from "console";
 import { Heart, Star } from "lucide-react";
 import Image from "next/image";
-import { useParams, useSearchParams } from "next/navigation";
-import { userInfo } from "os";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 interface Product {
   uploadedPhotos: string[];
@@ -29,7 +28,6 @@ export default function ProductDetails({
   const [selectedSize, setSelectedSize] = useState<string>("");
 
   const [product, setProduct] = useState<Product>({} as Product);
-
   const [selectedProduct, setSelectedProduct] = useState([]);
 
   interface ProductData {
@@ -41,19 +39,28 @@ export default function ProductDetails({
     uploadedPhotos: string;
   }
   useEffect(() => {
-    fetcher(`/product/${id}`, "GET").then((data) => setProduct(data));
+    fetch(`http://localhost:4000/product/${id}`)
+      .then((res) => res.json())
+      .then((data) => setProduct(data));
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("product", JSON.stringify(product));
+    fetcher(`/product/${id}`, "GET").then((data) => setProduct(data));
   }, [product]);
 
   const addToCart = async () => {
+    const cookie = Cookies.get("token");
+
+    console.log(cookie);
     try {
       const userData = {
         size: selectedSize,
         qty: selectedCount,
       };
+      const cookie = Cookies.get("token");
+
+      console.log({ cookie });
+
       localStorage.setItem("userInfo", JSON.stringify(userData));
       console.log("data recorded");
     } catch {
