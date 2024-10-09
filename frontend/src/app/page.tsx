@@ -6,7 +6,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import * as React from "react";
-
 import {
   Carousel,
   CarouselContent,
@@ -15,6 +14,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { CardContent } from "@/components/ui/card";
+import Cookies from "js-cookie";
 
 interface Product {
   index: null | undefined;
@@ -32,15 +32,12 @@ export default function Home() {
 
 
   const handleSaveClick = (product: Product, event: any) => {
-
     event.stopPropagation();
     event.preventDefault();
 
 
     const saved = localStorage.getItem("savedProducts");
-
     const savedProducts: Product[] = saved ? JSON.parse(saved) : [];
-
 
     if (savedProducts.find(item => item._id === product._id)) {
       const newProducts = savedProducts.filter(item => item._id !== product._id);
@@ -71,7 +68,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="lg:max-w-full  md:max-w-96  mx-auto">
+    <div className="lg:max-w-full  md:max-w-96  mx-auto mb-20">
       {products?.length > 0 && (
         <Carousel className=" w-full ">
           {/* <CarouselPrevious /> */}
