@@ -59,7 +59,7 @@ export default function Cart({setVisible}: {setVisible: Dispatch<SetStateAction<
     
     
 
-    // fetcher(`/buySteps`, 'GET').then((data)=>setProducts(data))
+    fetcher(`/buySteps`, 'GET').then((data)=>setProducts(data))
   })
 
   const [Card,cardfinish]=useState(false)

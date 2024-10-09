@@ -1,16 +1,11 @@
 export async function fetcher(pathname: string, method: string ) {
   try {
-    const token = localStorage.getItem("authToken") ;
-    if(!token){
-      return alert("Сагсанд нэмэхийн тулд нэвтэрнэ үү")
-    }
-
     const response = await fetch(`http://localhost:4000${pathname}`, {
       method,
       headers: {
         'Content-Type': 'application/json',
-        'authToken': `Bearer ${token}`,
       },
+      credentials: 'include', 
 
     });
     if (!response.ok) {

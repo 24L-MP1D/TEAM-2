@@ -76,7 +76,7 @@ export default function Home() {
       )}
 
       <div className="grid lg:grid-cols-4 gap-x-5 gap-y-12 overflow-hidden mb-10 md:grid-cols-2 sm:grid-cols-1  ">
-        {products.slice(1).map((product, index) => (
+        {products?.slice(1).map((product, index) => (
           <div
             key={product._id}
             className={`${index === 6 || index === 7 ? "col-span-2 row-span-2" : ""

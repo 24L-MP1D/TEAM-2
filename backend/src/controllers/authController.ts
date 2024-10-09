@@ -32,18 +32,6 @@ const register=async (req:Request,res:Response)=>{
     }
 }
 
-// const createOtp=async (req:Request, res:Response)=>{
-//     try{
-//         const{ email}=req.body;
-//         if(!email ) return res.sendStatus(400);
-//         const otp=Math.floor(Math.random()*899999)+100000;
-//         const register=await otpModel.create({email,otp})
-
-//     }catch{
-
-//     }
-// }
-
 
 const login=async (req:Request,res:Response)=>{
 
@@ -62,7 +50,7 @@ const login=async (req:Request,res:Response)=>{
                 {userId: user._id, email},
                     ACCESS_TOKEN_SECRET,
                 {
-                    expiresIn:"10s",
+                    expiresIn:"12h",
                 }
             );
             res.status(201).json({accesstoken});

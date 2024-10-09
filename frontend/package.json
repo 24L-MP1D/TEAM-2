@@ -23,6 +23,7 @@
     "cloudinary": "^2.5.0",
     "clsx": "^2.1.1",
     "formik": "^2.4.6",
+    "js-cookie": "^3.0.5",
     "lucide-react": "^0.439.0",
     "next": "^14.2.13",
     "numeral": "^2.0.6",
@@ -35,6 +36,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20.16.10",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",

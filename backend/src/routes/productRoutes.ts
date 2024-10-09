@@ -15,31 +15,32 @@ import jwt from "jsonwebtoken";
 
 const productRouter = express.Router();
 
-function checkAuth(req: Request, res: Response, next: NextFunction) {
-  const authToken = req.headers["authtoken"];
-  const authSecretKey = process.env.ACCESS_TOKEN_SECRET || "";
-  console.log("auth", authToken);
 
-  
-  if (!authToken) {
-    return res.sendStatus(403);
+
+const checkAuth = async (req: Request, res: Response, next: NextFunction) => {
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res
+      .status(401)
+      .send({ sucess: false, message: "unauthenticated user" });
   }
-  if (!jwt.verify(authToken as string, authSecretKey)) {
-    return res.sendStatus(403);
+  try {
+    const authSecretKey = process.env.ACCESS_TOKEN_SECRET || "";
+    const isVerified = jwt.verify(token, authSecretKey);
+
+    if (isVerified) return next();
+  } catch (error) {
+    return res.status(401).send({ sucess: false, message: "invalid token" });
   }
-  next();
-}
+};
 
 productRouter
   .get("/products", getProducts)
-
-  .get("/product/:id",checkAuth, getProduct)
-  
+  .get("/product/:id", getProduct)
   .post("/product", createProduct)
   .put("/product/:id", updateProduct)
   .delete("/product/:id", deleteProduct)
-
-
 
   .get("/productsfilteredby", getProductsByCategory)
   .get("/productsfilteredbyMonth", filterBymonth)
