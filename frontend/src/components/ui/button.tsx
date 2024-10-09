@@ -20,11 +20,12 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
 
-        def2: "outline-blue-500 rounded-xl text-white outline ",
-        def3: "border  bg-white outline  outline-blue-500 rounded-xl text-blue-500",
+        def2: "bg-blue-600 rounded-2xl text-white outline ",
+        def3: "border  bg-white outline outline-blue-500 rounded-xl text-white",
 
         default2:"bg-[#FFFFFF] py-2 px-16 rounded-[16px] text-sm font-semibold w-[244px] h-9  text-black flex justify-start ",
-        default3:"bg-[#2563EB] rounded-[18px] text-[#FAFAFA] px-[36px] py-2 text-sm font-medium hover:bg-blue-800"
+        default3:"bg-[#2563EB] rounded-[18px] text-[#FAFAFA] px-[36px] py-2 text-sm font-medium hover:bg-blue-800",
+        blue: "bg-[#38bdf8], rounded-[18px] text-white"
       },
       size: {
         default: "h-9 px-4 py-2",

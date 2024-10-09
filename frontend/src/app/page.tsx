@@ -27,30 +27,46 @@ interface Product {
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
-  const [savedProducts, setSavedProducts] = useState<Set<string>>(new Set());
+  const [savedProductIds, setSavedProductIds] = useState<string[]>([]);
   const [cart, setCart] = useState<Product[]>([]);
 
-  
-  const handleSaveClick = (id: string, event: any) => {
-      event.stopPropagation()
-      event.preventDefault()
-      setSavedProducts((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(id)) {
-        newSet.delete(id);
-      } else {
-        newSet.add(id);
-      }
-      localStorage.setItem("savedProducts", JSON.stringify(Array.from(newSet)));
-      return newSet;
-    });
+
+  const handleSaveClick = (product: Product, event: any) => {
+
+    event.stopPropagation();
+    event.preventDefault();
+
+
+    const saved = localStorage.getItem("savedProducts");
+
+    const savedProducts: Product[] = saved ? JSON.parse(saved) : [];
+
+
+    if (savedProducts.find(item => item._id === product._id)) {
+      const newProducts = savedProducts.filter(item => item._id !== product._id);
+      localStorage.setItem("savedProducts", JSON.stringify(newProducts));
+      updateSavedProductIds();
+
+    }
+    else {
+      savedProducts.push(product);
+      localStorage.setItem("savedProducts", JSON.stringify(savedProducts));
+      updateSavedProductIds();
+
+    }
+
   };
 
-  useEffect(() => {
+  function updateSavedProductIds() {
     const saved = localStorage.getItem("savedProducts");
+    const savedProducts: Product[] = saved ? JSON.parse(saved) : [];
     if (saved) {
-      setSavedProducts(new Set(JSON.parse(saved)));
+      setSavedProductIds(savedProducts.map(item => item._id));
     }
+  }
+
+  useEffect(() => {
+    updateSavedProductIds();
     fetcher("/products", "GET").then((data) => setProducts(data));
   }, []);
 
@@ -62,7 +78,7 @@ export default function Home() {
           <CarouselContent>
             {products?.map((product, index) => (
               <CarouselItem key={product.index} id={`slide${index + 1}`}>
-                <div className="">
+                <div className="relative">
                   <CardContent className="flex  items-center justify-center pt-6 pb-4">
                     <Image
                       src={product.uploadedPhotos[0]}
@@ -71,11 +87,13 @@ export default function Home() {
                       height={446}
                       className="w-full h-[446px] object-cover rounded-xl relative"
                     />
-                    <div className="absolute bottom-12 font-bold ">
-                      {product.name}
-                    </div>
-                    <div className="absolute bottom-3  font-bold text-2xl ">
-                      {product.price}
+                    <div className="absolute bottom-24 left-16">
+                      <div className="absolute  text-nowrap 28px">
+                        {product.name}
+                      </div>
+                      <div className="absolute mt-6 font-bold text-3xl text-nowrap">
+                        {product.price} ₮
+                      </div>
                     </div>
                   </CardContent>
                 </div>
@@ -91,9 +109,8 @@ export default function Home() {
           <Link href={`/productdetails/?id=${product._id}`}>
             <div
               key={product._id}
-              className={`${
-                index === 6 || index === 7 ? "col-span-2 row-span-2" : ""
-              }`}
+              className={`${index === 6 || index === 7 ? "col-span-2 row-span-2" : ""
+                }`}
             >
               <div className="overflow-hidden relative  h-[330px] rounded-xl ">
                 <Image
@@ -105,9 +122,9 @@ export default function Home() {
                 />
                 <Heart
                   className="absolute top-2 right-2 z-10 cursor-pointer"
-                  color={savedProducts.has(product._id) ? "black" : "gray"}
-                  fill={savedProducts.has(product._id) ? "black" : "none"}
-                  onClick={(event) => handleSaveClick(product._id, event)}
+                  color={savedProductIds.includes(product._id) ? "black" : "gray"}
+                  fill={savedProductIds.includes(product._id) ? "black" : "none"}
+                  onClick={(event) => handleSaveClick(product, event)}
                 />
               </div>
               <p className="text-[#000000] text-base font-normal pt-2">
@@ -120,7 +137,7 @@ export default function Home() {
           </Link>
         ))}
       </div>
-</div>
+    </div>
   );
 }
 
