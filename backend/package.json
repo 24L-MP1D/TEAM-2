@@ -4,7 +4,10 @@
   "description": "",
   "main": "api/index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+
+    
+    "start": "tsx watch api/index.ts"
   },
   "keywords": [],
   "author": "",

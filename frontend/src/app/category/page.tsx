@@ -5,23 +5,23 @@ import { Heart } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
-import ProductDetails from "../product/page";
+
 import CategoryList from "@/components/productList/productList";
 
 
 interface Product {
-  id: string;
+  _id: string;
   CategoryName: string;
   size: string; 
 }
 
 interface Category {
-  id: string;
+  _id: string;
   categoryName: string; 
 }
 
 interface SelectedSize {
-  id: number;
+  _id: number;
   selectedSizes: string[];
 }
 
@@ -88,8 +88,8 @@ export default function Category() {
       <div>
         <div className="text-[#000000] text-base font-bold">Ангилал</div>
         {uniqueCategories.map((category) => (
-          <div className="flex items-center space-x-2 pt-4" key={category.id}>
-            <Checkbox id={`category-${category.id}`} />
+          <div className="flex items-center space-x-2 pt-4" key={category._id}>
+            <Checkbox id={`category-${category._id}`} />
             <label className="text-[#09090B] font-medium text-sm">
               {category.categoryName}
             </label>
@@ -98,8 +98,8 @@ export default function Category() {
 
         <div className="text-[#000000] text-base font-bold pt-12">Хэмжээ</div>
         {uniqueSelectedSizes.map((size) => (
-          <div className="flex items-center space-x-2 pt-4" key={size.id}>
-            <Checkbox id={`size-${size.id}`} />
+          <div className="flex items-center space-x-2 pt-4" key={size._id}>
+            <Checkbox id={`size-${size._id}`} />
             <label className="text-[#09090B] font-medium text-sm">
               {size.selectedSizes[0]}
             </label>

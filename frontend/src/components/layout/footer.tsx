@@ -11,7 +11,7 @@ export default function Footer() {
     <div className="bg-[#111111]">
       <footer className="max-w-[1440px] py-[64px] px-[200px] m-auto text-white flex flex-col gap-[43px]">
       <div className="flex justify-between items-center border-b-[1.5px] border-[#ffffff] border-opacity-10 border-solid pb-[43px]">
-        <Image src="/Symbol.png" alt="icon" width={42} height={35}/>
+        <Image src="/Symbol.png" alt="icon" width={24} height={24}  className="w-6 h-6"/>
         <div className="flex gap-[38px] items-center">
           <div className="flex gap-[20px] items-center">
             <div className="border-[1px] border-white border-opacity-10 w-12 h-12 rounded-full flex justify-center items-center">
