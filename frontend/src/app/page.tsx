@@ -28,20 +28,29 @@ interface Product {
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [savedProducts, setSavedProducts] = useState<Set<string>>(new Set());
+  const [cart, setCart] = useState<Product[]>([]);
 
-  const handleSaveClick = (id: string) => {
-    setSavedProducts((prev) => {
+  
+  const handleSaveClick = (id: string, event: any) => {
+      event.stopPropagation()
+      event.preventDefault()
+      setSavedProducts((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(id)) {
         newSet.delete(id);
       } else {
         newSet.add(id);
       }
+      localStorage.setItem("savedProducts", JSON.stringify(Array.from(newSet)));
       return newSet;
     });
   };
 
   useEffect(() => {
+    const saved = localStorage.getItem("savedProducts");
+    if (saved) {
+      setSavedProducts(new Set(JSON.parse(saved)));
+    }
     fetcher("/products", "GET").then((data) => setProducts(data));
   }, []);
 
@@ -51,7 +60,7 @@ export default function Home() {
         <Carousel className=" w-full ">
           {/* <CarouselPrevious /> */}
           <CarouselContent>
-            {products.map((product, index) => (
+            {products?.map((product, index) => (
               <CarouselItem key={product.index} id={`slide${index + 1}`}>
                 <div className="">
                   <CardContent className="flex  items-center justify-center pt-6 pb-4">
@@ -79,31 +88,6 @@ export default function Home() {
 
       <div className="grid lg:grid-cols-4 gap-x-5 gap-y-12 overflow-hidden mb-10 md:grid-cols-2 sm:grid-cols-1  ">
         {products?.slice(1).map((product, index) => (
-          <div
-            key={product._id}
-            className={`${
-              index === 6 || index === 7 ? "col-span-2 row-span-2" : ""
-            }`}
-          >
-            <div className="overflow-hidden relative  h-[330px] rounded-xl ">
-              <Image
-                src={product.uploadedPhotos[0]}
-                alt={product.name}
-                width={100}
-                height={100}
-                className="relative transition-transform duration-300 ease-in-out transform hover:scale-110 object-cover rounded-xl w-full"
-              />
-              <Heart
-                className="absolute top-2 right-2 z-10 cursor-pointer"
-                color={savedProducts.has(product._id) ? "black" : "gray"}
-                fill={savedProducts.has(product._id) ? "black" : "none"}
-                onClick={() => handleSaveClick(product._id)}
-              />
-            </div>
-          </div>
-        ))}
-
-        {products.slice(1).map((product, index) => (
           <Link href={`/productdetails/?id=${product._id}`}>
             <div
               key={product._id}
@@ -123,7 +107,7 @@ export default function Home() {
                   className="absolute top-2 right-2 z-10 cursor-pointer"
                   color={savedProducts.has(product._id) ? "black" : "gray"}
                   fill={savedProducts.has(product._id) ? "black" : "none"}
-                  onClick={() => handleSaveClick(product._id)}
+                  onClick={(event) => handleSaveClick(product._id, event)}
                 />
               </div>
               <p className="text-[#000000] text-base font-normal pt-2">
@@ -136,6 +120,7 @@ export default function Home() {
           </Link>
         ))}
       </div>
-    </div>
+</div>
   );
 }
+
