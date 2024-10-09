@@ -19,7 +19,6 @@ const getProduct = async (req: Request, res: Response) => {
 
   try {
     const { id } = req.params;
-    console.log(id)
     const product = await productModel.findById(id);
     res.status(200).json(product);
   } catch (error) {
