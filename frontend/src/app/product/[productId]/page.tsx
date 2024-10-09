@@ -1,11 +1,12 @@
 "use client";
 import { fetcher } from "@/components/fetcher";
-import { Heart, Star } from "lucide-react";
+import { Heart } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
+import RatingSection from "@/components/product-details/ratingSection";
 
 interface Product {
   uploadedPhotos: string[];
@@ -15,19 +16,21 @@ interface Product {
   price: number;
 }
 
-export default function ProductDetails({params,}: {params: { productId: string };}) {
-  const id = params.productId; 
+export default function ProductDetails({
+  params,
+}: {
+  params: { productId: string };
+}) {
+  const id = params.productId;
 
   const [selectedCount, setSelectedCount] = useState<number>(0);
   const [isSaved, setIsSaved] = useState<boolean>(false);
-  const [filledStars, setFilledStars] = useState<number>(0);
   const [isReviewVisible, setIsReviewVisible] = useState<boolean>(false);
   const [selectedSize, setSelectedSize] = useState<string>("");
 
   const [product, setProduct] = useState<Product>({} as Product);
   const [selectedProduct, setSelectedProduct] = useState([]);
-  const router=useRouter();
-
+  const router = useRouter();
 
   interface ProductData {
     _id: string;
@@ -37,24 +40,22 @@ export default function ProductDetails({params,}: {params: { productId: string }
     price: number;
     uploadedPhotos: string;
   }
- 
+
   useEffect(() => {
     fetcher(`/product/${id}`, "GET").then((data) => setProduct(data));
   }, [product]);
-  
 
-  const addToCart = async() => {
-   
+  const addToCart = async () => {
     const cookie = Cookies.get("token");
 
-    if(!cookie){
-         alert("Сагсанд нэмэхийн тулд хэрэглэгч та нэвтрэх шаардлагатай!")
-         router.push('/login');
-         return
-    }else{
+    if (!cookie) {
+      alert("Сагсанд нэмэхийн тулд хэрэглэгч та нэвтрэх шаардлагатай!");
+      router.push("/login");
+      return;
+    } else {
       try {
         const productId = params.productId;
-        const fromLocal=localStorage.getItem("")
+        const fromLocal = localStorage.getItem("");
         // const cart = JSON.parse( localStorage.getItem('cartProducts'));
 
         // cart.push({asdasdasdas})
@@ -66,17 +67,15 @@ export default function ProductDetails({params,}: {params: { productId: string }
         // localStorage.setItem("userInfo", JSON.stringify(userData));
         // localStorage.setItem("cartProducts", JSON.stringify(cart));
 
-
-
         const token = Cookies.get("token") || "";
-        const decodedToken=jwtDecode(token);
+        const decodedToken = jwtDecode(token);
         console.log("data recorded");
       } catch {
         console.log("error");
         console.log("error");
       }
-    };
     }
+  };
   return (
     <div>
       <div className="flex gap-5 pt-[52px]">
@@ -84,7 +83,6 @@ export default function ProductDetails({params,}: {params: { productId: string }
           {product && (
             <Image
               key={product._id}
-
               className="w-[67px] h-[67px] rounded cursor-pointer"
               width={67}
               height={67}
@@ -100,7 +98,6 @@ export default function ProductDetails({params,}: {params: { productId: string }
 
         {product && (
           <Image
-         
             alt={product.name || "Product Image"}
             src={product.uploadedPhotos?.[0]}
             className="w-[422px] h-[521px] rounded-2xl"
@@ -178,29 +175,7 @@ export default function ProductDetails({params,}: {params: { productId: string }
             >
               Сагсанд нэмэх
             </button>
-
-            <div className="flex gap-4 pt-[55px]">
-              <div className="text-[#09090B] text-sm">Үнэлгээ</div>
-              <a
-                className="text-[#2563EB] text-sm underline underline-offset-1 cursor-pointer"
-                // onClick={toggleReviews}
-              >
-                бүгдийг хураах
-              </a>
-            </div>
-            <div className="flex">
-              {[0, 1, 2, 3, 4].map((index) => (
-                <Star
-                  key={index}
-                  color="yellow"
-                  fill={index < filledStars ? "yellow" : "white"}
-                  onClick={() => setFilledStars(index + 1)}
-                  style={{ cursor: "pointer" }}
-                />
-              ))}
-              <div className="text-black">4.6 (24)</div>
-            </div>
-
+            <RatingSection />
             {isReviewVisible && (
               <div className="pt-4">
                 <div>No reviews yet.</div>
