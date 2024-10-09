@@ -15,9 +15,10 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { CardContent } from "@/components/ui/card";
+import { useLocalStorage } from "@/useLocalStorage";
 
-interface Product{
-  index: Key | null | undefined;
+interface Product {
+  index: key | null | undefined;
   uploadedPhotos: string[];
   _id: string;
   name: string;
@@ -26,11 +27,19 @@ interface Product{
 
 }
 
+
+
+
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [savedProducts, setSavedProducts] = useState<Set<string>>(new Set());
+  const [cart, setCart] = useState<Product[]>([]);
 
-  const handleSaveClick = (id: string) => {
+
+  const handleSaveClick = (id: string, event: any) => {
+    event.stopPropagation()
+    event.preventDefault()
+
     setSavedProducts((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(id)) {
@@ -38,54 +47,55 @@ export default function Home() {
       } else {
         newSet.add(id);
       }
+      localStorage.setItem("savedProducts", JSON.stringify(Array.from(newSet)));
       return newSet;
     });
   };
 
-
   useEffect(() => {
-
+    const saved = localStorage.getItem("savedProducts");
+    if (saved) {
+      setSavedProducts(new Set(JSON.parse(saved)));
+    }
+  
     fetcher('/products', 'GET').then((data) => setProducts(data));
-
   }, []);
-
+  
   return (
 
     <div className="lg:max-w-full  md:max-w-96  mx-auto">
       {products?.length > 0 && (
         <Carousel className=" w-full ">
-            {/* <CarouselPrevious /> */}
-            <CarouselContent>
+          {/* <CarouselPrevious /> */}
+          <CarouselContent>
             {products.map((product, index) => (
-                <CarouselItem key={product.index} id={`slide${index + 1}`}>
-                  <div className="">
-                     <CardContent className="flex  items-center justify-center pt-6 pb-4">
-                      <Image
-                        src={product.uploadedPhotos[0]}
-                        alt={product.name}
-                        width={1040}
-                        height={446}
-                        className="w-full h-[446px] object-cover rounded-xl relative"
-                      />
-                      <div className="absolute bottom-12 font-bold ">
-                      {product.name}
+              <CarouselItem key={product.index} id={`slide${index + 1}`}>
+                <div className="">
+                  <CardContent className="flex  items-center justify-center pt-6 pb-4 relative">
+                    <Image
+                      src={product.uploadedPhotos[0]}
+                      alt={product.name}
+                      width={1040}
+                      height={446}
+                      className="w-full h-[446px] object-cover rounded-xl "
+                    />
+                    <div className="absolute bottom-4 left-16">
+                      <div className="absolute bottom-12   ">
+                        {product.name}
                       </div>
-                      <div className="absolute bottom-3  font-bold text-2xl ">
-                      {product.price}
+                      <div className="absolute bottom-4  font-bold text-3xl ">
+                        {product.price}
                       </div>
-                 
-                  
-                     </CardContent> 
+                    </div>
+                  </CardContent>
 
-                  </div>
-                </CarouselItem>
-               ) )}
-            </CarouselContent>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
           {/* <CarouselNext /> */}
         </Carousel>
       )}
-
-  
 
       <div className="grid lg:grid-cols-4 gap-x-5 gap-y-12 overflow-hidden mb-10 md:grid-cols-2 sm:grid-cols-1  ">
       {products?.slice(1).map((product, index) => (
@@ -128,7 +138,7 @@ export default function Home() {
                   className="absolute top-2 right-2 z-10 cursor-pointer"
                   color={savedProducts.has(product._id) ? "black" : "gray"}
                   fill={savedProducts.has(product._id) ? "black" : "none"}
-                  onClick={() => handleSaveClick(product._id)}
+                  onClick={(event) => handleSaveClick(product._id, event)}
                 />
               </div>
               <p className="text-[#000000] text-base font-normal pt-2">
