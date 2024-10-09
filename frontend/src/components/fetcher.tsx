@@ -5,7 +5,7 @@ export async function fetcher(pathname: string, method: string ) {
       headers: {
         'Content-Type': 'application/json',
       },
-      credentials: 'include', 
+      // credentials: 'include', 
 
     });
     if (!response.ok) {

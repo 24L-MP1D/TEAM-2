@@ -35,7 +35,7 @@ export default function CategoryList() {
         const data = await response.json();
         setProducts(data);
       } catch (err) {
-        console.log(err);
+        console.log(err); 
       }
     };
 
@@ -46,12 +46,15 @@ export default function CategoryList() {
     <div className="flex gap-5 pt-[52px] justify-between mx-auto ">
       <div className="grid lg:grid-cols-3 gap-x-5 gap-y-12 overflow-hidden sm:grid-cols-1 md:grid-cols-2 ">
         {products.map((product) => (
-          <Link href={`/product/${product._id}`} className="relative">
+          <Link href={`/product/${product._id}`} className="relative" key={product._id}>
             <div key={product._id}>
               <div className="overflow-hidden   w-[244px] h-[331px] rounded-xl">
                 <Image
                   src={product.uploadedPhotos[0]}
                   alt={product.name}
+                  key={product._id}
+                  priority
+                 
                   width={100}
                   height={100}
                   className="relative transition-transform duration-300 ease-in-out transform hover:scale-110 object-cover rounded-xl w-full"

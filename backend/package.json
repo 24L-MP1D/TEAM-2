@@ -5,6 +5,8 @@
   "main": "api/index.js",
   "scripts": {
     "build": "tsc",
+
+    
     "start": "tsx watch api/index.ts"
   },
   "keywords": [],

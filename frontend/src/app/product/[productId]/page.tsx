@@ -3,7 +3,8 @@ import { fetcher } from "@/components/fetcher";
 import { Heart, Star } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useParams, useRouter } from "next/navigation";
+import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 
 interface Product {
@@ -14,12 +15,8 @@ interface Product {
   price: number;
 }
 
-export default function ProductDetails({
-  params,
-}: {
-  params: { productId: string };
-}) {
-  const id = params.productId;
+export default function ProductDetails({params,}: {params: { productId: string };}) {
+  const id = params.productId; 
 
   const [selectedCount, setSelectedCount] = useState<number>(0);
   const [isSaved, setIsSaved] = useState<boolean>(false);
@@ -29,6 +26,8 @@ export default function ProductDetails({
 
   const [product, setProduct] = useState<Product>({} as Product);
   const [selectedProduct, setSelectedProduct] = useState([]);
+  const router=useRouter();
+
 
   interface ProductData {
     _id: string;
@@ -38,37 +37,46 @@ export default function ProductDetails({
     price: number;
     uploadedPhotos: string;
   }
-  useEffect(() => {
-    fetch(`http://localhost:4000/product/${id}`)
-      .then((res) => res.json())
-      .then((data) => setProduct(data));
-  }, []);
-
+ 
   useEffect(() => {
     fetcher(`/product/${id}`, "GET").then((data) => setProduct(data));
   }, [product]);
+  
 
-  const addToCart = async () => {
+  const addToCart = async() => {
+   
     const cookie = Cookies.get("token");
 
-    console.log(cookie);
-    try {
-      const userData = {
-        size: selectedSize,
-        qty: selectedCount,
-      };
-      const cookie = Cookies.get("token");
+    if(!cookie){
+         alert("Сагсанд нэмэхийн тулд хэрэглэгч та нэвтрэх шаардлагатай!")
+         router.push('/login');
+         return
+    }else{
+      try {
+        const productId = params.productId;
+        const fromLocal=localStorage.getItem("")
+        // const cart = JSON.parse( localStorage.getItem('cartProducts'));
 
-      console.log({ cookie });
+        // cart.push({asdasdasdas})
 
-      localStorage.setItem("userInfo", JSON.stringify(userData));
-      console.log("data recorded");
-    } catch {
-      console.log("error");
-      console.log("error");
+        // const userData = {
+        //   size: selectedSize,
+        //   qty: selectedCount,
+        // };
+        // localStorage.setItem("userInfo", JSON.stringify(userData));
+        // localStorage.setItem("cartProducts", JSON.stringify(cart));
+
+
+
+        const token = Cookies.get("token") || "";
+        const decodedToken=jwtDecode(token);
+        console.log("data recorded");
+      } catch {
+        console.log("error");
+        console.log("error");
+      }
+    };
     }
-  };
-
   return (
     <div>
       <div className="flex gap-5 pt-[52px]">
@@ -76,11 +84,12 @@ export default function ProductDetails({
           {product && (
             <Image
               key={product._id}
-              src={product.uploadedPhotos?.[0]}
+
               className="w-[67px] h-[67px] rounded cursor-pointer"
               width={67}
               height={67}
-              alt={product.name}
+              alt={product._id}
+              src={product.uploadedPhotos?.[0]}
               // onClick={() => {
               //   setSelectedProduct(product);
               //   setSelectedImage(product.images);
@@ -91,8 +100,9 @@ export default function ProductDetails({
 
         {product && (
           <Image
-            src={product.uploadedPhotos?.[0]}
+         
             alt={product.name || "Product Image"}
+            src={product.uploadedPhotos?.[0]}
             className="w-[422px] h-[521px] rounded-2xl"
             width={422}
             height={521}

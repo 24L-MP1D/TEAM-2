@@ -19,12 +19,14 @@
     "@radix-ui/react-radio-group": "^1.2.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.1",
+    "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
     "cloudinary": "^2.5.0",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.3.0",
     "formik": "^2.4.6",
     "js-cookie": "^3.0.5",
+    "jwt-decode": "^4.0.0",
     "lucide-react": "^0.439.0",
     "next": "^14.2.13",
     "numeral": "^2.0.6",
@@ -37,6 +39,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^20.16.10",
     "@types/react": "^18.3.11",

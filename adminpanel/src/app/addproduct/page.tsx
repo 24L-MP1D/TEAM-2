@@ -144,7 +144,7 @@ export default function AddProduct() {
       tag: "",
     },
     onSubmit: (values) => {
-      console.log("clled");
+  
       createProduct(values);
     },
     validationSchema,
@@ -157,10 +157,10 @@ export default function AddProduct() {
 
   // Function to handle color selection
   const handleColorSelect = (color: string) => {
-    console.log({ color });
+
     const prev: string[] = Formik.values.selectedColors;
 
-    console.log({ prev });
+
 
     let newColors: string[];
     if (prev.includes(color)) {
@@ -238,7 +238,7 @@ export default function AddProduct() {
 
   const getProduct = async () => {
     try {
-      console.log("----");
+
       const res = await fetch(`http://localhost:4000/product/${id}`);
       const data = await res.json();
       setEditProduct(data);
@@ -253,7 +253,7 @@ export default function AddProduct() {
   };
 
   const createProduct = async (values: formValues) => {
-    console.log("values", values);
+
     try {
       const productData = { ...values, category: selectedCategory };
       const response = await fetch(`http://localhost:4000/product`, {

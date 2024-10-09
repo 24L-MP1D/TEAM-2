@@ -15,7 +15,7 @@ export default function Header() {
     <div className="bg-black">
       <div className="py-1 px-6 flex justify-between items-center gap-4  h-12 mx-auto">
         <div className="flex justify-start items-center flex-1">
-          <Image src="/symbol.png" alt="icon" width={24} height={24} />
+          <Image src="/symbol.png" alt="icon" width={24} height={24} className="w-6 h-6" />
         </div>
         <div className="w-9 h-9 flex justify-center items-center">
           <MdNotificationsNone className="w-5 h-5" />

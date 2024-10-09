@@ -162,7 +162,7 @@ export default function Products(id: string) {
     
   }
 
-    console.log(isoStartdate);
+
     console.log(isoEnddate);
     const res = await fetch(
       `http://localhost:4000/productsfilteredbyMonth?startMonth=${isoStartdate}&endMonth=${isoEnddate}`
