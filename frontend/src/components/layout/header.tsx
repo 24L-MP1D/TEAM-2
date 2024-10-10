@@ -4,19 +4,23 @@ import { CiSearch } from "react-icons/ci";
 import { PiHeartStraight } from "react-icons/pi";
 import { PiShoppingCartSimple } from "react-icons/pi";
 import Searcharea from "./searchArea";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
-import RegisterPage from "@/app/register/page";
+import Cookies from 'js-cookie';
 import Link from "next/link";
+import { User } from "lucide-react";
+import { useRouter } from "next/navigation";
 
-import { Button } from "../ui/button";
+
 
 export default function Header() {
   const [openSearch, setOpenSearch] = useState<boolean>(false);
   const handleClick = (): void => {
     setOpenSearch(true);
   };
+
+  const router = useRouter();
 
   const clothes = [
     {
@@ -40,6 +44,17 @@ export default function Header() {
       image: "Users/24LP1786/Desktop/team-2/TEAM-2/frontend/public/image.png",
     },
   ];
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+  useEffect(() => {
+    const token = Cookies.get('token');
+    if (token) {
+      setIsLoggedIn(true);
+      router.push('/');
+      router.refresh()
+
+    }
+  }, [setIsLoggedIn]);
 
   return (
     <div className="bg-black ">
@@ -90,30 +105,55 @@ export default function Header() {
             )}
           </div>
           <div className="flex gap-6 items-center">
+            <Link href="/wishlist">
             <div>
               <PiHeartStraight className="w-6 h-6" />
             </div>
-            <Link href="/cart">
+
+            </Link>
+           
+       
+
+            <Link href="/buySteps">
+
               <div>
                 <PiShoppingCartSimple className="w-6 h-6" />
               </div>
             </Link>
 
-            <div className="flex gap-2 items-center ">
-              <Link href="/register">
-                <button className="py-2 px-3 border-solid border-[1px] text-white hover:text-opacity-50 border-blue-600 rounded-[18px] font-normal text-sm hover:bg-slate-900 hover:border-blue-800">
-                  Бүртгүүлэх
+            {isLoggedIn ? (
+              <div className="flex items-center gap-4">
+                <User className="w-6 h-6" />
+                <button
+                  onClick={() => {
+                    Cookies.remove('token');
+                    setIsLoggedIn(false);
+                    
+                  }}
+                  className="py-2 px-3 border-solid border-[1px] text-white hover:text-opacity-50 border-red-600 rounded-[18px] font-normal text-sm hover:bg-slate-900 hover:border-red-800"
+                >
+                  Logout
                 </button>
-              </Link>
-              <Link href="/login">
-                <button className="py-2 px-3  border-solid border-[1px] border-[#2563eb] rounded-[18px] font-normal text-sm bg-[#2563EB] hover:bg-opacity-70 text-white hover:text-opacity-50 ">
-                  Нэвтрэх
-                </button>
-              </Link>
+              </div>
+            ) : (
+              <div className="flex gap-2 items-center">
+                <Link href="/register">
+                  <button className="py-2 px-3 border-solid border-[1px] text-white hover:text-opacity-50 border-blue-600 rounded-[18px] font-normal text-sm hover:bg-slate-900 hover:border-blue-800">
+                    Бүртгүүлэх
+                  </button>
+                </Link>
+                <Link href="/login">
+                  <button className="py-2 px-3 border-solid border-[1px] border-[#2563eb] rounded-[18px] font-normal text-sm bg-[#2563EB] hover:bg-opacity-70 text-white hover:text-opacity-50">
+                    Нэвтрэх
+                  </button>
+                </Link>
+              </div>
+            )}
             </div>
-          </div>
+         
         </div>
       </header>
     </div>
+    
   );
 }

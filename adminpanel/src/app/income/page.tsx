@@ -1,72 +1,62 @@
+"use client";
+import { useEffect, useState } from "react";
 import LeftBar from "@/components/leftBar";
 import { Button } from "@/components/ui/button";
 import { Calendar, ChevronDown, Download } from "lucide-react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
 import { Input } from "../../../public/ui/input";
 
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-];
+// Define Order interface
+interface Order {
+  _id: string;
+  userName: string;
+  paid: number;
+  date: string; // Use string for dates fetched from an API for easy formatting
+}
+
+
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  return {
+    date: `${year}-${month}-${day}`,
+    time: `${hours}:${minutes}`,
+  };
+};
 
 export default function Income() {
+  const [incomes, setIncomes] = useState<Order[]>([]);
+
+  // Fetch data on component mount
+  useEffect(() => {
+    fetch("http://localhost:4000/income")
+      .then((res) => res.json())
+      .then((data: Order[]) => {
+        setIncomes(data);
+      });
+  }, []);
+
   return (
     <div className="flex">
+      {/* Left Sidebar */}
       <LeftBar />
 
-      <div className="mx-auto mt-4">
-        <div className="bg-[#FFFFFF] w-[724px] rounded-xl ">
-          <div className=" flex justify-between py-6 px-6">
+      {/* Main Content */}
+      <div className="mx-auto mt-4 w-full lg:w-[724px]">
+        <div className="bg-white w-full rounded-xl shadow-lg">
+          <div className="flex justify-between py-6 px-6">
             <h1 className="text-[#121316] font-bold text-xl">Орлого</h1>
             <Button className="bg-[#1C20240A] rounded-md py-2 px-3 text-[#121316] text-sm font-semibold">
               <Download size={20} className="pr-2" color="#121316" />
@@ -74,74 +64,85 @@ export default function Income() {
             </Button>
           </div>
 
-          <div className="border-t-[1px] border-[#D6D8DB] ">
+          {/* Summary Section */}
+          <div className="border-t-[1px] border-[#D6D8DB]">
             <div className="py-6 px-6 flex justify-between">
               <h1 className="text-[#121316] font-bold text-xl">235,000₮</h1>
               <div className="flex gap-2">
                 <Button className="border-[#ECEDF0] bg-[#FFFFFF] text-[#3F4145] hover:text-[#FFFFFF] py-[10px] px-4 hover:bg-[#18BA51]">
                   Өнөөдөр
                 </Button>
-                <Button className="border-[#ECEDF0] bg-[#FFFFFF] text-[#3F4145] hover:text-[#FFFFFF] py-[10px] px-4 hover:bg-[#18BA51]">7 хоног</Button>
+                <Button className="border-[#ECEDF0] bg-[#FFFFFF] text-[#3F4145] hover:text-[#FFFFFF] py-[10px] px-4 hover:bg-[#18BA51]">
+                  7 хоног
+                </Button>
                 <Button
                   variant="ghost"
                   className="font-bold text-black bg-[#FFFFFF] py-2 px-3 rounded-lg border-[#ECEDF0] border-[1px]"
-                  // onClick={() =>
-                  //   setOpenDropdown(openDropdown === "month" ? null : "month")
-                  // }
                 >
                   <Calendar size={24} className="pr-2" />
-                  Сараар <ChevronDown className="ml-2 " size={20} />
+                  Сараар <ChevronDown className="ml-2" size={20} />
                 </Button>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="bg-[#FFFFFF] w-[724px] rounded-xl mt-2">
+        {/* Income Table */}
+        <div className="bg-white w-full rounded-xl mt-4 shadow-lg">
           <Table className="border-[#ECEDF0] border-[1px]">
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[169px] text-[#3F4145] font-semibold text-xs text-center">
+                <TableHead className="text-center text-[#3F4145] font-semibold text-xs">
                   Захиалгын ID дугаар
                 </TableHead>
-                <TableHead className="w-[268px] text-[#3F4145] font-semibold text-xs">
+                <TableHead className="text-[#3F4145] font-semibold text-xs">
                   Захиалагч
                 </TableHead>
-                <TableHead className="w-[137px] text-[#3F4145] font-semibold text-xs">
+                <TableHead className="text-[#3F4145] font-semibold text-xs">
                   Төлбөр
                 </TableHead>
-                <TableHead className="w-[150px] text-center  text-[#3F4145] font-semibold text-xs">
-                  {" "}
+                <TableHead className="text-center text-[#3F4145] font-semibold text-xs">
                   Огноо
                 </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {invoices.map((invoice) => (
-                <TableRow key={invoice.invoice}>
-                  <TableCell className="text-sm text-center text-[#121316] font-semibold">
-                    {invoice.invoice}
-                  </TableCell>
-                  <TableCell className="text-[#121316] text-sm font-normal">
-                    {invoice.paymentStatus}
-                  </TableCell>
-                  <TableCell className="  text-[#121316] text-sm font-normal">
-                    {invoice.paymentMethod}
-                  </TableCell>
-                  <TableCell className="text-center text-[#121316] text-sm font-normal">
-                    {invoice.totalAmount}
+              {incomes.length > 0 ? (
+                incomes.map((income) => (
+                  <TableRow key={income._id}>
+                    <TableCell className="text-sm text-center text-[#121316] font-semibold">
+                      {income._id}
+                    </TableCell>
+                    <TableCell className="text-[#121316] text-sm font-normal">
+                      {income.userName}
+                    </TableCell>
+                    <TableCell className="text-[#121316] text-sm font-normal">
+                      {2000000}₮
+                    </TableCell>
+                    <TableCell className="text-center text-[#121316] text-sm font-normal">
+                      {2024-5-10}
+
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={4} className="text-center py-4">
+                    No income data available.
                   </TableCell>
                 </TableRow>
-              ))}
+              )}
             </TableBody>
             <TableFooter>
               <TableRow>
-                <TableCell colSpan={3}>Total</TableCell>
-                <TableCell className="text-right">$2,500.00</TableCell>
+                <TableCell colSpan={2}></TableCell>
+                <TableCell className="font-bold">Нийт дүн:</TableCell>
+                <TableCell className="text-right font-bold">
+                  {incomes.reduce((acc, curr) => acc + curr.paid, 0).toLocaleString("mn-MN")}₮
+                </TableCell>
               </TableRow>
             </TableFooter>
           </Table>
-          )
         </div>
       </div>
     </div>

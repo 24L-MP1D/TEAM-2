@@ -3,7 +3,6 @@ import { productModel } from "../models/product";
 import { Request, Response } from "express";
 const getProducts = async (req: Request, res: Response) => {
   try {
-
     const products = await productModel.find();
     res.send(products);
   } catch (error) {
@@ -19,7 +18,6 @@ const getProduct = async (req: Request, res: Response) => {
 
   try {
     const { id } = req.params;
-    console.log(id)
     const product = await productModel.findById(id);
     res.status(200).json(product);
   } catch (error) {
@@ -32,11 +30,11 @@ const getProduct = async (req: Request, res: Response) => {
 
 const createProduct = async (req: Request, res: Response) => {
   try {
-    const { name, addInformation, barCode, uploadedPhotos, price, qty, category, selectedColors, selectedSizes, tag, createdAt } = req.body;
+    const { name, addInfo, barCode, uploadedPhotos, price, qty, category, selectedColors, selectedSizes, tag, createdAt } = req.body;
     const product = await productModel.create({
 
       name,
-      addInformation,
+      addInfo,
       barCode,
       uploadedPhotos,
       price,
@@ -58,10 +56,10 @@ const createProduct = async (req: Request, res: Response) => {
 const updateProduct = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { name, addInformation, barCode, uploadedPhotos, price, qty, category, selectedColors, selectedSizes, tag, createdAt } = req.body;
+    const { name, addInfo, barCode, uploadedPhotos, price, qty, category, selectedColors, selectedSizes, tag, createdAt } = req.body;
     const product = await productModel.findByIdAndUpdate(id, {
       name,
-      addInformation,
+      addInfo,
       barCode,
       uploadedPhotos,
       price,
