@@ -46,10 +46,10 @@ export default function wishlist() {
     return (
         <div className="w-[738px] h-[664px] mx-auto mt-20 mb-20 bg-#FFFFFF">
             <div className="mx-auto w-[574px] h-132px ">
-                <h1 className="font-bold p-3">Хадгалсан бараа ({savedProducts.length})</h1>
+                <h1 className="font-bold p-3 text-black">Хадгалсан бараа ({savedProducts.length})</h1>
                 <hr className="mt-3"></hr>
                 {savedProducts.map((product) => (
-                    <div key={product._id} className="flex flex-row gap-4 border-2 m-3 rounded-lg">
+                    <div key={product._id} className="flex flex-row gap-4 border-2 m-3 rounded-lg text-black">
                         {product.uploadedPhotos && product.uploadedPhotos.length > 0 ? (
                             <Image
                                 src={product.uploadedPhotos[0]}
@@ -71,11 +71,11 @@ export default function wishlist() {
                     </div>
                 ))}
                 <div className="flex justify-between p-3">
-                    <div> Нийт төлөх дүн:</div>
-                    <div className="font-bold text-2xl" >{savedProducts.reduce((total, product) => total + product.price, 0)}</div>
+                    <div className="text-black"> Нийт төлөх дүн:</div>
+                    <div className="font-bold text-2xl text-black" >{savedProducts.reduce((total, product) => total + product.price, 0)}</div>
                 </div>
                 <div className="grid justify-items-end ">
-                    <Button className="mt-4 rounded-m m-4 " variant="default"> Худалдаж авах </Button>
+                    <Button className="mt-4 rounded-m m-4" variant="default"> Худалдаж авах </Button>
                 </div>
 
             </div>

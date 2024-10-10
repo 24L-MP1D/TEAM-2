@@ -42,29 +42,16 @@ export default function RegisterPage() {
     email: string;
     password: string;
   }
-
-  const login = async (values: FormValues) => {
-    try {
-      const response = await fetch(`http://localhost:4000/login`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-        body: JSON.stringify(values),
-      });
-      if (response.status === 201) {
-        console.log("Successfully signed in");
-        router.push("/order");
-      } else {
-        console.log("Error during login, status:", response.status);
-      }
-    } catch (error) {
-      console.error("Login failed due to error:", error);
-    }
-  };
   const router = useRouter();
 
+  const login = async (values: FormValues) => {
+    router.push("/order");
+    
+  };
+  
+
   return (
+      <form onSubmit={formik.handleSubmit}>
     <div>
       <Image
         src="/logoo.png"
@@ -101,14 +88,14 @@ export default function RegisterPage() {
 
             <div className="flex flex-col gap-2">
               <Label className="text-[#121316] font-normal text-base  ">
-                Таны имэйл{" "}
+                Таны Имэйл{" "}
               </Label>
               <Input
                 type="email"
-                placeholder="Имэйл"
+                placeholder="email"
                 className="rounded-sm w-full  bg-[#F7F7F8] h-[56px] text-black"
                 id="email"
-                value={formik.values.name}
+                value={formik.values.email}
                 onChange={formik.handleChange}
               ></Input>
               {formik.errors.email && formik.touched.email && (
@@ -175,5 +162,6 @@ export default function RegisterPage() {
         </div>
       </div>
     </div>
+       </form>
   );
 }

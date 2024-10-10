@@ -5,12 +5,12 @@ import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 export default function ItemsCategory() {
     return (
         <div className=" w-[200px] mt-5 ml-20 rounded ">
-            <h1 className="font-bold">Ангилал</h1>
+            <h1 className="font-bold text-black">Ангилал</h1>
             {categoryItem.map((item) => (
                 <div className="mt-2">
                     <RadioGroup defaultValue="comfortable">
-                    <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="default" id="r1" />
+                    <div className="flex items-center space-x-2 text-black">
+                        <RadioGroupItem value="default" id="r1" className='text-black' />
                     
                         <Link className="mx-auto"
                         href={item.slug}>{item.title}
@@ -20,12 +20,12 @@ export default function ItemsCategory() {
                   
                 </div>
             ))}
-             <h1 className="font-bold mt-16">Хэмжээ</h1>
+             <h1 className="font-bold mt-16 text-black">Хэмжээ</h1>
             {categorySize.map((size)=>(
                 <div className="mt-2" >
                     <RadioGroup defaultValue="comfortable">
-                    <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="default" id="r1" />
+                    <div className="flex items-center space-x-2 text-black">
+                        <RadioGroupItem value="default" id="r1" className='text-black' />
                         <Link className="mx-auto"
                         href={size.slug}>{size.title}
                     </Link>
