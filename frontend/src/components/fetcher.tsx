@@ -24,4 +24,3 @@ export async function fetcher(pathname: string, method: string) {
     return null; 
   }
 }
-

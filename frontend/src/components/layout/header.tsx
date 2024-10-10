@@ -105,17 +105,10 @@ export default function Header() {
             )}
           </div>
           <div className="flex gap-6 items-center">
-            <Link href="/wishlist">
             <div>
               <PiHeartStraight className="w-6 h-6" />
             </div>
-
-            </Link>
-           
-            <Link href="/cart">
-
             <Link href="/buySteps">
-
               <div>
                 <PiShoppingCartSimple className="w-6 h-6" />
               </div>

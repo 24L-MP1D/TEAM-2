@@ -7,20 +7,17 @@ import { useEffect, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import CategoryList from "@/components/categoryList/categoryList";
 
-import CategoryList from "@/components/productList/productList";
-import ItemsCategory from "@/components/layout/items-category";
-
 
 
 interface Product {
   _id: string;
   CategoryName: string;
-  size: string;
+  size: string; 
 }
 
 interface Category {
   _id: string;
-  categoryName: string;
+  categoryName: string; 
 }
 
 interface SelectedSize {
@@ -31,7 +28,7 @@ interface SelectedSize {
 export default function Category() {
   const [products, setProducts] = useState<Product[]>([]);
   const [savedProducts, setSavedProducts] = useState<Set<string>>(new Set());
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]); 
   const [selectedSizes, setSelectedSizes] = useState<SelectedSize[]>([]); // Add the type <SelectedSize[]>
 
   const handleSaveClick = (id: string) => {
@@ -87,8 +84,8 @@ export default function Category() {
   );
 
   return (
-    <div className="flex gap-5 pt-[52px] justify-between  mb-20">
-      {/* <div>
+    <div className="flex gap-5 pt-[52px] justify-between">
+      <div>
         <div className="text-[#000000] text-base font-bold">Ангилал</div>
         {uniqueCategories.map((category) => (
           <div className="flex items-center space-x-2 pt-4" key={category._id}>
@@ -108,8 +105,8 @@ export default function Category() {
             </label>
           </div>
         ))}
-      </div> */}
-      <ItemsCategory />
+      </div>
+
       <CategoryList />
       
     </div>
