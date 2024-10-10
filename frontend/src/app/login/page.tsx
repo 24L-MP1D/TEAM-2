@@ -47,7 +47,7 @@ export default function LoginPage() {
       if(response.status===201){
         console.log('Successfully signed in');
         const { accesstoken } = await response.json();
-        Cookies.set('token', accesstoken, { expires: 7, secure: true });
+        Cookies.set('token', accesstoken, { expires: 7, path:'/'});
         
         router.push('/');
       }else{

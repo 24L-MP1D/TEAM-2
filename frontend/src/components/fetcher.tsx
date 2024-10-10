@@ -2,10 +2,11 @@ export async function fetcher(pathname: string, method: string ) {
   try {
     const response = await fetch(`http://localhost:4000${pathname}`, {
       method,
+      // credentials: 'include', 
       headers: {
         'Content-Type': 'application/json',
       },
-      // credentials: 'include', 
+
 
     });
     if (!response.ok) {

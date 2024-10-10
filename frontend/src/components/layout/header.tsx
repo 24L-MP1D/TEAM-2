@@ -93,7 +93,7 @@ export default function Header() {
             <div>
               <PiHeartStraight className="w-6 h-6" />
             </div>
-            <Link href="/cart">
+            <Link href="/buySteps">
               <div>
                 <PiShoppingCartSimple className="w-6 h-6" />
               </div>
