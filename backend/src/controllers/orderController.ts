@@ -1,16 +1,16 @@
 import { orderModel } from "../models/order";
 import { Request, Response } from "express";
 import { jwtDecode } from "jwt-decode";
+import { UserModel } from "../models/user";
 
 const createOrder = async (req: Request, res: Response) => {
   try {
     const token=req.cookies.token
     const decodedToken = jwtDecode<{userId:string}>(token);
     const {userId}=decodedToken;
-
     console.log(userId)
-    // console.log(decoded)
-
+    const user =await UserModel.findById({_id:userId});
+    // const {userEmail}=user
     const { orderData } = req.body;
     const { lastName, userName, phoneNumber, location, addInfo, chosenProducts } = orderData;
     // const {productId, productName,productPhotos, productTag, qty,size, price}=local;
@@ -18,6 +18,7 @@ const createOrder = async (req: Request, res: Response) => {
 
     const order = await orderModel.create({
       userId,
+      userEmail: user?.email,
       lastName,
       userName,
       phoneNumber,

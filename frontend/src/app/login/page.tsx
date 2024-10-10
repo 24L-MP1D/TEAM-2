@@ -49,6 +49,7 @@ export default function LoginPage() {
         
         const { accesstoken } = await response.json();
         Cookies.set('token', accesstoken, { expires: 7, path:'/'});
+        
         router.push('/');
         
       }else{
