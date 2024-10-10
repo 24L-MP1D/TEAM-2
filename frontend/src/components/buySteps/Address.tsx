@@ -31,7 +31,7 @@ export function Address({
 
   interface formValues {
     lastName: string;
-    name: string;
+    userName: string;
     phoneNumber: number;
     location: string;
     addInfo: string;
@@ -46,7 +46,7 @@ export function Address({
 
       .required("Овог оруулна уу!"),
 
-    name: yup
+    userName: yup
 
       .string()
 
@@ -76,7 +76,7 @@ export function Address({
   const formik = useFormik<formValues>({
     initialValues: {
       lastName: "",
-      name: "",
+      userName: "",
       phoneNumber: 0,
       location: "",
       addInfo: "",
@@ -196,14 +196,14 @@ export function Address({
             <div className="flex flex-col gap-2">
               Нэр:
               <Input
-                name="name"
+                name="userName"
                 className="rounded-full bg-white"
                 type="text"
-                value={formik.values.name}
+                value={formik.values.userName}
                 onChange={formik.handleChange}
               />
               <span className="text-red-500 text-sm text-start">
-                {formik.errors.name}{" "}
+                {formik.errors.userName}{" "}
               </span>
             </div>
             <div className="flex flex-col gap-2">

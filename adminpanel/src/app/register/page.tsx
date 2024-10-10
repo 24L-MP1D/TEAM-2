@@ -33,13 +33,13 @@ export default function RegisterPage() {
 
   return (
     <div>
-      <Image
+      {/* <Image
         src="/logo.png"
         alt="Logo"
         width={200}
         height={32}
         className="pt-[44px] pl-[44px] "
-      />
+      /> */}
       <div className="container mx-auto login-box flex  align-items-center w-[334px] mt-20">
         <div className=" border-[#ECEDF0] border-[1px] px-10 py-10 rounded-xl">
           <h1 className="mx-center font-bold mb-5 text-center text-[#121316] text-[32px]">

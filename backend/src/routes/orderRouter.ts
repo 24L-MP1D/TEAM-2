@@ -1,5 +1,5 @@
 import express, { NextFunction, Request, Response } from "express";
-import { createOrder, getOrder } from "../controllers/orderController";
+import { createOrder,  getOrders } from "../controllers/orderController";
 import jwt from "jsonwebtoken";
 
 
@@ -31,6 +31,7 @@ const checkAuth = async (req: Request, res: Response, next: NextFunction) => {
 
 
 orderRouter
-    .post("/buySteps", createOrder);
+    .post("/buySteps", createOrder)
+    .get("/orders", getOrders)
 
 export { orderRouter };
