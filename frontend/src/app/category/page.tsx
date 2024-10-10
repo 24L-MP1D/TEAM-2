@@ -5,10 +5,10 @@ import { Heart } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
-import CategoryList from "@/components/categoryList/categoryList";
 
-import CategoryList from "@/components/productList/productList";
+
 import ItemsCategory from "@/components/layout/items-category";
+import CategoryList from "@/components/categoryList/categoryList";
 
 
 
@@ -109,7 +109,7 @@ export default function Category() {
           </div>
         ))}
       </div> */}
-      <ItemsCategory />
+
       <CategoryList />
       
     </div>

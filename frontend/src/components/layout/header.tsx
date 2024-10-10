@@ -112,7 +112,7 @@ export default function Header() {
 
             </Link>
            
-            <Link href="/cart">
+       
 
             <Link href="/buySteps">
 
