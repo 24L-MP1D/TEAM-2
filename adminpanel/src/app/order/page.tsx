@@ -1,3 +1,6 @@
+
+"use client"
+
 import LeftBar from "@/components/leftBar";
 import { Button } from "@/components/ui/button";
 import { Input } from "../../../public/ui/input";
@@ -12,52 +15,40 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useEffect, useState } from "react";
 
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-];
+interface Order {
+  _id: string;
+  userName: string;
+  createdAt: string;
+  prices: number[];
+}
+
 export default function Order() {
+  const [orders, setOrders] = useState<Order[]>([]);
+
+  useEffect(() => {
+    fetch(`http://localhost:4000/orders`)
+      .then((res) => res.json())
+      .then((data: Order[]) => {
+        setOrders(data);
+      });
+  }, []);
+
+  // Function to format the date and return separate date and time
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    return {
+      date: `${year}-${month}-${day}`,
+      time: `${hours}:${minutes}`,
+    };
+  };
+
   return (
     <div className="flex ">
       <LeftBar />
@@ -81,16 +72,14 @@ export default function Order() {
           <Button className="py-5 px-4 text-[#3F4145] hover:text-[#121316] hover:font-semibold font-normal text-sm bg-[#F7F7F8] hover:bg-[#F7F7F8] hover:border-b-[#121316] hover:border-b-2 rounded-none shadow-none">
             Цуцлагдсан
           </Button>
-
-          <div></div>
         </div>
         <div className="py-[34px] px-6">
           <div className="flex justify-between">
             <div className="flex gap-2">
-              <Button className="border-[#ECEDF0] bg-[#FFFFFF] text-[#3F4145] hover:text-[#FFFFFF] py-[10px] px-4 hover:bg-[#18BA51] font-semibold	">
+              <Button className="border-[#ECEDF0] bg-[#FFFFFF] text-[#3F4145] hover:text-[#FFFFFF] py-[10px] px-4 hover:bg-[#18BA51] font-semibold">
                 Өнөөдөр
               </Button>
-              <Button className="border-[#ECEDF0] bg-[#FFFFFF] text-[#3F4145] hover:text-[#FFFFFF] py-[10px] px-4 hover:bg-[#18BA51] font-semibold	">
+              <Button className="border-[#ECEDF0] bg-[#FFFFFF] text-[#3F4145] hover:text-[#FFFFFF] py-[10px] px-4 hover:bg-[#18BA51] font-semibold">
                 7 хоног
               </Button>
 
@@ -98,9 +87,6 @@ export default function Order() {
                 <Button
                   variant="ghost"
                   className="font-bold text-black bg-[#FFFFFF] py-2 px-3 rounded-lg border-[#ECEDF0] border-[1px]"
-                  //   onClick={() =>
-                  //     setOpenDropdown(openDropdown === "month" ? null : "month")
-                  //   }
                 >
                   <Calendar size={24} className="pr-2" />
                   Сараар <ChevronDown className="ml-2 " size={20} />
@@ -109,11 +95,11 @@ export default function Order() {
             </div>
             <div className="relative">
               <div className="bg-[#FFFFFF] border-[#D6D8DB] border-[1px] rounded-md">
-                <div className="py-1 px-2 flex gap-1 ">
-                  <SearchCode color="black " size={22} />
+                <div className="py-1 px-2 flex gap-1">
+                  <SearchCode color="black" size={22} />
                   <Input
                     type="search"
-                    className=" w-[250px] h-[20px] border-none hover:border-none focus:border-none text-black"
+                    className="w-[250px] h-[20px] border-none hover:border-none focus:border-none text-black"
                     placeholder="Дугаар, Имэйл"
                   />
                 </div>
@@ -121,8 +107,8 @@ export default function Order() {
             </div>
           </div>
           <div className="mt-6">
-            <div className=" bg-[#FFFFFF] rounded-lg">
-              <div className="py-5 px-6 text-[#121316] font-bold text-xl ">
+            <div className="bg-[#FFFFFF] rounded-lg">
+              <div className="py-5 px-6 text-[#121316] font-bold text-xl">
                 Захиалга
               </div>
               <Table className="border-[#ECEDF0] border-[1px]">
@@ -132,43 +118,39 @@ export default function Order() {
                       Захиалгын ID дугаар
                     </TableHead>
                     <TableHead className="w-[268px] text-[#3F4145] font-semibold text-xs">
-                    Үйлчлүүлэгч
+                      Үйлчлүүлэгч
                     </TableHead>
                     <TableHead className="w-[137px] text-[#3F4145] font-semibold text-xs">
-                    Огноо
-                    </TableHead>
-                    <TableHead className="w-[137px] text-[#3F4145] font-semibold text-xs">
-                    Цаг
-                    </TableHead>
-                    <TableHead className="w-[137px] text-[#3F4145] font-semibold text-xs">
-                      Төлбөр
-                    </TableHead>
-                    <TableHead className="w-[137px] text-[#3F4145] font-semibold text-xs">
-                      Төлбөр
-                    </TableHead>
-                    <TableHead className="w-[150px] text-center  text-[#3F4145] font-semibold text-xs">
-                      {" "}
                       Огноо
+                    </TableHead>
+                    <TableHead className="w-[137px] text-[#3F4145] font-semibold text-xs">
+                      Цаг
+                    </TableHead>
+                    <TableHead className="w-[137px] text-[#3F4145] font-semibold text-xs">
+                      Төлбөр
                     </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody className="bg-[]">
-                  {invoices.map((invoice) => (
-                    <TableRow key={invoice.invoice}>
-                      <TableCell className="text-sm text-center text-[#121316] font-semibold py-6  px-6">
-                        {invoice.invoice}
-                      </TableCell>
-                      <TableCell className="text-[#121316] text-sm font-normal">
-                        {invoice.paymentStatus}
-                      </TableCell>
-                      <TableCell className="  text-[#121316] text-sm font-normal">
-                        {invoice.paymentMethod}
-                      </TableCell>
-                      <TableCell className="text-center text-[#121316] text-sm font-normal">
-                        {invoice.totalAmount}
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  {orders?.map((order) => {
+                    const { date, time } = formatDate(order.createdAt);
+                    return (
+                      <TableRow key={order._id}>
+                        <TableCell className="text-sm text-center text-[#121316] font-semibold py-6 px-6">
+                          {order._id}
+                        </TableCell>
+                        <TableCell className="text-[#121316] text-sm font-normal">
+                          {order.userName}
+                        </TableCell>
+                        <TableCell className="text-[#121316] text-sm font-normal">
+                          {date} {/* Displaying separate date */}
+                        </TableCell>
+                        <TableCell className="text-center text-[#121316] text-sm font-normal">
+                          {time} {/* Displaying separate time */}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
                 </TableBody>
                 <TableFooter>
                   <TableRow>

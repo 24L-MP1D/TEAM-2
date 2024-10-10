@@ -12,14 +12,14 @@ const createOrder = async (req: Request, res: Response) => {
     // console.log(decoded)
 
     const { orderData } = req.body;
-    const { lastName, name, phoneNumber, location, addInfo, chosenProducts } = orderData;
+    const { lastName, userName, phoneNumber, location, addInfo, chosenProducts } = orderData;
     // const {productId, productName,productPhotos, productTag, qty,size, price}=local;
    
 
     const order = await orderModel.create({
       userId,
       lastName,
-      name,
+      userName,
       phoneNumber,
       location,
       addInfo,
@@ -35,14 +35,15 @@ const createOrder = async (req: Request, res: Response) => {
   }
 };
 
-const getOrder = async (req: Request, res: Response) => {
+const getOrders = async (req: Request, res: Response) => {
   try {
-    res.status(200).json({ message: "ffdsadf" });
+    const orders=await orderModel.find();
+    res.send(orders)
   } catch (error) {
     res
       .status(400)
-      .json({ error: "error happened during finding the product" });
+      .json({ error: "error happened during finding the orders" });
   }
 };
 
-export { createOrder, getOrder };
+export { createOrder, getOrders };

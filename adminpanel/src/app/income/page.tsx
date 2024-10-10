@@ -1,3 +1,4 @@
+"use client"
 import LeftBar from "@/components/leftBar";
 import { Button } from "@/components/ui/button";
 import { Calendar, ChevronDown, Download } from "lucide-react";
@@ -13,6 +14,7 @@ import {
 } from "@/components/ui/table";
 
 import { Input } from "../../../public/ui/input";
+import { useEffect, useState } from "react";
 
 const invoices = [
   {
@@ -58,6 +60,24 @@ const invoices = [
     paymentMethod: "Credit Card",
   },
 ];
+
+interface Order {
+  productId:string,
+  Subscriber:string,
+  paid:number,
+  date:Date,
+
+}
+
+// const [orders, setOrders]=useState<Order | "">("");
+
+// useEffect(()=>{
+//   fetch(`http://localhost:4000/income`)
+//   .then((res)=>res.json())
+//   .then((data:Order)=>{
+//     setOrders(data)
+//   })
+// }, [])
 
 export default function Income() {
   return (
