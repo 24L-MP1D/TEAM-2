@@ -1,12 +1,16 @@
 "use client";
 import { fetcher } from "@/components/fetcher";
-import { Heart, Star } from "lucide-react";
+import { Heart } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+
+import RatingSection from "@/components/product-details/ratingSection";
+
 import CategoryList from "@/components/categoryList/categoryList";
 import { ProductList } from "@/components/productList/productList";
+
 
 
 interface Product {
@@ -29,11 +33,29 @@ export default function ProductDetails({
   const [selectedCount, setSelectedCount] = useState<number>(1);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [isSaved, setIsSaved] = useState<boolean>(false);
-  const [filledStars, setFilledStars] = useState<number>(0);
   const [isReviewVisible, setIsReviewVisible] = useState<boolean>(false);
   const [selectedSize, setSelectedSize] = useState<string>("");
 
   const [product, setProduct] = useState<Product>({} as Product);
+
+  const [selectedProduct, setSelectedProduct] = useState([]);
+  const router = useRouter();
+
+  interface ProductData {
+    _id: string;
+    name: string;
+    size: string;
+    images: string;
+    price: number;
+    uploadedPhotos: string;
+  }
+
+  useEffect(() => {
+    fetcher(`/product/${id}`, "GET").then((data) => setProduct(data));
+  }, [product]);
+
+  const addToCart = async () => {
+
   const router = useRouter();
 
   useEffect(() => {
@@ -44,6 +66,7 @@ export default function ProductDetails({
   }, [id]);
 
   const addToCart = async (id: string) => {
+
     const cookie = Cookies.get("token");
 
     if (!cookie) {
@@ -52,6 +75,51 @@ export default function ProductDetails({
       return;
     } else {
       try {
+
+        const productId = params.productId;
+        const fromLocal = localStorage.getItem("");
+        // const cart = JSON.parse( localStorage.getItem('cartProducts'));
+
+        // cart.push({asdasdasdas})
+
+        // const userData = {
+        //   size: selectedSize,
+        //   qty: selectedCount,
+        // };
+        // localStorage.setItem("userInfo", JSON.stringify(userData));
+        // localStorage.setItem("cartProducts", JSON.stringify(cart));
+
+        const token = Cookies.get("token") || "";
+        const decodedToken = jwtDecode(token);
+        console.log("data recorded");
+      } catch {
+        console.log("error");
+        console.log("error");
+      }
+    }
+  };
+  return (
+    <div>
+      <div className="flex gap-5 pt-[52px]">
+        <div className="pt-[95px] flex flex-col gap-2">
+          {product && (
+            <Image
+              key={product._id}
+              className="w-[67px] h-[67px] rounded cursor-pointer"
+              width={67}
+              height={67}
+              alt={product._id}
+              src={product.uploadedPhotos?.[0]}
+              // onClick={() => {
+              //   setSelectedProduct(product);
+              //   setSelectedImage(product.images);
+              // }}
+            />
+          )}
+        </div>
+
+        {product && (
+
         const existingCart = JSON.parse(
           localStorage.getItem("cartProducts") || "[]"
         );
@@ -117,6 +185,7 @@ export default function ProductDetails({
               ))}
           </div>
           {product?.uploadedPhotos && (
+
           <Image
             alt={product.name || "Product Image"}
             src={product.uploadedPhotos[0]}
@@ -224,6 +293,25 @@ export default function ProductDetails({
                 <div className="text-black">4.6 (24)</div>
               </div>
 
+
+            <button
+              className="py-2 px-9 bg-[#2563EB] text-[#FFFFFF] text-sm font-medium rounded-[20px] pt-[10px]"
+              onClick={addToCart}
+            >
+              Сагсанд нэмэх
+            </button>
+            <RatingSection />
+            {isReviewVisible && (
+              <div className="pt-4">
+                <div>No reviews yet.</div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+      <div className="text-black font-bold text-3xl pt-[80px]">
+        Холбоотой бараа
+
               {/* Review Visibility */}
               {isReviewVisible && (
                 <div className="pt-4">
@@ -237,6 +325,7 @@ export default function ProductDetails({
         <div >
           <ProductList />
         </div>
+
       </div>
     </div>
   );
