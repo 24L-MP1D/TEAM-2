@@ -33,5 +33,6 @@ const checkAuth = async (req: Request, res: Response, next: NextFunction) => {
 orderRouter
     .post("/buySteps", createOrder)
     .get("/orders", getOrders)
+    .get("/income", getOrders)
 
 export { orderRouter };

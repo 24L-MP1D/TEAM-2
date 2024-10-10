@@ -22,10 +22,13 @@ interface Order {
   userName: string;
   createdAt: string;
   prices: number[];
+  userId:string,
+  userEmail:string,
 }
 
 export default function Order() {
   const [orders, setOrders] = useState<Order[]>([]);
+
 
   useEffect(() => {
     fetch(`http://localhost:4000/orders`)
@@ -35,7 +38,17 @@ export default function Order() {
       });
   }, []);
 
-  // Function to format the date and return separate date and time
+
+
+
+  // useEffect(() => {
+  //   fetch(`http://localhost:4000/user/${userId}`)
+  //     .then((res) => res.json())
+  //     .then((data: Order[]) => {
+  //       setOrders(data);
+  //     });
+  // }, []);
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -137,16 +150,24 @@ export default function Order() {
                     return (
                       <TableRow key={order._id}>
                         <TableCell className="text-sm text-center text-[#121316] font-semibold py-6 px-6">
-                          {order._id}
+                          #{order._id.substring(0,7)}
                         </TableCell>
                         <TableCell className="text-[#121316] text-sm font-normal">
+                          <div>
                           {order.userName}
+                          {order.userEmail}
+                          </div>
+                         
+
                         </TableCell>
                         <TableCell className="text-[#121316] text-sm font-normal">
                           {date} {/* Displaying separate date */}
                         </TableCell>
-                        <TableCell className="text-center text-[#121316] text-sm font-normal">
+                        <TableCell className=" text-[#121316] text-sm font-normal">
                           {time} {/* Displaying separate time */}
+                        </TableCell>
+                        <TableCell className=" text-[#121316] text-sm font-normal">
+                          {200000}
                         </TableCell>
                       </TableRow>
                     );
