@@ -3,7 +3,7 @@ import Image from "next/image"
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/context/cartContext";
 import { Button } from "@/components/ui/button";
-import { Delete, DeleteIcon, LucideDelete, Trash2, Trash2Icon } from "lucide-react";
+import { Delete, DeleteIcon, Heart, LucideDelete, Trash2, Trash2Icon } from "lucide-react";
 import { fetcher } from "@/components/fetcher";
 
 
@@ -14,6 +14,7 @@ interface Product {
     price: number;
     uploadedPhotos: string[];
 }
+
 export default function wishlist() {
     const [selectedCount, setSelectedCount] = useState(0);
     const [wishlist, setWishlist] = useState(0);
@@ -46,15 +47,20 @@ export default function wishlist() {
                 <h1 className="font-bold p-3">Хадгалсан бараа</h1>
                 <hr className="mt-3"></hr>
                 {savedProducts.map((product) => (
-                    <div className="flex flex-row gap-4 border-2 m-3 rounded-lg">
-                        <Image src={product.uploadedPhotos[0]} width={100} height={100} alt={product.name} className="p-3 rounded-2xl" />
+                    <div key={product._id} className="flex flex-row gap-4 border-2 m-3 rounded-lg">
+                        <Image 
+                        src={product.uploadedPhotos[0]}
+                        width={100} 
+                        height={100} 
+                        alt={product.name} 
+                        className="p-3 rounded-2xl " />
                         <div className="flex-1 flex-col p-3 ">
                             <h1 className="">{product.name}</h1>
                             <div className="font-bold text-xl mt-3">{product.price}</div>
                               <Button className="mt-2" variant="def2">Cагслах</Button>
                         </div>
                         <div className="flex-1 grid justify-items-end p-5">
-                            <Trash2Icon className="" onClick={() => handleRemove(product._id)} />
+                            <Heart className="" onClick={() => handleRemove(product._id)} />
                         </div>
                     </div>
                 ))}
@@ -65,9 +71,7 @@ export default function wishlist() {
                 <div className="grid justify-items-end ">
                     <Button className="mt-4 rounded-m m-4 " variant="default"> Худалдаж авах </Button>
                 </div>
-
             </div>
-
         </div>
     )
 };

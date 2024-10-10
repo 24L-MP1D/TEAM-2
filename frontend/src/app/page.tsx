@@ -28,7 +28,7 @@ interface Product {
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [savedProductIds, setSavedProductIds] = useState<string[]>([]);
-  const [cart, setCart] = useState<Product[]>([]);
+  // const [cart, setCart] = useState<Product[]>([]);
 
 
   const handleSaveClick = (product: Product, event: any) => {
@@ -80,6 +80,7 @@ export default function Home() {
                 <div className="relative">
                   <CardContent className="flex  items-center justify-center pt-6 pb-4">
                     <Image
+                    key={product._id}
                       src={product.uploadedPhotos[0]}
                       alt={product.name}
                       width={1040}
