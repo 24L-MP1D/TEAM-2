@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/carousel";
 import { CardContent } from "@/components/ui/card";
 import Cookies from "js-cookie";
+import { ProductList } from "@/components/productList/productList";
 
 interface Product {
   index: null | undefined;
@@ -109,7 +110,7 @@ export default function Home() {
           <Link href={`/productdetails/?id=${product._id}`}>
             <div
               key={product._id}
-              className={`${index === 6 || index === 7 ? "col-span-2 row-span-2" : ""
+              className={`${index === 6 || index === 7 ? "col-span-2 row-span-2 w-[508p]" : ""
                 }`}
             >
               <div className="overflow-hidden relative  h-[330px] rounded-xl ">
@@ -137,7 +138,9 @@ export default function Home() {
           </Link>
         ))}
       </div>
+      <ProductList/>
     </div>
+  
   );
 }
 
