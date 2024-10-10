@@ -11,7 +11,7 @@ interface Products {
   size: string;
   price: number;
 }
-export function ProductList() {
+export default function CategoryList() {
   const [products, setProducts] = useState<Products[]>([]);
   const [savedProducts, setSavedProducts] = useState<Set<string>>(new Set());
 
@@ -43,9 +43,9 @@ export function ProductList() {
   }, []);
 
   return (
-    <div className="flex gap-5 pt-[24px] pb-[97px] justify-between mx-auto ">
-      <div className="grid lg:grid-cols-4 gap-x-5 gap-y-12 overflow-hidden sm:grid-cols-1 md:grid-cols-2 ">
-        {products?.slice(0,8).map((product) => (
+    <div className="flex gap-5 pt-[52px] justify-between mx-auto ">
+      <div className="grid lg:grid-cols-3 gap-x-5 gap-y-12 overflow-hidden sm:grid-cols-1 md:grid-cols-2 ">
+        {products.map((product) => (
           <Link href={`/product/${product._id}`} className="relative" key={product._id}>
             <div key={product._id}>
               <div className="overflow-hidden   w-[244px] h-[331px] rounded-xl">

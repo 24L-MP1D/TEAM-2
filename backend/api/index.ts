@@ -6,22 +6,37 @@ import { userRouter } from "../src/routes/userRouter";
 import { authRouter } from "../src/routes/authRouter";
 import { productRouter } from "../src/routes/productRoutes";
 import { UserModel } from "../src/models/user";
-import mongoose from "mongoose"; import { categoryRouter } from "../src/routes/category";
+import mongoose from "mongoose";
+import { categoryRouter } from "../src/routes/category";
 import { uploadRouter } from "../src/routes/uploadpictureRouter";
 import { cartModel } from "../src/models/cart";
-
+import { orderRouter } from "../src/routes/orderRouter";
+import cookieParser = require("cookie-parser");
 
 dotenv.config();
 
 const app = express();
+
 app.use(cors());
-app.use(cors());
+
+
+
+app.use(cors({
+  credentials: true,
+  origin: ["http://localhost:3000"]
+}));
+
+
 app.use(express.json());
+
+app.use(cookieParser());
+
 const port = 4000;
 
-console.log("test")
-console.log("test")
+
 connectDb();
+
+
 
 app.use(userRouter);
 app.use(authRouter);
@@ -29,6 +44,7 @@ app.use(productRouter);
 app.use(categoryRouter);
 app.use(uploadRouter);
 
+app.use(orderRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

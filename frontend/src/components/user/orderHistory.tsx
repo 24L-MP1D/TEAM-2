@@ -8,7 +8,7 @@ import { FaAngleDown } from "react-icons/fa6";
 import { Accordion } from "@/components/ui/accordion";
 
 export default function OrderHistory() {
-  //test object data
+
   let products = [
     {
       state:"hurgelt",
