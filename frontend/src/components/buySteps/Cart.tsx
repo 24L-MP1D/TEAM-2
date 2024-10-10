@@ -11,7 +11,6 @@ export  function Cart({setVisible}: {setVisible: Dispatch<SetStateAction<number>
   var numeral = require("numeral");
 
   interface Product {
-    
   productId: string;
   productName: string[];
   productTag:string;
@@ -20,11 +19,7 @@ export  function Cart({setVisible}: {setVisible: Dispatch<SetStateAction<number>
   size: string[];
   qty: number;
   price: number;
-
-   
-   
   }
-
   
   const [products, setProducts] = useState<Product[]>([]);
 

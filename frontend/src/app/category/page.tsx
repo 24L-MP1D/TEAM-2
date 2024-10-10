@@ -5,8 +5,8 @@ import { Heart } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
+import CategoryList from "@/components/categoryList/categoryList";
 
-import CategoryList from "@/components/productList/productList";
 
 
 interface Product {
@@ -108,7 +108,7 @@ export default function Category() {
       </div>
 
       <CategoryList />
-      {/* <ProductDetails /> */}
+      
     </div>
   );
 }

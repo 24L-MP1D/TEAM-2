@@ -3,6 +3,8 @@ import { model, Schema } from "mongoose";
 const orderSchema=new Schema({
     userId:String,
     productId:String,
+    chosenProducts:{},
+    orderDAta:{},
 
     lastName:String,
     userName:String,
