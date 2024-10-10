@@ -3,8 +3,10 @@ import Image from "next/image"
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/context/cartContext";
 import { Button } from "@/components/ui/button";
-import { Delete, DeleteIcon, Heart, LucideDelete, Trash2, Trash2Icon } from "lucide-react";
+import { Heart, } from "lucide-react";
 import { fetcher } from "@/components/fetcher";
+import ProductDetails from "../product/[productId]/page";
+import { ProductList } from "@/components/productList/productList";
 
 
 interface Product {
@@ -40,27 +42,31 @@ export default function wishlist() {
         }
     }, []);
 
-    
+
     return (
-        <div className="w-[738px] h-[664px] mx-auto mt-20 mb-20">
+        <div className="w-[738px] h-[664px] mx-auto mt-20 mb-20 bg-#FFFFFF">
             <div className="mx-auto w-[574px] h-132px ">
-                <h1 className="font-bold p-3">Хадгалсан бараа</h1>
+                <h1 className="font-bold p-3">Хадгалсан бараа ({savedProducts.length})</h1>
                 <hr className="mt-3"></hr>
                 {savedProducts.map((product) => (
                     <div key={product._id} className="flex flex-row gap-4 border-2 m-3 rounded-lg">
-                        <Image 
-                        src={product.uploadedPhotos[0]}
-                        width={100} 
-                        height={100} 
-                        alt={product.name} 
-                        className="p-3 rounded-2xl " />
+                        {product.uploadedPhotos && product.uploadedPhotos.length > 0 ? (
+                            <Image
+                                src={product.uploadedPhotos[0]}
+                                width={100}
+                                height={100}
+                                alt={product.name}
+                                className="p-3 rounded-2xl"
+                            />
+                        ) : null}
+
                         <div className="flex-1 flex-col p-3 ">
                             <h1 className="">{product.name}</h1>
                             <div className="font-bold text-xl mt-3">{product.price}</div>
-                              <Button className="mt-2" variant="def2">Cагслах</Button>
+                            <Button className="mt-2" variant="def2">Cагслах</Button>
                         </div>
                         <div className="flex-1 grid justify-items-end p-5">
-                            <Heart className="" onClick={() => handleRemove(product._id)} />
+                            <Heart className="fill-black" onClick={() => handleRemove(product._id)} />
                         </div>
                     </div>
                 ))}
@@ -71,6 +77,7 @@ export default function wishlist() {
                 <div className="grid justify-items-end ">
                     <Button className="mt-4 rounded-m m-4 " variant="default"> Худалдаж авах </Button>
                 </div>
+
             </div>
         </div>
     )
