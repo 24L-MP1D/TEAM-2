@@ -11,22 +11,26 @@ import { categoryRouter } from "../src/routes/category";
 import { uploadRouter } from "../src/routes/uploadpictureRouter";
 import { cartModel } from "../src/models/cart";
 import { orderRouter } from "../src/routes/orderRouter";
-import cookieParser = require("cookie-parser")
+import cookieParser = require("cookie-parser");
 
 dotenv.config();
 
 const app = express();
-app.use(cors({
-  
-  credentials: true,
-}));
-app.use(express.json());
-const port = 4000;
 
+
+app.use(cors({
+  credentials: true,
+  origin: ["http://localhost:3000"]
+}));
+
+app.use(express.json());
+
+app.use(cookieParser());
+
+const port = 4000;
 
 connectDb();
 
-app.use(cookieParser());
 
 
 app.use(userRouter);
@@ -36,7 +40,6 @@ app.use(categoryRouter);
 app.use(uploadRouter);
 
 app.use(orderRouter);
-
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

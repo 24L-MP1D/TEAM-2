@@ -8,9 +8,8 @@ import * as yup from "yup";
 import Image from "next/image";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
-
 
 export function Address({
   setVisible,
@@ -22,9 +21,9 @@ export function Address({
   interface Product {
     productId: string;
     productName: string[];
-    productTag:string;
-    productPhotos:string[];
-    productAddinfo:string;
+    productTag: string;
+    productPhotos: string[];
+    productAddinfo: string;
     size: string[];
     qty: number;
     price: number;
@@ -84,7 +83,7 @@ export function Address({
     },
 
     onSubmit: (values: formValues) => {
-      createOrder(values)
+      createOrder(values);
     },
 
     validationSchema,
@@ -98,22 +97,23 @@ export function Address({
     setProducts(existingCart);
   }, []);
 
-  const createOrder = (values:formValues) => {
-    const orderData = { ...values, local:products};
-  console.log(orderData)
-    try {
-      const res=fetch(`http://localhost:4000/buySteps`, {
-        method: "POST",
-        body: JSON.stringify({
-          orderData
-        }),
+  const createOrder = (values: formValues) => {
 
+    const orderData = { ...values, chosenProducts: products };
+
+    try {
+      fetch(`http://localhost:4000/buySteps`, {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify({
+          orderData,
+        }),
         headers: {
           "Content-type": "application/json; cherset=UTF-8",
         },
       }).then(() => {
         setVisible(3);
-  
+
         console.log("successfully ordered");
       });
     } catch (error) {
