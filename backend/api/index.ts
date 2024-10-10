@@ -7,7 +7,6 @@ import { authRouter } from "../src/routes/authRouter";
 import { productRouter } from "../src/routes/productRoutes";
 import { UserModel } from "../src/models/user";
 import mongoose from "mongoose"; import { categoryRouter } from "../src/routes/category";
-import mongoose from "mongoose"; import { categoryRouter } from "../src/routes/category";
 import { uploadRouter } from "../src/routes/uploadpictureRouter";
 import { cartModel } from "../src/models/cart";
 
