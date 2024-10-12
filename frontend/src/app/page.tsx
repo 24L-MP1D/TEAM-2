@@ -10,11 +10,9 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
+
 } from "@/components/ui/carousel";
-import { CardContent } from "@/components/ui/card";
-import Cookies from "js-cookie";
+
 import { ProductList } from "@/components/productList/productList";
 
 interface Product {

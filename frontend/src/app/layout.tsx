@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-white 100vw">
+      <body className="bg-[#f7f7f8] 100vw">
         <Header></Header>
 
         <div className="max-w-[1040px] mx-auto ">

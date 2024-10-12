@@ -37,7 +37,7 @@ export default function BuySteps() {
           </div>
         </div>
       </div>
-      <div>
+      <div className="">
         {visible === 1 && <Cart setVisible={setVisible} />}
 
         {visible === 2 && <Address setVisible={setVisible} />}

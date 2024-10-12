@@ -72,7 +72,7 @@ export default function wishlist() {
                 ))}
                 <div className="flex justify-between p-3">
                     <div className="text-black"> Нийт төлөх дүн:</div>
-                    <div className="font-bold text-2xl text-black" >{savedProducts.reduce((total, product) => total + product.price, 0)}</div>
+                    <div className="font-bold text-2xl te" >{savedProducts.reduce((total, product) => total + product.price, 0)}</div>
                 </div>
                 <div className="grid justify-items-end ">
                     <Button className="mt-4 rounded-m m-4" variant="default"> Худалдаж авах </Button>

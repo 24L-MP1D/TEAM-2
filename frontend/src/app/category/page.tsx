@@ -1,10 +1,7 @@
 "use client";
 
-import Searcharea from "@/components/layout/searchArea";
-import { Heart } from "lucide-react";
-import Image from "next/image";
+
 import { useEffect, useState } from "react";
-import { Checkbox } from "@/components/ui/checkbox";
 
 
 import ItemsCategory from "@/components/layout/items-category";
@@ -29,7 +26,7 @@ interface SelectedSize {
 }
 
 export default function Category() {
-  const [products, setProducts] = useState<Product[]>([]);
+
   const [savedProducts, setSavedProducts] = useState<Set<string>>(new Set());
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<SelectedSize[]>([]); // Add the type <SelectedSize[]>
@@ -77,14 +74,7 @@ export default function Category() {
   }, []);
 
   // Filter for unique categories
-  const uniqueCategories = categories.filter((category, index, self) =>
-    index === self.findIndex((c) => c.categoryName === category.categoryName)
-  );
 
-  // Filter for unique selected sizes
-  const uniqueSelectedSizes = selectedSizes.filter((selectedSize, index, self) =>
-    index === self.findIndex((s) => s.selectedSizes[0] === selectedSize.selectedSizes[0])
-  );
 
   return (
     <div className="flex gap-5 pt-[52px] justify-between  mb-20">
