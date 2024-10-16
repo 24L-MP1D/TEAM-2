@@ -16,8 +16,6 @@ import {
 
 import { cn } from "@/lib/utils";
 
-import { Button } from "@/components/ui/button";
-
 import {
   Command,
   CommandEmpty,
@@ -48,6 +46,7 @@ import AddPicture from "@/components/addPicture";
 import Image from "next/image";
 
 import { useRouter, useSearchParams } from "next/navigation";
+import { Button } from "../../../public/ui/button";
 
 export default function AddProduct() {
   const searchParams = useSearchParams();
@@ -389,43 +388,20 @@ export default function AddProduct() {
 
   return (
     <form onSubmit={Formik.handleSubmit}>
-         
       <div className="flex">
-               <LeftBar />
-             
-        <div className=" w-[100vw] h-[100vw] ">
-                 
-          <div className="bg-[#FFFFFF] ">
-                     
-            <Link href="/products">
-                         
-              <div className="py-2 flex gap-4 px-4">
-                               <ChevronLeft color="black" />
-                             
-                <p className="text-[#121316] font-normal text-base">
-                                   Бүтээгдэхүүн нэмэх              
-                </p>
-                           
-              </div>
-                       
-            </Link>
-                   
-          </div>
-                 
+        <LeftBar />
+
+        
+
           <div className="py-8 px-8 flex gap-6 ">
-                     
             <div className="flex flex-col gap-6">
-                         
               <div className="bg-[#FFFFFF] rounded-xl ">
-                             
                 <div className="py-6 px-6 flex flex-col gap-4">
-                                 
                   <div className="flex flex-col gap-2">
-                                     
                     <Label className="text-[#121316] font-semibold text-sm">
-                                           Бүтээгдэхүүний нэр                  
+                      Бүтээгдэхүүний нэр
                     </Label>
-                                     
+
                     <Input
                       name="name"
                       type="text"
@@ -434,77 +410,64 @@ export default function AddProduct() {
                       onChange={Formik.handleChange}
                       className="bg-[#F7F7F8] border-[#D6D8DB] w-[515px] h-[44px] text-black"
                     />
-                                     
+
                     {
                       <span className="text-red-500 text-sm text-start">
-                                               {Formik.errors.name}
-                                           
+                        {Formik.errors.name}
                       </span>
                     }
-                                   
                   </div>
-                                 
+
                   <div className="flex flex-col gap-2">
-                                     
                     <Label className="text-[#121316] font-semibold text-sm">
-                                           Нэмэлт мэдээлэл                  
+                      Нэмэлт мэдээлэл
                     </Label>
-                                     
+
                     <Textarea
                       name="addInfo"
                       value={Formik.values.addInfo}
                       onChange={Formik.handleChange}
                       placeholder="Гол онцлог, давуу тал, техникийн үзүүлэлтүүдийг онцолсон дэлгэрэнгүй, сонирхолтой тайлбар."
-                      className="bg-[#F7F7F8] border-[#D6D8DB]  w-[515px] h-[72px] text-black"
+                      className="bg-[#F7F7F8] border-[#D6D8DB] w-[515px] h-[72px] text-black"
                     />
-                                     
+
                     {
                       <span className="text-red-500 text-sm text-start">
-                                               {Formik.errors.addInfo}
-                                           
+                        {Formik.errors.addInfo}
                       </span>
                     }
-                                   
                   </div>
-                                 
+
                   <div className="flex flex-col gap-2">
-                                     
                     <Label className="text-[#121316] font-semibold text-sm">
-                                           Барааны код                  
+                      Барааны код
                     </Label>
-                                     
+
                     <Input
                       type="text"
                       name="barCode"
                       placeholder="#12345678"
                       value={Formik.values.barCode}
                       onChange={Formik.handleChange}
-                      className="bg-[#F7F7F8] border-[#D6D8DB]  w-[515px] h-[44px] text-black"
+                      className="bg-[#F7F7F8] border-[#D6D8DB] w-[515px] h-[44px] text-black"
                     />
-                                     
+
                     {
                       <span className="text-red-500 text-sm text-start">
-                                               {Formik.errors.barCode}
-                                           
+                        {Formik.errors.barCode}
                       </span>
                     }
-                                   
                   </div>
-                               
                 </div>
-                           
               </div>
-                         
+
               <div className="bg-[#FFFFFF] rounded-xl w-[563px] h-[213px]">
-                             
                 <div className="py-6 px-6">
-                                 
                   <h2 className="text-[#000000] font-semibold text-base">
-                                       Бүтээгдэхүүний зураг                
+                    Бүтээгдэхүүний зураг
                   </h2>
-                                 
+
                   <div className="flex gap-3 pt-4">
-                                     
                     {Formik.values.uploadedPhotos.map((url, _id) => (
                       <Image
                         key={_id}
@@ -515,30 +478,23 @@ export default function AddProduct() {
                         className="w-[125px] h-[125px] rounded-md"
                       />
                     ))}
-                                     
+
                     {/* <AddPicture onChange={handleUrl} /> */}
-                                   
                   </div>
-                                 
+
                   <span className="text-red-500 text-sm text-start pl-20">
-                                       {Formik.errors.uploadedPhotos}
-                                   
+                    {Formik.errors.uploadedPhotos}
                   </span>
-                               
                 </div>
-                           
               </div>
-                         
+
               <div className="bg-[#FFFFFF] rounded-xl ">
-                             
                 <div className="py-6 px-6 flex gap-4">
-                                 
                   <div className="flex flex-col gap-2">
-                                     
                     <Label className="text-[#121316] font-semibold text-sm">
-                                           Үндсэн үнэ                  
+                      Үндсэн үнэ
                     </Label>
-                                     
+
                     <Input
                       type="number"
                       name="price"
@@ -547,23 +503,19 @@ export default function AddProduct() {
                       onChange={Formik.handleChange}
                       className="bg-[#F7F7F8] border-[#D6D8DB] h-[56px] w-[250px] text-black"
                     />
-                                     
+
                     {
                       <span className="text-red-500 text-sm text-start">
-                                               {Formik.errors.price}
-                                           
+                        {Formik.errors.price}
                       </span>
                     }
-                                   
                   </div>
-                                 
+
                   <div className="flex flex-col gap-2">
-                                     
                     <Label className="text-[#121316] font-semibold text-sm">
-                                           Үлдэгдэл тоо ширхэг
-                                       
+                      Үлдэгдэл тоо ширхэг
                     </Label>
-                                     
+
                     <Input
                       type="number"
                       name="qty"
@@ -572,36 +524,26 @@ export default function AddProduct() {
                       onChange={Formik.handleChange}
                       className="bg-[#F7F7F8] border-[#D6D8DB] h-[56px] w-[250px] text-black"
                     />
-                                     
+
                     {
                       <span className="text-red-500 text-sm text-start">
-                                               {Formik.errors.qty}
-                                           
+                        {Formik.errors.qty}
                       </span>
                     }
-                                   
                   </div>
-                               
                 </div>
-                           
               </div>
-                       
             </div>
-                     
+
             <div className="flex flex-col gap-6">
-                         
               <div className="bg-[#FFFFFF] rounded-xl ">
-                             
                 <div className="py-6 px-6">
-                                 
                   <div className="flex flex-col gap-4">
-                                     
                     <Label className="text-[#121316] font-semibold text-sm">
-                                           Ангилал нэмэх                  
+                      Ангилал нэмэх
                     </Label>
-                                     
+
                     <div className="relative ">
-                                         
                       <Input
                         type="text"
                         name="category"
@@ -610,55 +552,45 @@ export default function AddProduct() {
                         onChange={(e) => setCategory(e.target.value)}
                         className="bg-[#F7F7F8] border-[#D6D8DB] w-[515px] h-[56px] text-black"
                       />
-                                         
+
                       <CircleCheck
                         onClick={createCategory}
                         className="absolute top-4 right-3 cursor-pointer"
                         color="black"
                       />
-                                       
                     </div>
-                                     
+
                     <Label className="text-[#121316] font-semibold text-sm ">
-                                           Ангилал сонгох                  
+                      Ангилал сонгох
                     </Label>
-                                     
+
                     <Popover open={open} onOpenChange={setOpen}>
-                                         
-                      <PopoverTrigger asChild>
-                                             
+                      <PopoverTrigger>
                         <Button
                           role="combobox"
                           aria-expanded={open}
                           className="w-[515px] h-[56px] bg-[#F7F7F8] hover:bg-[#F7F7F8] text-black justify-between"
                         >
-                                                 
-                          <span className="truncate">
-                                                     
-                            {selectedCategory
-                              ? selectedCategory
-                              : "Ангилал сонгох"}
-                                                   
-                          </span>
-                                                 
-                          <ChevronsUpDown className="ml-2 h-5 w-5 shrink-0 opacity-50" />
-                                               
+                          {/* Wrap everything in a div or another parent element */}
+                          <div className="flex items-center justify-between w-full">
+                            <span className="truncate">
+                              {selectedCategory
+                                ? selectedCategory
+                                : "Ангилал сонгох"}
+                            </span>
+                            <ChevronsUpDown className="ml-2 h-5 w-5 shrink-0 opacity-50" />
+                          </div>
                         </Button>
-                                           
                       </PopoverTrigger>
-                                         
+
                       <PopoverContent className="w-[515px] p-0">
-                                             
                         <Command>
-                                                 
                           <CommandInput placeholder="Ангилал сонгох..." />
-                                                 
+
                           <CommandList>
-                                                     
                             <CommandEmpty>Ангилал олдсонгүй.</CommandEmpty>
-                                                     
+
                             <CommandGroup>
-                                                         
                               {categories.map((cat) => (
                                 <CommandItem
                                   value={cat._id}
@@ -675,7 +607,6 @@ export default function AddProduct() {
                                     setOpen(false);
                                   }}
                                 >
-                                                                 
                                   <Check
                                     className={cn(
                                       "mr-2 h-4 w-4",
@@ -685,47 +616,33 @@ export default function AddProduct() {
                                         : "opacity-0"
                                     )}
                                   />
-                                                                 
+
                                   {cat.categoryName}
-                                                               
                                 </CommandItem>
                               ))}
-                                                       
                             </CommandGroup>
-                                                   
                           </CommandList>
-                                               
                         </Command>
-                                           
                       </PopoverContent>
-                                       
                     </Popover>
-                                     
+
                     <span className="text-red-500 text-sm text-start pl-4">
-                                           {Formik.errors.selectedCategory}
-                                       
+                      {Formik.errors.selectedCategory}
                     </span>
-                                   
                   </div>
-                               
                 </div>
-                           
               </div>
-                         
+
               <div className="bg-[#FFFFFF] rounded-xl ">
-                             
                 <div className="py-6 px-6 flex flex-col gap-6">
-                                 
                   <div className="text-[#000000] font-semibold text-lg">
-                                       Төрөл                
+                    Төрөл
                   </div>
-                                 
+
                   <div>
-                                     
                     <div className="flex items-center gap-2">
-                                         
                       <div className="text-black pr-6">Өнгө</div>
-                                         
+
                       {colors.map((color, index) => (
                         <button
                           key={index}
@@ -733,27 +650,22 @@ export default function AddProduct() {
                           onClick={() => handleColorSelect(color)}
                           className={`${color} w-8 h-8 flex justify-center items-center rounded-full transition-all duration-300`}
                         >
-                                                 
                           {Formik.values.selectedColors.includes(color) ? (
                             <Check className="text-white" size={16} />
                           ) : (
                             <Plus className="text-white" size={16} />
                           )}
-                                               
                         </button>
                       ))}
-                                         
+
                       <span className="text-red-500 text-sm text-start pl-4">
-                                               {Formik.errors.selectedColors}
-                                           
+                        {Formik.errors.selectedColors}
                       </span>
-                                       
                     </div>
-                                     
+
                     <div className="flex pt-4 items-center gap-2">
-                                         
                       <div className="text-black">Хэмжээ</div>
-                                         
+
                       {sizes.map((size, index) => (
                         <button
                           key={index}
@@ -761,44 +673,34 @@ export default function AddProduct() {
                           onClick={() => handleSizeSelect(size)}
                           className={`bg-gray-300 w-12 h-8 flex justify-center items-center rounded-full transition-all duration-300`}
                         >
-                                                 
                           {Formik.values.selectedSizes.includes(size) ? (
                             <Check className="text-black" size={16} />
                           ) : (
                             <span className="text-black font-semibold">
-                                                           {size}
-                                                       
+                              {size}
                             </span>
                           )}
-                                               
                         </button>
                       ))}
-                                         
+
                       <span className="text-red-500 text-sm pl-4">
-                                               {Formik.errors.selectedSizes}
-                                           
+                        {Formik.errors.selectedSizes}
                       </span>
-                                       
                     </div>
-                                   
                   </div>
-                                 
+
                   <Button className="border-[#D6D8DB] bg-[#FFFFFF] py-2 px-3 text-black border-[1px] w-[118px]">
-                                       Төрөл нэмэх                
+                    Төрөл нэмэх
                   </Button>
-                               
                 </div>
-                           
               </div>
-                         
+
               <div className="bg-[#FFFFFF] rounded-xl h-[195px]">
-                             
                 <div className="pt-6 pl-6">
-                                 
                   <h1 className="text-[#000000] text-lg font-semibold pb-2">
-                                       Таг                
+                    Таг
                   </h1>
-                                 
+
                   <Input
                     type="text"
                     id="email"
@@ -808,47 +710,35 @@ export default function AddProduct() {
                     onChange={Formik.handleChange}
                     className="bg-[#F7F7F8] border-[#D6D8DB] w-[515px] h-[56px] pt-2 text-black"
                   />
-                                 
+
                   {
                     <span className="text-red-500 text-sm text-start">
-                                           {Formik.errors.tag}
-                                       
+                      {Formik.errors.tag}
                     </span>
                   }
-                                 
+
                   <p className="text-[#5E6166] pt-2">
-                                       Санал болгох: Гутал , Цүнх , Эмэгтэй{" "}
-                                   
+                    Санал болгох: Гутал , Цүнх , Эмэгтэй{" "}
                   </p>
-                               
                 </div>
-                           
               </div>
-                       
             </div>
-                   
           </div>
-                 
+
           <div className="flex gap-6 pr-4 pl-[930px]">
-                     
             <Button className="bg-[#FFFFFF] text-black hover:bg-[#121316] hover:text-white w-[113px] h-[56px]">
-                           Ноорог          
+              Ноорог
             </Button>
-                     
+
             <Button
               type="submit"
-              className="bg-[#FFFFFF]   text-black hover:bg-[#121316] hover:text-white  w-[113px] h-[56px]"
+              className="bg-[#FFFFFF] text-black hover:bg-[#121316] hover:text-white w-[113px] h-[56px]"
             >
-                           {id ? "Засах" : "Нийтлэх"}
-                       
+              {id ? "Засах" : "Нийтлэх"}
             </Button>
-                   
           </div>
-               
         </div>
-           
       </div>
-       
     </form>
   );
 }
