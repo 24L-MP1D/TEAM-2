@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/carousel";
 
 import { ProductList } from "@/components/productList/productList";
+import { CardContent } from "@/components/ui/card";
 
 interface Product {
   index: null | undefined;
@@ -27,12 +28,9 @@ interface Product {
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [savedProductIds, setSavedProductIds] = useState<string[]>([]);
-  // const [cart, setCart] = useState<Product[]>([]);
 
-
-  const handleSaveClick = (product: Product, event: any) => {
-    event.stopPropagation();
-    event.preventDefault();
+  const handleSaveClick = (product: Product) => {
+   
 
 
     const saved = localStorage.getItem("savedProducts");
@@ -105,7 +103,7 @@ export default function Home() {
 
       <div className="grid lg:grid-cols-4 gap-x-5 gap-y-12 overflow-hidden mb-10 md:grid-cols-2 sm:grid-cols-1  ">
         {products?.slice(1).map((product, index) => (
-          <Link href={`/productdetails/?id=${product._id}`}>
+          <Link href={`/productdetails/?id=${product._id}`} key={product._id}>
             <div
               key={product._id}
               className={`${index === 6 || index === 7 ? "col-span-2 row-span-2 w-[508p]" : ""
@@ -115,6 +113,7 @@ export default function Home() {
                 <Image
                   src={product.uploadedPhotos[0]}
                   alt={product.name}
+                  key={product._id}
                   width={100}
                   height={100}
                   className="relative transition-transform duration-300 ease-in-out transform hover:scale-110 object-cover rounded-xl w-full"
@@ -123,7 +122,7 @@ export default function Home() {
                   className="absolute top-2 right-2 z-10 cursor-pointer"
                   color={savedProductIds.includes(product._id) ? "black" : "gray"}
                   fill={savedProductIds.includes(product._id) ? "black" : "none"}
-                  onClick={(event) => handleSaveClick(product, event)}
+                  onClick={() => handleSaveClick(product)}
                 />
               </div>
               <p className="text-[#000000] text-base font-normal pt-2">

@@ -1,14 +1,14 @@
 "use client";
 
-import { fetcher } from "@/components/fetcher";
+
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { userInfo } from "os";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { PiTrashLight } from "react-icons/pi";
+import numeral from "numeral";
 
 export  function Cart({setVisible}: {setVisible: Dispatch<SetStateAction<number>>}) {
-  var numeral = require("numeral");
+
 
   interface Product {
 
@@ -61,7 +61,7 @@ export  function Cart({setVisible}: {setVisible: Dispatch<SetStateAction<number>
             <div className="text-[#71717A]">({products?.length})</div>
           </div>
           {products?.map((product, index) => (
-            <div className="flex items-start gap-6 p-4 rounded-2xl border-[#ECEDF0] border-solid border-[1px]">
+            <div className="flex items-start gap-6 p-4 rounded-2xl border-[#ECEDF0] border-solid border-[1px]" key={product.productId}>
               <Image src={product?.productPhotos[0]} width={100} height={100} alt={product.productId}  className="w-[100px] h-[100px] rounded-2xl overflow-hidden text-[#000000]">
 
               </Image>

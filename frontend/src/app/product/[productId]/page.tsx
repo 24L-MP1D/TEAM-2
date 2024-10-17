@@ -34,6 +34,11 @@ export default function ProductDetails({
 
   const [product, setProduct] = useState<Product>({} as Product);
   const router = useRouter();
+  interface CartItem {
+    id: string;  
+    size: string;  
+
+  }
 
   useEffect(() => {
     fetcher(`/product/${id}`, "GET").then((data) => {
@@ -56,7 +61,7 @@ export default function ProductDetails({
         );
 
         const existingProductIndex = existingCart.findIndex(
-          (item: any) => item.id === id && item.size === selectedSize
+          (item:CartItem ) => item.id === id && item.size === selectedSize
         );
 
         if (existingProductIndex !== -1) {

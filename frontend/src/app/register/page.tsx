@@ -55,7 +55,7 @@ export default function RegisterPage() {
 
     try {
       const registeredUser = values;
-      const response = await fetch(`http://localhost:4000/register`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/register`, {
         method: "POST",
         body: JSON.stringify(registeredUser),
         headers: {

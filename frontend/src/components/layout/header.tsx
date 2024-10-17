@@ -3,7 +3,7 @@ import Image from "next/image";
 import { CiSearch } from "react-icons/ci";
 import { PiHeartStraight } from "react-icons/pi";
 import { PiShoppingCartSimple } from "react-icons/pi";
-import Searcharea from "./searchArea";
+
 import { useEffect, useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
@@ -105,7 +105,7 @@ export default function Header() {
             )}
           </div>
           <div className="flex gap-6 items-center">
-            <Link href="/wishlist">
+            <Link href="/Wishlist">
             <div>
               <PiHeartStraight className="w-6 h-6" />
             </div>

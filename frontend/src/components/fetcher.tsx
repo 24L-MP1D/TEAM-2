@@ -1,9 +1,9 @@
-import Cookies from "js-cookie";
+
 
 export async function fetcher(pathname: string, method: string) {
   try {
 
-    const response = await fetch(`http://localhost:4000${pathname}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${pathname}`, {
       method,
       // credentials: 'include', 
       headers: {

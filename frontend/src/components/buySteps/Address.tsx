@@ -7,16 +7,16 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import Image from "next/image";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import numeral from "numeral";
 
-import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
+
 
 export function Address({
   setVisible,
 }: {
   setVisible: Dispatch<SetStateAction<number>>;
 }) {
-  var numeral = require("numeral");
+ 
 
   interface Product {
     productId: string;
@@ -102,7 +102,7 @@ export function Address({
     const orderData = { ...values, chosenProducts: products };
 
     try {
-      fetch(`http://localhost:4000/buySteps`, {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/buySteps`, {
         method: "POST",
         credentials: "include",
         body: JSON.stringify({
@@ -134,10 +134,11 @@ export function Address({
               </div>
 
               <div className="border-b-[1px] border-dashed border-[#ECEDF0] flex-nowrap overflow-hidden max-h-[678px] flex flex-col gap-4 pb-4">
-                {products.map((product, index) => (
-                  <div className="">
+                {products.map((product) => (
+                  <div key={product.productId}>
                     <div className="flex items-start gap-4 rounded-2xl">
                       <Image
+                        key={product.productId}
                         src={product?.productPhotos[0]}
                         width={80}
                         height={80}

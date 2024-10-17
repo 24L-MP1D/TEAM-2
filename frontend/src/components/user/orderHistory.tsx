@@ -6,41 +6,42 @@ import {
 
 import { FaAngleDown } from "react-icons/fa6";
 import { Accordion } from "@/components/ui/accordion";
+import Image from "next/image";
 
 export default function OrderHistory() {
 
-  let products = [
+  const  products = [
     {
       state:"hurgelt",
       name: "Chunky Glyph Tee",
-      image: <img src="/image.png" alt="item" />,
+      image: < Image src="/image.png" alt="item" />,
       price: 120000,
       pieces: 1,
     },
     {
       state:"hurgegdsen",
       name: "item 2",
-      image: <img src="/image.png" alt="item" />,
+      image: < Image src="/image.png" alt="item" />,
       price: 120000,
       pieces: 1,
     },
     {
       state:"hurgelt",
       name: "item 3",
-      image: <img src="/image.png" alt="item" />,
+      image: < Image src="/image.png" alt="item" />,
       price: 120000,
       pieces: 1,
     },
     {
       state:"hurgegdsen",
       name: "item 4",
-      image: <img src="/image.png" alt="item" />,
+      image: < Image src="/image.png" alt="item" />,
       price: 120000,
       pieces: 1,
     },{
       state:"hurgelt",
       name: "item 5",
-      image: <img src="/image.png" alt="item" />,
+      image: < Image src="/image.png" alt="item" />,
       price: 120000,
       pieces: 1,
     },
@@ -68,9 +69,9 @@ export default function OrderHistory() {
             </AccordionTrigger>
             <AccordionContent>
               <div className="mt-4 border-[#E4E4E7] border-dashed border-b-[1px] flex flex-col gap-3 pb-6">
-                {/* hurgeltend garsan objectuud */}
+      
                 {products.filter((item)=>item.state =="hurgelt").map((item) => (
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2" key={item.name}>
                     <div className="w-9 h-9 rounded-[4px] overflow-hidden">{item.image}</div>
                     <div className="flex flex-col flex-1 gap-1 justify-center">
                       <div className="font-normal text-xs">{item.name}</div>
@@ -116,7 +117,7 @@ export default function OrderHistory() {
               <div className="mt-4 border-[#E4E4E7] border-dashed border-b-[1px] flex flex-col gap-3 pb-6">
                 {/* hurgegdsen objectuud */}
               {products.filter((item)=>item.state =="hurgegdsen").map((item) => (
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2" key={item.name}>
                     <div className="w-9 h-9 rounded-[4px] overflow-hidden">{item.image}</div>
                     <div className="flex flex-col flex-1 gap-1 justify-center">
                       <div className="font-normal text-xs">{item.name}</div>
