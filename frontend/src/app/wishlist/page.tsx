@@ -1,12 +1,10 @@
 "use client"
 import Image from "next/image"
-import { useContext, useEffect, useState } from "react";
-import { CartContext } from "@/context/cartContext";
+
 import { Button } from "@/components/ui/button";
 import { Heart, } from "lucide-react";
-import { fetcher } from "@/components/fetcher";
-import ProductDetails from "../product/[productId]/page";
-import { ProductList } from "@/components/productList/productList";
+import { useEffect, useState } from "react";
+
 
 
 interface Product {
@@ -17,9 +15,7 @@ interface Product {
     uploadedPhotos: string[];
 }
 
-export default function wishlist() {
-    const [selectedCount, setSelectedCount] = useState(0);
-    const [wishlist, setWishlist] = useState(0);
+export default function Wishlist() {
     const [savedProducts, setSavedProducts] = useState<Product[]>([]);
 
     useEffect(() => {

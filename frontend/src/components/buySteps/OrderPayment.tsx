@@ -10,19 +10,46 @@ export default function OrderPayment({
   setVisible: Dispatch<SetStateAction<number>>;
 }) {
   const bankLogos = [
-    { img: <img src="/bankLogos/ard.png" alt="banks" /> },
-    { img: <img src="/bankLogos/booronhii.png" alt="banks" /> },
-    { img: <img src="/bankLogos/dorwoljin.png" alt="banks" /> },
-    { img: <img src="/bankLogos/duruu.png" alt="banks" /> },
-    { img: <img src="/bankLogos/hetewch.png" alt="banks" /> },
-    { img: <img src="/bankLogos/khan.png" alt="banks" /> },
-    { img: <img src="/bankLogos/khas.png" alt="banks" /> },
-    { img: <img src="/bankLogos/mbank.png" alt="banks" /> },
-    { img: <img src="/bankLogos/qpay.png" alt="banks" /> },
-    { img: <img src="/bankLogos/tdb.png" alt="banks" /> },
-    { img: <img src="/bankLogos/triangle.png" alt="banks" /> },
-    { img: <img src="/bankLogos/turiin.png" alt="banks" /> },
-    { img: <img src="/bankLogos/zoos.png" alt="banks" /> },
+    {  Image: < Image src="/bankLogos/ard.png" alt="banks" />,
+      id:1
+     },
+    {  Image: < Image src="/bankLogos/booronhii.png" alt="banks" />,
+      id:2
+     },
+    {  Image: < Image src="/bankLogos/dorwoljin.png" alt="banks" />,
+      id:3
+     },
+    {  Image: < Image src="/bankLogos/duruu.png" alt="banks" />,
+      id:4
+     },
+    {  Image: < Image src="/bankLogos/hetewch.png" alt="banks" />,
+      id:5
+     },
+    {  Image: < Image src="/bankLogos/khan.png" alt="banks" /> ,
+      id:6
+    },
+    {  Image: < Image src="/bankLogos/khas.png" alt="banks" />,
+      id:7
+     },
+    {  Image: < Image src="/bankLogos/mbank.png" alt="banks" /> ,
+      id:8
+    },
+    {  Image: < Image src="/bankLogos/qpay.png" alt="banks" />,
+      id:9
+     },
+    {  Image: < Image src="/bankLogos/tdb.png" alt="banks" />,
+      id:10
+     },
+    {  Image: < Image src="/bankLogos/triangle.png" alt="banks" /> ,
+
+      id:11
+    },
+    {  Image: < Image src="/bankLogos/turiin.png" alt="banks" />,
+      id:12
+     },
+    {  Image: < Image src="/bankLogos/zoos.png" alt="banks" /> ,
+      id:13
+    },
   ];
 
   return (
@@ -40,8 +67,8 @@ export default function OrderPayment({
             <div>Төлөх боломжтой банкууд:</div>
             <div className="px-10 grid grid-cols-8 gap-6">
               {bankLogos.map((item) => (
-                <div className="w-12 h-12">
-                  <a href="/buySteps/Confirmed">{item.img}</a>
+                <div className="w-12 h-12" key={item.id}>
+                  <a href="/buySteps/Confirmed">{item. Image}</a>
                 </div>
               ))}
             </div>

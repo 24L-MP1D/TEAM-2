@@ -30,7 +30,7 @@ export default function CategoryList() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:4000/products");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`);
         if (!response.ok) throw new Error("Failed to fetch products");
         const data = await response.json();
         setProducts(data);

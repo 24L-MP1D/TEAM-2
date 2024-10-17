@@ -7,7 +7,7 @@ export default function ItemsCategory() {
         <div className=" w-[200px] mt-5 ml-20 rounded ">
             <h1 className="font-bold text-black">Ангилал</h1>
             {categoryItem.map((item) => (
-                <div className="mt-2">
+                <div className="mt-2" key={item.slug}>
                     <RadioGroup defaultValue="comfortable">
                     <div className="flex items-center space-x-2 text-black">
                         <RadioGroupItem value="default" id="r1" className='text-black' />
@@ -22,7 +22,7 @@ export default function ItemsCategory() {
             ))}
              <h1 className="font-bold mt-16 text-black">Хэмжээ</h1>
             {categorySize.map((size)=>(
-                <div className="mt-2" >
+                <div className="mt-2"  key={size.title}>
                     <RadioGroup defaultValue="comfortable">
                     <div className="flex items-center space-x-2 text-black">
                         <RadioGroupItem value="default" id="r1" className='text-black' />
