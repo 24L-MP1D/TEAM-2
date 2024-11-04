@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+
 import { CiSearch } from "react-icons/ci";
 import { PiHeartStraight } from "react-icons/pi";
 import { PiShoppingCartSimple } from "react-icons/pi";
