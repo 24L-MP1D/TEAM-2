@@ -142,11 +142,13 @@ export default function RegisterPage() {
             {loading ? 'Ачааллаж байна...' : 'Үүсгэх'}
           </Button>
 
-          <Button asChild variant="def3" className="text-blue-500 rounded-2xl">
-            <Link href="/login" className="bg-sky-50 mt-8 w-full def2" type="password">
+          <Link href="/login" className="bg-sky-50 mt-8 w-full def2" type="password">
+          <Button asChild variant="def3" className="text-blue-500 rounded-2xl"  type="submit" >
+           
               Нэвтрэх
-            </Link>
+
           </Button>
+          </Link>
         </div>
       </form>
     </div>

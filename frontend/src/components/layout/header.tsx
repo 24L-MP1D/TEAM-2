@@ -142,7 +142,7 @@ export default function Header() {
                     Бүртгүүлэх
                   </button>
                 </Link>
-                <Link href="/income">
+                <Link href="/login">
                   <button className="py-2 px-3 border-solid border-[1px] border-[#2563eb] rounded-[18px] font-normal text-sm bg-[#2563EB] hover:bg-opacity-70 text-white hover:text-opacity-50">
                     Нэвтрэх
                   </button>
