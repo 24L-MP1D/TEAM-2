@@ -3,11 +3,11 @@
 import { CiSearch } from "react-icons/ci";
 import { PiHeartStraight, PiShoppingCartSimple } from "react-icons/pi";
 import { useEffect, useState } from "react";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import Cookies from 'js-cookie';
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
 interface Products {
   _id: string;
@@ -18,12 +18,22 @@ interface Products {
 
 export default function Header() {
   const [openSearch, setOpenSearch] = useState(false);
+  const [wishlistCount, setWishlistCount] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [search, setSearch] = useState("");
   const [products, setProducts] = useState<Products[]>([]);
   const router = useRouter();
 
-  
+  const fetchWishlistCount = () => {
+    const count = localStorage.getItem("wishlistCount");
+    setWishlistCount(count ? JSON.parse(count) : 0);
+  };
+
+  useEffect(() => {
+    fetchWishlistCount();
+    window.addEventListener("wishlistCountUpdated", fetchWishlistCount);
+    return () => window.removeEventListener("wishlistCountUpdated", fetchWishlistCount);
+  }, []);
   const filterbySearch = async () => {
     if (!search) {
       setProducts([]); 
@@ -43,7 +53,7 @@ export default function Header() {
     }
   };
 
-
+  
   useEffect(() => {
     filterbySearch();
   }, [search]);
@@ -58,7 +68,6 @@ export default function Header() {
     <div className="bg-black">
       <header className="mx-auto max-w-[1440px] px-6 py-4">
         <div className="flex justify-between items-center text-white">
-        
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center gap-1">
               <Image alt="src" src="/symbol.png" width={32} height={32} />
@@ -68,8 +77,6 @@ export default function Header() {
               <button className="text-sm text-white text-opacity-75">Ангилал</button>
             </Link>
           </div>
-
-         
           <Popover open={openSearch}>
             <PopoverTrigger asChild>
               <div className="relative w-[300px] h-[40px] bg-[#18181b] px-4 py-2 rounded-[20px] flex items-center gap-2">
@@ -103,11 +110,15 @@ export default function Header() {
             </PopoverContent>
           </Popover>
 
-        
           <div className="flex items-center gap-6">
-            <Link href="/wishlist">
+            <div className="relative cursor-pointer" onClick={() => router.push("/wishlist")}>
               <PiHeartStraight className="w-6 h-6" />
-            </Link>
+              {wishlistCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full text-xs px-1">
+                  {wishlistCount}
+                </span>
+              )}
+            </div>
             <Link href="/buySteps">
               <PiShoppingCartSimple className="w-6 h-6" />
             </Link>
@@ -118,19 +129,19 @@ export default function Header() {
                   setIsLoggedIn(false);
                   router.push('/');
                 }}
-                className="py-2 px-3 border border-red-600 rounded-[18px] text-sm text-white hover:text-opacity-50 hover:bg-slate-900 hover:border-red-800"
+                className="py-2 px-3 border border-red-600 rounded-[18px] text-sm text-white"
               >
                 Logout
               </button>
             ) : (
               <div className="flex gap-2">
                 <Link href="/register">
-                  <button className="py-2 px-3 border border-blue-600 rounded-[18px] text-sm text-white hover:text-opacity-50 hover:bg-slate-900 hover:border-blue-800">
+                  <button className="py-2 px-3 border border-blue-600 rounded-[18px] text-sm text-white">
                     Бүртгүүлэх
                   </button>
                 </Link>
                 <Link href="/login">
-                  <button className="py-2 px-3 border border-[#2563eb] bg-[#2563EB] rounded-[18px] text-sm text-white hover:bg-opacity-70 hover:text-opacity-50">
+                  <button className="py-2 px-3 border border-[#2563eb] bg-[#2563EB] rounded-[18px] text-sm text-white">
                     Нэвтрэх
                   </button>
                 </Link>

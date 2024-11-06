@@ -1,7 +1,7 @@
 "use client";
 
 
-import { useEffect, useState} from "react";
+import { useEffect} from "react";
 
 
 import ItemsCategory from "@/components/layout/items-category";
@@ -9,24 +9,6 @@ import CategoryList from "@/components/categoryList/categoryList";
 
 
 
-
-interface Products {
-  _id: string;
-  name: string;
-  barCode: string;
-  uploadedPhotos: string[];
-  price: number;
-  qty: number;
-  category: string;
-  sold: number;
-  createdAt: string;
-}
-
-
-interface Categories {
-  _id: string;
-  categoryName: string;
-}
 
 
 export default function Category() {
