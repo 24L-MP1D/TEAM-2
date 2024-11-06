@@ -17,7 +17,7 @@ interface Products {
 }
 
 export default function Header() {
-  const [openSearch, setOpenSearch] = useState(false);
+  const [openSearch, setOpenSearch] = useState(true);
   const [wishlistCount, setWishlistCount] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [search, setSearch] = useState("");
@@ -83,7 +83,7 @@ export default function Header() {
                 <CiSearch className="size-6 text-white" />
                 <input
                   onFocus={() => setOpenSearch(true)}
-                  onBlur={() => setTimeout(() => setOpenSearch(false), 200)}
+                  onBlur={() => setTimeout(() => setOpenSearch(false), 100)}
                   placeholder="Бүтээгдэхүүн хайх"
                   className="w-full bg-[#18181b] text-white outline-none placeholder-[#71717a]"
                   value={search}
@@ -105,7 +105,7 @@ export default function Header() {
                   </Link>
                 ))
               ) : (
-                <div className="p-4 text-center text-gray-500">No products found</div>
+                <div className="p-4 text-center text-gray-500">...Searching...</div>
               )}
             </PopoverContent>
           </Popover>
