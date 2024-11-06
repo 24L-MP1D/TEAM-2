@@ -22,6 +22,7 @@ export default function RootLayout({
 
         <div className="max-w-[1040px] mx-auto ">
           <CartProvider>
+            
             {children}
           </CartProvider>
         </div>
