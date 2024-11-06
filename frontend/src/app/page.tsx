@@ -1,6 +1,6 @@
 "use client";
 
-import { fetcher } from "@/components/fetcher";
+
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

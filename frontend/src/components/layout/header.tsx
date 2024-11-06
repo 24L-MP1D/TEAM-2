@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import Cookies from 'js-cookie';
 import Link from "next/link";
-import { User } from "lucide-react";
+
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
